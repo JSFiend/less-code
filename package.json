@@ -11,5 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "typescript": "^5.0.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.41.0",
+    "eslint-plugin-vue": "^9.14.1"
   }
 }

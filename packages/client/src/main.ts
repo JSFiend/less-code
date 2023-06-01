@@ -1,6 +1,14 @@
-import { createApp } from 'vue';
-import { createPinia } from 'pinia';
+
 import './style.css'
 import App from './App.vue'
+import { piniaSubscribe } from './plugins/pinia-subscribe';
+import { piniaGlobalStore } from './plugins/pinia-global-store';
 
-createApp(App).mount('#app')
+const app = createApp(App)
+
+const pinia = createPinia();
+pinia.use(piniaSubscribe).use(piniaGlobalStore);
+
+app.use(pinia);
+
+app.mount('#app')
