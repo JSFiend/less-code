@@ -1,5 +1,5 @@
 <template>
-  <splitpanes class="text-gray-300 h-full w-full -mt-10 pt-10 px-2">
+  <splitpanes class="underline text-gray-300 h-full w-full -mt-10 pt-10 px-2">
     <pane min-size="20">
       <splitpanes horizontal>
         <pane min-size="20" size="50" :style="topLeftStyle">
@@ -36,14 +36,14 @@
             </template>
             <router-view :name="$route.params['simulatorArea']"></router-view>
             <template v-slot:footer>
-              <tagPageVue></tagPageVue>
+              <!-- <tagPageVue></tagPageVue> -->
             </template>
           </tabCard>
         </pane>
         <pane min-size="20" :style="bottomRightStyle">
           <tabCard v-model="bottomRightTakeUp">
             <template v-slot:header>
-              <tabLink area="editArea" areaComponent="data" icon="DataLine">数据</tabLink>
+              <tabLink area="editArea" areaComponent="data">数据</tabLink>
               <tabLink area="editArea" areaComponent="operator">交互</tabLink>
               <tabLink area="editArea" areaComponent="style">样式</tabLink>
             </template>

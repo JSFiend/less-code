@@ -1,0 +1,11 @@
+@import './tailwind.css';
+@import './element-plus.scss';
+
+html, body, #app {
+  @apply w-full h-full bg-black text-sm;
+  font-size: 12px;
+  line-height: 1.25rem;
+}
+.router-link-active {
+  @apply text-primary;
+}

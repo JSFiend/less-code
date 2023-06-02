@@ -1,4 +1,4 @@
-// import Header from '@/components/header/header.vue';
+import Header from '@/components/header/header.vue';
 import layout from '@/components/layout/layout.vue';
 
 // const test = () => import('@/components/material/test.vue');
@@ -10,7 +10,7 @@ export const routes = [
 	{
 		path: '/',
 		components: {
-			// Header,
+			Header,
 			// 先加载 layout， layout 的命名视图才会被加载
 			layout,
 		},

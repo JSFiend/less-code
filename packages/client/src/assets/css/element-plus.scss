@@ -1,0 +1,19 @@
+$primary: #00C1CD;
+$--colors: (
+  "primary": (
+    "base": $primary,
+  ),
+);
+
+@forward "element-plus/theme-chalk/src/dark/var.scss" with (
+  $colors: $--colors
+);
+@import 'element-plus/theme-chalk/src/dark/css-vars.scss';
+
+// @forward 'element-plus/theme-chalk/src/common/var.scss' with (
+//   $colors: $--colors
+// );
+
+// // 如果只是按需导入，则可以忽略以下内容。
+// // 如果你想导入所有样式:
+// @use "element-plus/theme-chalk/src/index.scss" as *;
