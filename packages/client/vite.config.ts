@@ -4,6 +4,14 @@ import { resolve } from 'path';
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Unocss from 'unocss/vite'
+import {
+  presetAttributify,
+  presetIcons,
+  presetUno,
+  transformerDirectives,
+  transformerVariantGroup,
+} from 'unocss'
 
 
 // https://vitejs.dev/config/
@@ -23,7 +31,23 @@ export default defineConfig({
      }),
     Components({
       dirs: ['src/components', 'src/ui-lib'],
-      resolvers: [ElementPlusResolver()],
+      resolvers: [ElementPlusResolver({ importStyle: 'sass' })],
+    }),
+    // https://github.com/antfu/unocss
+    // see unocss.config.ts for config
+    Unocss({
+      presets: [
+        presetUno(),
+        presetAttributify(),
+        presetIcons({
+          scale: 1.2,
+          warn: true,
+        }),
+      ],
+      transformers: [
+        transformerDirectives(),
+        transformerVariantGroup(),
+      ]
     }),
   ],
   resolve: {
@@ -31,4 +55,11 @@ export default defineConfig({
 			'@': resolve(__dirname, 'src'),
 		},
 	},
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use "@/styles/element/index.scss" as *;`,
+      },
+    },
+  },
 })

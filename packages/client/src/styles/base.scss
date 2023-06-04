@@ -1,6 +1,5 @@
 @import './tailwind.css';
-@import './element-plus.scss';
-
+@import './element.scss';
 html, body, #app {
   @apply w-full h-full bg-black text-sm;
   font-size: 12px;

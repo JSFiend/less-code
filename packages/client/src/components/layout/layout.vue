@@ -29,7 +29,7 @@
     </pane>
     <pane min-size="20" size="80">
       <splitpanes horizontal>
-        <pane min-size="20" size="80" :style="topRightStyle">
+        <pane min-size="20" size="60" :style="topRightStyle">
           <tabCard v-model="topRightTakeUp">
             <template v-slot:header>
               <tabLink area="simulatorArea" areaComponent="simulator">模拟器</tabLink>

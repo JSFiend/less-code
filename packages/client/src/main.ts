@@ -1,4 +1,5 @@
-import '@/assets/css/base.scss';
+import '@/styles/base.scss';
+import 'uno.css';
 import App from './App.vue'
 import { piniaSubscribe } from './plugins/pinia-subscribe';
 import { piniaGlobalStore } from './plugins/pinia-global-store';
