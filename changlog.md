@@ -7,6 +7,8 @@
 ## 2023年06月03日01:54:53
 1、加上 tailwind
 
-## todos
+## 2023年06月04日19:59:16
 试试 element 提供的模版
 https://vite-starter.element-plus.org/
+## todos
+定义组件， 参考下阿里的渲染引擎
