@@ -1,4 +1,4 @@
-<template>
+  <template>
   <div>
     <el-input
       v-model="projectName"
@@ -10,9 +10,8 @@
     </el-input>
   </div>
 </template>
-  
+    
 <script setup lang='ts'>
-import { storeToRefs } from 'pinia';
 // import { useProjectStore } from '@/components/project/store';
 
 // const projectStore = useProjectStore();
