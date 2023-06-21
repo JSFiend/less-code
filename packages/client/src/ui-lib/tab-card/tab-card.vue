@@ -5,7 +5,7 @@
       <div class="flex-grow flex">
         <slot name="header"></slot>
       </div>
-      <el-icon :size="20" @click="open = !open" class="cursor-pointer" :class="{ 'text-primary': open}">
+      <el-icon v-if="open != undefined" :size="20" @click="open = !open" class="cursor-pointer" :class="{ 'text-primary': open}">
         <component :is="open ? 'Minus' : 'Plus'"/>
       </el-icon>
     </div>

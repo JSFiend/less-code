@@ -33,7 +33,7 @@ export default {
 	plugins: [],
 	corePlugins: {
 		// 关闭 tailwind 引入 preflight.css ，html 采取外联的方式引入，解决 preflight 和 element 样式的冲突
-		// preflight: false,
+		preflight: false,
 	},
 
 }

@@ -9,10 +9,22 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    DataSource: typeof import('./src/components/header/dataSource.vue')['default']
+    AddDataSource: typeof import('./src/components/dataSource/addDataSource.vue')['default']
+    DataSource: typeof import('./src/components/dataSource/dataSource.vue')['default']
+    DataSourceCollection: typeof import('./src/components/dataSource/dataSourceCollection.vue')['default']
+    DataSourceCollent: typeof import('./src/components/dataSource/dataSourceCollent.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
+    'ElButtoncomponents:': typeof import('element-plus/es')['ElButtoncomponents:']
+    ElDialog: typeof import('element-plus/es')['ElDialog']
+    ElDivider: typeof import('element-plus/es')['ElDivider']
+    ElDrawer: typeof import('element-plus/es')['ElDrawer']
+    ElDropdown: typeof import('element-plus/es')['ElDropdown']
+    ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
+    ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElInput: typeof import('element-plus/es')['ElInput']
+    ElTabPane: typeof import('element-plus/es')['ElTabPane']
+    ElTabs: typeof import('element-plus/es')['ElTabs']
     Header: typeof import('./src/components/header/header.vue')['default']
     Layout: typeof import('./src/components/layout/layout.vue')['default']
     LcButton: typeof import('./src/ui-lib/lc-button.vue')['default']
