@@ -5,7 +5,7 @@
       </el-button>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item>页面变量</el-dropdown-item>
+          <el-dropdown-item><AddPageVariable></AddPageVariable></el-dropdown-item>
           <el-dropdown-item>接口数据源</el-dropdown-item>
         </el-dropdown-menu>
       </template>
@@ -13,7 +13,6 @@
 </template>
 
 <script setup lang="ts">
-import { ArrowDown } from '@element-plus/icons-vue';
 
 </script>
 

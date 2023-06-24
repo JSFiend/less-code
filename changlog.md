@@ -10,8 +10,25 @@
 ## 2023年06月04日19:59:16
 试试 element 提供的模版
 https://vite-starter.element-plus.org/
+
+## 2023年06月25日00:40:30
+1、做好了表达式解析， 表达式运行的上下文会有 state、_、qs
+2、做好了函数字符串解析， 表达式运行的上下文会有 state、_、qs
+3、完成了 url参数变量的开发，表达式为qs.parse(window.location.search);
+4、页面变量完成了增删改查和复制。
+5、最佳实践：
+在pinia插件中，获取本地数据localforage 的时候，再初始化一次 store 的init 办法来初始化数据
+```
+  // 初始化 store
+  if (store.init) {
+    store.init();
+  }
+```
+
 ## todos
 
+1、接口数据源的开发。
+2、页面变量之间的相互引用怎么处理好
 先 设计数据源
 1、了解无极数据源、阿里渲染引擎数据源
 阿里宜搭的数据源有

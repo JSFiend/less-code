@@ -8,6 +8,7 @@ import {
 	Minus,
 	Folder,
 	Tickets,
+	ArrowDown,
 } from '@element-plus/icons-vue';
 
 
@@ -22,5 +23,6 @@ export default {
 		app.component('DishDot', DishDot);
 		app.component('TakeawayBox', TakeawayBox);
 		app.component('DataLine', DataLine);
+		app.component('ArrowDown', ArrowDown);
 	}
 };

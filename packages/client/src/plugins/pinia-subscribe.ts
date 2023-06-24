@@ -3,7 +3,7 @@ import localforage from 'localforage';
 
 
 
-export function piniaSubscribe({ store }: PiniaPluginContext) {
+export async function piniaSubscribe({ store }: PiniaPluginContext) {
 
   /**
    * 数据持续化 - 保存
@@ -13,7 +13,11 @@ export function piniaSubscribe({ store }: PiniaPluginContext) {
    });
   
   // 数据持续话 - 读取
-  localforage.getItem<Record<string, any>>(store.$id).then((data) => {
-    Object.assign(store.$state, data)
-  });
+  const data = await localforage.getItem<Record<string, any>>(store.$id);
+  Object.assign(store.$state, data);
+
+  // 初始化 store
+  if (store.init) {
+    store.init();
+  }
 }
