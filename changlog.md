@@ -25,6 +25,10 @@ https://vite-starter.element-plus.org/
   }
 ```
 
+## 2023年06月26日00:46:41
+添加了环境， dev、test、uat、prod， 当前运行的就是 dev 环境
+做了环境后，才可以区分数据源在不同环境的url。
+
 ## todos
 
 1、接口数据源的开发。

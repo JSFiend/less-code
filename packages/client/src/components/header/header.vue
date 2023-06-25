@@ -5,13 +5,7 @@
       <dataSourceVue></dataSourceVue>
     </div>
     <div>
-      <el-button
-        size="small"
-        type="primary"
-      >
-        <el-icon><SoldOut></SoldOut></el-icon>
-        导出
-      </el-button>
+      <environment></environment>
       <el-button
         size="small"
         type="primary"
@@ -26,7 +20,7 @@
   
 <script setup lang='ts'>
 import projectName from './project-name.vue';
-import dataSourceVue from '@/components/dataSource/dataSource.vue';
+import dataSourceVue from '@/components/dataSource/data-source.vue';
 // import { useDark, useToggle } from "@vueuse/core";
 
 // const isDark = useDark();
