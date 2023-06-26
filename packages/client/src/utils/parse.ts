@@ -35,10 +35,14 @@ export function parseExpression(expression: string, context: Context, ...arg: an
   try {
     const argNames = Object.keys(context);
     const argValues = Object.values(context);
-    expression = `return ${expression}`;
+    expression = `return () => ${expression}`;
     argNames.push(expression);
     const fun = new Function(...argNames);
-    return fun(...argValues, ...arg);
+    const refFun = fun(...argValues, ...arg);
+    return computed({
+      get: refFun,
+      set() {},
+    });
   } catch (error) {
     return null;
   }

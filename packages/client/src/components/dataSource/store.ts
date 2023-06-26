@@ -12,7 +12,7 @@ interface State {
   state: Record<string, any>,
 }
 export const useDataSource = defineStore('dataSource', {
-  state: () => {
+  state: (): State => {
     return {
       list: [
         {
@@ -23,7 +23,7 @@ export const useDataSource = defineStore('dataSource', {
         }
       ],
       state: {},
-    } as State;
+    };
   },
   actions: {
     addDataSource(dataSource: DataSourceItem) {
@@ -88,7 +88,6 @@ export const useDataSource = defineStore('dataSource', {
         _,
       };
       const value = parseExpression(expression, context);
-      console.log('value', value);
       this.state[name] = value;
     
     },

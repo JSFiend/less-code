@@ -29,6 +29,19 @@ https://vite-starter.element-plus.org/
 添加了环境， dev、test、uat、prod， 当前运行的就是 dev 环境
 做了环境后，才可以区分数据源在不同环境的url。
 
+## 2023年06月27日00:54:18
+2、页面变量之间的相互引用怎么处理好： 使用了 computed 来处理响应式
+```
+  expression = `return () => ${expression}`;
+    argNames.push(expression);
+    const fun = new Function(...argNames);
+    const refFun = fun(...argValues, ...arg);
+    return computed({
+      get: refFun,
+      set() {},
+    });
+```
+
 ## todos
 
 1、接口数据源的开发。
