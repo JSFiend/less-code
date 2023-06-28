@@ -79,7 +79,7 @@ let data = reactive<DataSourceItem>({
 });
 
 watch(() => props, (value) => {
-  data = value.dataSource;
+  data = Object.assign(data, value.dataSource);
   dialogVisible.value = value.modelValue;
 }, { deep: true });
 

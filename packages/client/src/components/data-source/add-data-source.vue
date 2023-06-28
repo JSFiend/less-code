@@ -6,7 +6,7 @@
       <template #dropdown>
         <el-dropdown-menu>
           <el-dropdown-item><AddPageVariable></AddPageVariable></el-dropdown-item>
-          <el-dropdown-item>接口数据源</el-dropdown-item>
+          <el-dropdown-item><add-api-data-source></add-api-data-source></el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>

@@ -9,7 +9,9 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AddApiDataSource: typeof import('./src/components/api-data-source/add-api-data-source.vue')['default']
     AddDataSource: typeof import('./src/components/data-source/add-data-source.vue')['default']
+    AddInterfaceDataSource: typeof import('./src/components/api-data-source/add-api-data-source.vue')['default']
     AddPageVariable: typeof import('./src/components/page-variable/add-page-variable.vue')['default']
     copy: typeof import('./src/components/dataSource/addPageVariable copy.vue')['default']
     DataSource: typeof import('./src/components/data-source/data-source.vue')['default']
