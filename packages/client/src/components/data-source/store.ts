@@ -1,7 +1,7 @@
 import qs from 'query-string';
 import * as _ from 'lodash-es';
 import { cloneDeep, merge, remove } from 'lodash-es';
-import { DataSourceItem, DataSourceType } from '~types/dataSource';
+import { DataSourceItem, DataSourceType } from '~types/data-source';
 import { parseExpression } from '@/utils/parse';
 import { ElMessageBox } from 'element-plus';
 import 'element-plus/theme-chalk/src/message-box.scss'

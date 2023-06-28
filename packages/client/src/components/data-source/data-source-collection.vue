@@ -31,8 +31,8 @@
 </template>
 
 <script setup lang="ts">
-import { useDataSource } from '@/components/dataSource/store';
-import { DataSourceItem, DataSourceType } from '~types/dataSource';
+import { useDataSource } from '@/components/data-source/store';
+import { DataSourceItem, DataSourceType } from '~types/data-source';
 import {
 	Edit,
 	CopyDocument,

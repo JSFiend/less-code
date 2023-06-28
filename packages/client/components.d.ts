@@ -9,13 +9,13 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    AddDataSource: typeof import('./src/components/dataSource/add-data-source.vue')['default']
-    AddPageVariable: typeof import('./src/components/dataSource/add-page-variable.vue')['default']
+    AddDataSource: typeof import('./src/components/data-source/add-data-source.vue')['default']
+    AddPageVariable: typeof import('./src/components/page-variable/add-page-variable.vue')['default']
     copy: typeof import('./src/components/dataSource/addPageVariable copy.vue')['default']
-    DataSource: typeof import('./src/components/dataSource/data-source.vue')['default']
-    DataSourceCollection: typeof import('./src/components/dataSource/data-source-collection.vue')['default']
+    DataSource: typeof import('./src/components/data-source/data-source.vue')['default']
+    DataSourceCollection: typeof import('./src/components/data-source/data-source-collection.vue')['default']
     DataSourceCollent: typeof import('./src/components/dataSource/dataSourceCollent.vue')['default']
-    EditPageVariable: typeof import('./src/components/dataSource/edit-page-variable.vue')['default']
+    EditPageVariable: typeof import('./src/components/page-variable/edit-page-variable.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
     ElButton: typeof import('element-plus/es')['ElButton']
     'ElButtoncomponents:': typeof import('element-plus/es')['ElButtoncomponents:']

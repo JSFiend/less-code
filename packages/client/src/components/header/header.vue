@@ -2,7 +2,7 @@
   <header class="flex justify-between text-ms py-1 px-2 h-10">
     <project-name></project-name>
     <div>
-      <dataSourceVue></dataSourceVue>
+      <data-source></data-source>
     </div>
     <div>
       <environment></environment>
@@ -19,8 +19,6 @@
 </template>
   
 <script setup lang='ts'>
-import projectName from './project-name.vue';
-import dataSourceVue from '@/components/dataSource/data-source.vue';
 // import { useDark, useToggle } from "@vueuse/core";
 
 // const isDark = useDark();

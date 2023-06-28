@@ -41,6 +41,7 @@ export function parseExpression(expression: string, context: Context, ...arg: an
     const refFun = fun(...argValues, ...arg);
     return computed({
       get: refFun,
+      // computed 默认不可编辑， 使用set 允许设置值
       set() {},
     });
   } catch (error) {

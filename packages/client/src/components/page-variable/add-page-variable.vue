@@ -1,20 +1,20 @@
 <template>
+  <el-link :underline="false" size="small" @click="dialogVisible = true">添加页面变量</el-link>
   <el-dialog
     v-model="dialogVisible"
-    title="编辑页面变量"
+    title="添加页面变量"
     append-to-body
     width="50%"
     draggable
-    @close="close"
   >
     <el-form :model="data" label-width="80px" ref="formRef" :rules="rules">
       <el-form-item label="变量名" required prop="name">
-        <el-input disabled v-model="data.name" placeholder="只能包括字母、数字、下横线、$符，不能以数字开头" clearable>
+        <el-input v-model.trim="data.name" placeholder="只能包括字母、数字、下横线、$符，不能以数字开头" clearable>
           <template #prepend>state.</template>
         </el-input>
       </el-form-item>
       <el-form-item label="描述" prop="desc">
-        <el-input v-model="data.desc"></el-input>
+        <el-input v-model.trim="data.desc"></el-input>
       </el-form-item>
       <el-form-item label="数据值" prop="expression" required>
         <el-collapse class="w-full">
@@ -25,14 +25,15 @@
           </el-collapse-item>
         </el-collapse>
         <el-input
-          v-model="data.expression"
+          v-model.trim="data.expression"
           :autosize="{ minRows: 5 }"
           type="textarea"
           placeholder="支持表达式"
         />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm(formRef)">更新页面变量</el-button>
+        <el-button type="primary" @click="submitForm(formRef)">添加页面变量</el-button>
+        <el-button @click="resetForm(formRef)">重置</el-button>
         <el-button @click="dialogVisible = false">关闭</el-button>
       </el-form-item>
     </el-form>
@@ -42,19 +43,9 @@
 
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus';
-import type { DataSourceItem } from '~types/dataSource';
-import { DataSourceType } from '~types/dataSource';
-import { useDataSource } from '@/components/dataSource/store';
-
-
-const props = defineProps<{
-  dataSource: DataSourceItem,
-  modelValue: boolean;
-}>();
-
-const emit = defineEmits<{
-  (e: 'update:modelValue', visible: boolean): void,
-}>();
+import type { DataSourceItem } from '~types/data-source';
+import { DataSourceType } from '~types/data-source';
+import { useDataSource } from '@/components/data-source/store';
 
 const text = `字符串: "string"
               数字: 123
@@ -71,22 +62,12 @@ const formRef = ref<FormInstance>();
 
 const dialogVisible = ref(false);
 
-let data = reactive<DataSourceItem>({
+const data = reactive<DataSourceItem>({
   name: '',
   desc: '',
-  expression: ``,
+  expression: `1 + 1`,
   type: DataSourceType.PageVariable,
 });
-
-watch(() => props, (value) => {
-  data = value.dataSource;
-  dialogVisible.value = value.modelValue;
-}, { deep: true });
-
-function close() {
-  emit('update:modelValue', false);
-}
-
 
 const rules = reactive<FormRules<RuleForm>>({
   name: [
@@ -106,15 +87,20 @@ async function submitForm(formEl: FormInstance | undefined) {
   await formEl.validate((valid: boolean, fields: any) => {
     if (valid) {
       console.log('submit!', data);
-      dataSource.editDataSource(data);
+      dataSource.addDataSource(data);
     } else {
       console.log('error submit!', fields)
     }
   })
 }
 
+function resetForm(formEl: FormInstance | undefined) {
+  if (!formEl) return
+  formEl.resetFields()
+}
+
 </script>
 
 <style scoped>
 
-</style>
+</style>~types/data-source~types/data-source
