@@ -16,7 +16,7 @@ export interface PageVariable {
   type: DataSourceType.PageVariable | DataSourceType.UrlParams,
 }
 
-interface EnvUrl extends Environment {
+export interface EnvUrl extends Environment {
   url: string,
 }
 

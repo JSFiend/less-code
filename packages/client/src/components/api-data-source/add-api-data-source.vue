@@ -31,31 +31,9 @@
               </el-select>
             </template>
             <template #append>
-        <el-button :icon="Setting" @click="" />
+              <multiple-env-url-config :url="data.url" :envUrl="data.envUrl" @update-env-url-config="updateEnvUrlConfig"></multiple-env-url-config>
       </template>
           </el-input>
-        </el-form-item>
-        <el-form-item label="数据值" required>
-          <el-collapse class="w-full">
-            <el-collapse-item
-              title="输入框内默认支持变量，写法和 JS 写法完全一致，表达式运行的上下文会有 state、_、qs"
-            >
-              <div class="whitespace-pre-line">
-                {{ text }}
-              </div>
-            </el-collapse-item>
-          </el-collapse>
-          <el-input
-            v-model.trim="data.url"
-            :autosize="{ minRows: 5 }"
-            type="textarea"
-            placeholder="支持表达式"
-          />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="submitForm(formRef)">添加页面变量</el-button>
-          <el-button @click="resetForm(formRef)">重置</el-button>
-          <el-button @click="dialogVisible = false">关闭</el-button>
         </el-form-item>
       </el-form>
     </template>
@@ -70,21 +48,11 @@
 
 <script setup lang="ts">
 import type { FormInstance, FormRules } from "element-plus";
-import type { DataSourceItem } from "~types/data-source";
+import type { DataSourceItem, EnvUrl } from "~types/data-source";
 import { DataSourceType } from "~types/data-source";
 import { useDataSource } from "@/components/data-source/store";
 import { ApiMethod } from '~types/data-source';
-import { Setting } from '@element-plus/icons-vue';
 import { useEnvironmentStore } from "@/components/environment/store";
-
-const text = `字符串: "string"
-              数字: 123
-              布尔值: true / false
-              对象: {"name": "gaokai"}
-              数组: ["1", "2"]
-              空值: null
-              state引用: state.urlParams.isOpen ? 1 : 0
-              `;
 
 const dataSource = useDataSource();
 
@@ -102,6 +70,10 @@ const data = reactive<DataSourceItem>({
   url: '',
   envUrl: environment.value.map(env => Object.assign({}, env, { url: '' })),
 });
+
+function updateEnvUrlConfig(envUrl: EnvUrl[]) {
+  data.envUrl = envUrl;
+}
 
 const rules = reactive<FormRules<RuleForm>>({
   name: [

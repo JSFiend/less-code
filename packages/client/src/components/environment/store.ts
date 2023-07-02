@@ -6,7 +6,7 @@ export const useEnvironmentStore = defineStore('environmentStore', {
       environment: [
         {
           env: 'dev',
-          name: '开发环境',
+          name: '平台环境',
         },
         {
           env: 'test',
