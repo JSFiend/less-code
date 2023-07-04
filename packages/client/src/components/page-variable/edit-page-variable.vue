@@ -41,14 +41,14 @@
 </template>
 
 <script setup lang="ts">
-import type { FormInstance, FormRules } from 'element-plus';
-import type { DataSourceItem } from '~types/data-source';
+import { FormInstance, FormRules } from 'element-plus';
+import type { PageVariable } from '~types/data-source';
 import { DataSourceType } from '~types/data-source';
 import { useDataSource } from '@/components/data-source/store';
 
 
 const props = defineProps<{
-  dataSource: DataSourceItem,
+  dataSource: PageVariable,
   modelValue: boolean;
 }>();
 
@@ -71,7 +71,7 @@ const formRef = ref<FormInstance>();
 
 const dialogVisible = ref(false);
 
-let data = reactive<DataSourceItem>({
+let data = reactive<PageVariable>({
   name: '',
   desc: '',
   expression: ``,
@@ -88,7 +88,7 @@ function close() {
 }
 
 
-const rules = reactive<FormRules<RuleForm>>({
+const rules = reactive<FormRules>({
   name: [
     { required: true, message: '只能包括字母、数字、下横线、$符，不能以数字开头', trigger: 'blur' },
   ],

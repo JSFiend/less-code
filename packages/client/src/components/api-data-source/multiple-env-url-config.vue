@@ -30,7 +30,7 @@
 
 <script setup lang="ts">
 import { Setting } from "@element-plus/icons-vue";
-import { FormInstance } from "element-plus";
+import type { FormInstance } from "element-plus/es/components/form";
 import { assignWith } from 'lodash-es';
 
 import { EnvUrl } from "~types";

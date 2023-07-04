@@ -1,7 +1,7 @@
 import qs from 'query-string';
 import * as _ from 'lodash-es';
 import { cloneDeep, merge, remove } from 'lodash-es';
-import { DataSourceItem, DataSourceType } from '~types/data-source';
+import { DataSourceItem, DataSourceType, PageVariable } from '~types/data-source';
 import { parseExpression } from '@/utils/parse';
 import { ElMessageBox } from 'element-plus';
 import 'element-plus/theme-chalk/src/message-box.scss'
@@ -38,7 +38,10 @@ export const useDataSource = defineStore('dataSource', {
 
       dataSource = cloneDeep(dataSource);
       this.list.push(dataSource);
-      this.initState(dataSource);
+      // 如果是页面表达式，初始化表达式值
+      if (dataSource.type === DataSourceType.PageVariable) {
+        this.initPageVariableState(dataSource);
+      }
       ElMessage({
         showClose: true,
         message: `数据源 ${dataSource.name} 添加成功`,
@@ -50,10 +53,13 @@ export const useDataSource = defineStore('dataSource', {
       dataSource.name = dataSource.name + 'Copy';
       this.addDataSource(dataSource);
     },
-    editDataSource(dataSource: DataSourceItem) {
-      const preDataSource = this.list.find(item => item.name === dataSource.name)!;
+    editDataSource(dataSource: PageVariable) {
+      const preDataSource = this.list.find(item => item.name === dataSource.name)! as PageVariable;
       merge(preDataSource, dataSource);
-      this.initState(preDataSource);
+      // 如果是页面表达式，初始化表达式值
+      if (dataSource.type === DataSourceType.PageVariable) {
+        this.initPageVariableState(dataSource);
+      }
       ElMessage({
         showClose: true,
         message: `数据源 ${dataSource.name} 更新成功`,
@@ -81,7 +87,7 @@ export const useDataSource = defineStore('dataSource', {
     },
 
 
-    initState({ expression, name }: DataSourceItem): any {
+    initPageVariableState({ expression, name }: PageVariable) {
       const context = {
         state: this.state,
         qs,
@@ -93,7 +99,9 @@ export const useDataSource = defineStore('dataSource', {
     },
     init() {
       this.list.forEach((dataSource) => {
-        this.initState(dataSource);
+        if (dataSource.type !== DataSourceType.ApiDataSource) {
+          this.initPageVariableState(dataSource);
+        }
       });
     },
   },

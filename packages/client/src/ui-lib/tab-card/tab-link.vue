@@ -10,7 +10,7 @@
 </template>
 
 <script setup lang="ts">
-import { Area } from '@/types';
+import { Area } from '~types';
 
 interface TabLinkProps {
   area: Area,

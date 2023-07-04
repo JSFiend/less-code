@@ -43,7 +43,7 @@
 
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus';
-import type { DataSourceItem } from '~types/data-source';
+import type { PageVariable } from '~types/data-source';
 import { DataSourceType } from '~types/data-source';
 import { useDataSource } from '@/components/data-source/store';
 
@@ -62,14 +62,14 @@ const formRef = ref<FormInstance>();
 
 const dialogVisible = ref(false);
 
-const data = reactive<DataSourceItem>({
+const data = reactive<PageVariable>({
   name: '',
   desc: '',
   expression: `1 + 1`,
   type: DataSourceType.PageVariable,
 });
 
-const rules = reactive<FormRules<RuleForm>>({
+const rules = reactive<FormRules<any>>({
   name: [
     { required: true, message: '只能包括字母、数字、下横线、$符，不能以数字开头', trigger: 'blur' },
   ],
@@ -103,4 +103,4 @@ function resetForm(formEl: FormInstance | undefined) {
 
 <style scoped>
 
-</style>~types/data-source~types/data-source
+</style>

@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { useEnvironmentStore } from "@/components/environment/store.ts";
+import { useEnvironmentStore } from "@/components/environment/store";
 const environmentStore = useEnvironmentStore();
 const { environment } = storeToRefs(environmentStore);
 </script>

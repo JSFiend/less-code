@@ -4,7 +4,7 @@
         <el-radio :label="DataSourceType.All" size="small">全部</el-radio>
         <el-radio :label="DataSourceType.UrlParams" size="small">默认</el-radio>
         <el-radio :label="DataSourceType.PageVariable" size="small">页面变量</el-radio>
-        <el-radio :label="DataSourceType.InterfaceDataSource" size="small">接口数据源</el-radio>
+        <el-radio :label="DataSourceType.ApiDataSource" size="small">接口数据源</el-radio>
       </el-radio-group>
   </div>
   <div class="flex flex-wrap">
@@ -20,19 +20,21 @@
           </div>
         </div>
       </template>
-      <el-descriptions :column="1" >
+      <!-- 页面变量 -->
+      <el-descriptions :column="1" v-if="item.type === DataSourceType.PageVariable">
         <el-descriptions-item label-class-name="w-24 " label-align="right" label="描述">{{ item.desc }}</el-descriptions-item>
         <el-descriptions-item label-class-name="w-24 " label-align="right" label="表达式">{{ item.expression }}</el-descriptions-item>
         <el-descriptions-item label-class-name="w-24 " label-align="right" label="具体值">{{ state[item.name] }}</el-descriptions-item>
       </el-descriptions>
+      <!-- 页面变量 end -->
     </el-card>
-    <edit-page-variable :data-source="editDataSource" v-model="editVisible"></edit-page-variable>
+    <edit-page-variable  :data-source="(editDataSource as PageVariable)" v-model="editVisible"></edit-page-variable>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useDataSource } from '@/components/data-source/store';
-import { DataSourceItem, DataSourceType } from '~types/data-source';
+import { DataSourceItem, DataSourceType, PageVariable } from '~types/data-source';
 import {
 	Edit,
 	CopyDocument,
@@ -42,6 +44,7 @@ import {
 const dataSource = useDataSource();
 
 const { deleteDataSource, copyDataSource } = dataSource;
+
 const { state } = storeToRefs(dataSource);
 
 const editVisible = ref(false);

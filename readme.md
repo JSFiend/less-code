@@ -55,6 +55,17 @@ https://vite-starter.element-plus.org/
 ## 2023年07月02日02:31:48
 根据环境设置url - 如果环境本来就有 url 值， 就不获取 api url 替代
 
+## 2023年07月04日23:23:00
+
+一、client tsconfig.json 通过 extends 解决了 FormInstance 引用问题， 可能是 pnpm 软连接 element-ui 的问题吧，要引用到最上层。
+```
+src/components/api-data-source/add-api-data-source.vue:52:15 - error TS2614: Module '"element-plus"' has no exported member 'FormInstance'. Did you mean to use 'import FormInstance from "element-plus"' instead?
+
+52 import type { FormInstance, FormRules } from 'element-plus';
+```
+二、加上了element-ui 的日夜主题切换
+三、处理了 ts 声明报错问题
+
 ## todos
 
 一、接口数据源的开发。

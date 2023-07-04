@@ -18,7 +18,11 @@
 
 <script setup lang="ts">
 import qs from 'query-string';
-import _ from 'lodash-es';
+import * as _ from 'lodash-es';
+
+
+const addDataSource = defineAsyncComponent(() => import('@/components/data-source/add-data-source.vue'));
+const DataSourceCollection = defineAsyncComponent(() => import('@/components/data-source/data-source-collection.vue'));
 
 const openDataSourcePaneParams = !!qs.parse(location.search)?.openDataSourcePane;
 const dialogVisible = ref(openDataSourcePaneParams || false);

@@ -35,6 +35,9 @@
       </template>
           </el-input>
         </el-form-item>
+        <el-form-item label="响应数据结构">
+
+        </el-form-item>
       </el-form>
     </template>
     <template #footer>
@@ -45,11 +48,10 @@
     </template>
   </el-drawer>
 </template>
-
 <script setup lang="ts">
-import type { FormInstance, FormRules } from "element-plus";
-import type { DataSourceItem, EnvUrl } from "~types/data-source";
-import { DataSourceType } from "~types/data-source";
+import type { FormInstance, FormRules } from 'element-plus';
+import type { ApiDataSource, EnvUrl } from '~types';
+import { DataSourceType } from "~types";
 import { useDataSource } from "@/components/data-source/store";
 import { ApiMethod } from '~types/data-source';
 import { useEnvironmentStore } from "@/components/environment/store";
@@ -62,7 +64,7 @@ const dialogVisible = ref(false);
 
 const { environment } = storeToRefs(useEnvironmentStore());
 
-const data = reactive<DataSourceItem>({
+const data = reactive<ApiDataSource>({
   name: "",
   desc: "",
   type: DataSourceType.ApiDataSource,
@@ -75,7 +77,7 @@ function updateEnvUrlConfig(envUrl: EnvUrl[]) {
   data.envUrl = envUrl;
 }
 
-const rules = reactive<FormRules<RuleForm>>({
+const rules = reactive<FormRules<any>>({
   name: [
     {
       required: true,
