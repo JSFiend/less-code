@@ -1,5 +1,5 @@
 <template>
-      <div class="my-4 flex items-center text-sm">
+    <div class="my-4 flex items-center text-sm">
       <el-radio-group v-model="switchDataSourceType" class="ml-4">
         <el-radio :label="DataSourceType.All" size="small">全部</el-radio>
         <el-radio :label="DataSourceType.UrlParams" size="small">默认</el-radio>
@@ -21,20 +21,21 @@
         </div>
       </template>
       <!-- 页面变量 -->
-      <el-descriptions :column="1" v-if="item.type === DataSourceType.PageVariable">
+      <el-descriptions :column="1" v-if="item.type === DataSourceType.PageVariable || item.type === DataSourceType.UrlParams">
         <el-descriptions-item label-class-name="w-24 " label-align="right" label="描述">{{ item.desc }}</el-descriptions-item>
         <el-descriptions-item label-class-name="w-24 " label-align="right" label="表达式">{{ item.expression }}</el-descriptions-item>
         <el-descriptions-item label-class-name="w-24 " label-align="right" label="具体值">{{ state[item.name] }}</el-descriptions-item>
       </el-descriptions>
       <!-- 页面变量 end -->
     </el-card>
-    <edit-page-variable  :data-source="(editDataSource as PageVariable)" v-model="editVisible"></edit-page-variable>
+    <edit-page-variable  :data-source="pageVariableDataSource" v-model="pageVariableDataSourceVisible"></edit-page-variable>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useDataSource } from '@/components/data-source/store';
-import { DataSourceItem, DataSourceType, PageVariable } from '~types/data-source';
+import type { DataSourceItem, PageVariable } from '~types';
+import { DataSourceType } from '~types';
 import {
 	Edit,
 	CopyDocument,
@@ -47,12 +48,14 @@ const { deleteDataSource, copyDataSource } = dataSource;
 
 const { state } = storeToRefs(dataSource);
 
-const editVisible = ref(false);
-let editDataSource = ref<DataSourceItem>({} as DataSourceItem);
+const pageVariableDataSourceVisible = ref(false);
+let pageVariableDataSource = ref<PageVariable>({} as PageVariable);
 
 function openEditDataSource(dataSource: DataSourceItem) {
-  editVisible.value = true;
-  editDataSource.value = dataSource;
+  if (dataSource.type === DataSourceType.PageVariable) {
+    pageVariableDataSourceVisible.value = true;
+    pageVariableDataSource.value = dataSource;
+  }
 }
 
 const switchDataSourceType = ref<DataSourceType>(DataSourceType.All);

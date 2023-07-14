@@ -56,11 +56,13 @@
     <pane min-size="15" :style="bottomRightStyle">
       <tabCard>
         <template v-slot:header>
-          <tabLink area="editArea" areaComponent="data">数据</tabLink>
+          <tabLink area="editArea" areaComponent="EditData">数据</tabLink>
           <tabLink area="editArea" areaComponent="operator">交互</tabLink>
           <tabLink area="editArea" areaComponent="style">样式</tabLink>
         </template>
-        <router-view :name="($route.params['editArea'] as string)"></router-view>
+        <div class="m2">
+          <router-view :name="($route.params['editArea'] as string)"></router-view>
+        </div>
         <template v-slot:footer> </template>
       </tabCard>
     </pane>

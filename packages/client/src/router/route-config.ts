@@ -5,6 +5,7 @@ import layout from '@/components/layout/layout.vue';
 // const simulator = () => import('@/components/simulator/simulator.vue');
 // const componentStructure = () => import('@/components/component-structure/component-structure.vue');
 // const page = () => import('@/components/page/page.vue');
+const EditData = () => import('@/components/edit-data/edit-data.vue');
 
 export const routes = [
 	{
@@ -34,7 +35,7 @@ export const routes = [
 					// componentStructure,
 					// page,
 					// // editArea
-					// data: test,
+					EditData: EditData,
 					// operator: test,
 					// style: test,
 				},

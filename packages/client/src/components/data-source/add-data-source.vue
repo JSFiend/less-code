@@ -5,7 +5,7 @@
       </el-button>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item><AddPageVariable></AddPageVariable></el-dropdown-item>
+          <el-dropdown-item><add-page-variable></add-page-variable></el-dropdown-item>
           <el-dropdown-item><add-api-data-source></add-api-data-source></el-dropdown-item>
         </el-dropdown-menu>
       </template>

@@ -36,7 +36,7 @@
           </el-input>
         </el-form-item>
         <el-form-item label="响应数据结构">
-
+          <monaco-editor></monaco-editor>
         </el-form-item>
       </el-form>
     </template>

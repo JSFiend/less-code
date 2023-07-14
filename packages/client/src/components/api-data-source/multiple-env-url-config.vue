@@ -14,6 +14,9 @@
         prop="name"
         label="环境名"
         width="150px">
+          <template #default="{ row }">
+            {{ row.name + ' (' + row.env + ')' }}
+          </template>
       </el-table-column>
       <el-table-column
         label="url">

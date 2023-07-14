@@ -66,6 +66,12 @@ src/components/api-data-source/add-api-data-source.vue:52:15 - error TS2614: Mod
 二、加上了element-ui 的日夜主题切换
 三、处理了 ts 声明报错问题
 
+## 2023年07月14日23:57:16
+
+通过 vite-plugin-monaco-editor 接入了 monaco-editor 编辑器
+
+和接入了vue3-form-element渲染form组件
+
 ## todos
 
 一、接口数据源的开发。
