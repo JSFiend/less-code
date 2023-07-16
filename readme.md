@@ -72,9 +72,30 @@ src/components/api-data-source/add-api-data-source.vue:52:15 - error TS2614: Mod
 
 和接入了vue3-form-element渲染form组件
 
+
+## 2023年07月16日00:09:18
+monaco editor 编辑器hover、focus 边框样式与element 一致。
+
+## 2023年07月17日01:04:15
+添加了monaco json 的校验
+添加了参数修剪和响应修剪的 monaco-editor， 定义了插件
+```
+  // 响应数据结构 json string
+  responseStructure: string,
+  // 数据源本身的前置插件
+  prePlugin: '',
+  // 数据源引用的前置插件
+  prePlugins: [],
+  // 数据源本身的后置插件
+  postPlugin: '',
+  // 数据源引用的后置插件
+  postPlugins: [],
+```
+
 ## todos
 
 一、接口数据源的开发。
+接口调试面板
 
 
 7、需要一份默认响应数据用于平台环境搭建页面

@@ -10,7 +10,7 @@
     size="100%"
   >
     <template #default>
-      <el-form :model="data" label-width="80px" ref="formRef" :rules="rules">
+      <el-form :model="data" label-width="120px" ref="formRef" :rules="rules">
         <el-form-item label="接口名" required prop="name">
           <el-input
             v-model.trim="data.name"
@@ -23,8 +23,8 @@
         <el-form-item label="描述" prop="desc">
           <el-input v-model.trim="data.desc"></el-input>
         </el-form-item>
-        <el-form-item label="请求路径" required>
-          <el-input v-model="data.url" placeholder="eg: /sys/getDetail">
+        <el-form-item label="请求路径" required prop="url">
+          <el-input v-model.trim="data.url" placeholder="eg: /sys/getDetail">
             <template #prepend>
               <el-select v-model="data.method" style="width: 100px">
                 <el-option v-for="item in ApiMethod" :key="item" :label="item" :value="item"></el-option>
@@ -35,10 +35,25 @@
       </template>
           </el-input>
         </el-form-item>
-        <el-form-item label="响应数据结构">
-          <monaco-editor></monaco-editor>
+        <el-form-item label="响应数据结构" required prop="responseStructure">
+          <monaco-editor v-model.trim="data.responseStructure" language="json"></monaco-editor>
         </el-form-item>
       </el-form>
+      <el-divider content-position="left">接口处理</el-divider>
+      <div>
+        <div class="w-2/3 mb-24">
+          <el-tabs v-model="activePlugin">
+            <el-tab-pane label="参数修剪" name="prePlugin">
+              <monaco-editor v-model.trim="data.prePlugin" language="typescript"></monaco-editor>
+            </el-tab-pane>
+            <el-tab-pane label="响应修剪" name="postPlugin">
+              <monaco-editor v-model.trim="data.postPlugin" language="typescript"></monaco-editor>
+            </el-tab-pane>
+          </el-tabs>
+        </div>
+        <div class="w-1/3">
+        </div>
+      </div>
     </template>
     <template #footer>
       <div style="flex: auto">
@@ -56,6 +71,8 @@ import { useDataSource } from "@/components/data-source/store";
 import { ApiMethod } from '~types/data-source';
 import { useEnvironmentStore } from "@/components/environment/store";
 
+const monacoEditor = defineAsyncComponent(() => import('@/components/monano-editor/monaco-editor.vue'));
+
 const dataSource = useDataSource();
 
 const formRef = ref<FormInstance>();
@@ -64,6 +81,8 @@ const dialogVisible = ref(false);
 
 const { environment } = storeToRefs(useEnvironmentStore());
 
+const activePlugin = ref('prePlugin');
+
 const data = reactive<ApiDataSource>({
   name: "",
   desc: "",
@@ -71,6 +90,11 @@ const data = reactive<ApiDataSource>({
   method: ApiMethod.GET,
   url: '',
   envUrl: environment.value.map(env => Object.assign({}, env, { url: '' })),
+  responseStructure: '',
+  prePlugin: '',
+  prePlugins: [],
+  postPlugin: '',
+  postPlugins: [],
 });
 
 function updateEnvUrlConfig(envUrl: EnvUrl[]) {
@@ -85,12 +109,30 @@ const rules = reactive<FormRules<any>>({
       trigger: "blur",
     },
   ],
-  value: [
+  url: [
     {
       required: true,
       message: "请填入值",
       trigger: "blur",
     },
+  ],
+  responseStructure: [
+    {
+      required: true,
+      message: "请填入响应json结构",
+      trigger: "blur",
+    },
+    {
+      trigger: "blur",
+      validator(rule, value, callback) {
+        try {
+          JSON.parse(value);
+          callback();
+        } catch (error) {
+          callback('JSON 不规范');
+        }
+      }
+    }
   ],
 });
 

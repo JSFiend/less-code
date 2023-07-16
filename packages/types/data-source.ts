@@ -27,6 +27,16 @@ export interface ApiDataSource {
   method: ApiMethod,
   url: string,
   envUrl: EnvUrl[],
+  // 响应数据结构 json string
+  responseStructure: string,
+  // 数据源本身的前置插件
+  prePlugin: '',
+  // 数据源引用的前置插件
+  prePlugins: [],
+  // 数据源本身的后置插件
+  postPlugin: '',
+  // 数据源引用的后置插件
+  postPlugins: [],
 }
 
 export enum ApiMethod {
