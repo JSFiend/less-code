@@ -49,7 +49,6 @@ onMounted(() => {
    editor.onDidChangeModelContent(() => {
     //给父组件实时返回最新文本
     const value = editor.getValue();
-    console.log('changevalue', value);
       emits('update:modelValue', value);
       emits('change', value);
     })

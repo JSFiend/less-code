@@ -36,7 +36,7 @@ import { Setting } from "@element-plus/icons-vue";
 import type { FormInstance } from "element-plus/es/components/form";
 import { assignWith } from 'lodash-es';
 
-import { EnvUrl } from "~types";
+import { EnvUrl } from '~types';
 
 interface Props {
   envUrl: EnvUrl[];
@@ -63,7 +63,7 @@ watch(dialogVisible, (newVisible) => {
     data.url = props.url;
     data.envUrl = props.envUrl.map(env => {
       // 如果环境本来就有 url 值， 就不获取 api url 替代
-      return assignWith({}, env, { url: props.url}, (objValue, srcValue) => objValue ? objValue : srcValue);
+      return assignWith({}, env, { url: props.url }, (objValue, srcValue) => objValue ? objValue : srcValue);
     })
   }
 });
