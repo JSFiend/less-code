@@ -101,6 +101,10 @@ monaco editor 编辑器hover、focus 边框样式与element 一致。
 ## 2023年09月05日00:54:18
 优化data-source数据
 
+
+## 2023年09月05日01:18:21
+fix： localforage 存储不了的问题
+
 ## todos
 
 一、接口数据源的开发。

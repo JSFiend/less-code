@@ -7,11 +7,14 @@ export async function piniaSubscribe({ store }: PiniaPluginContext) {
    * 数据持续化 - 保存
    */
   store.$subscribe((mutation, state) => {
-    const rawData = toRaw(state);
-    console.log('rawData', omit(rawData, 'state'));
+    const rawData = state;
     if (mutation.storeId === "dataSource") {
-      // toRaw 只能浅层式去掉响应式， dataSource.state 是 computed 实例， 转化不了原数据进行存储
-      localforage.setItem(mutation.storeId, rawData);
+      // toRaw 可以从 proxy 对象中拿到原始值
+      localforage.setItem(mutation.storeId, {
+        defaultDataList: toRaw(rawData.defaultDataList),
+        pageVariableList: toRaw(rawData.pageVariableList),
+        apiDataSourceList: toRaw(rawData.apiDataSourceList),
+      });
     } else {
       localforage.setItem(mutation.storeId, rawData);
     }
