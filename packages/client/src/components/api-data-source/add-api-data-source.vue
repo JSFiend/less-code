@@ -142,24 +142,16 @@ const activePlugin = ref("prePlugin");
 
 const debugEnv = ref("dev");
 
-const prePlugin = `
-function prePlugin(body, query, headers, cookies, state) {
-
-  return {
-    body,
-    query,
-    headers,
-    cookies,
-  }
+const prePlugin = `function prePlugin(data, headers) {
+  console.log('data', data);
+  console.log('headers', headers);
 }
 `;
 
-const postPlugin = `
-function postPlugin(data, body, query, headers, cookies, state) {
-
-  return {
-    data,
-  }
+const postPlugin = `function prePlugin(response, data, headers) {
+  console.log('data', data);
+  console.log('headers', headers);
+  console.log('response', response);
 }
 `;
 
@@ -241,10 +233,13 @@ async function doDebugRequest() {
   await submitForm(formRef.value, true);
   const options = {
     url: data.envUrl.find(env => env.env === debugEnv.value)?.url || data.url,
-    method: data.method
+    method: data.method,
+    prePlugin,
+    postPlugin,
   }
   await debugRequest(options);
 }
+
 </script>
 
 <style scoped></style>

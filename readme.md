@@ -98,6 +98,9 @@ monaco editor 编辑器hover、focus 边框样式与element 一致。
 1、接口调试面板在放在基本信息右侧
 2、调试面板支持多环境发起
 
+## 2023年09月05日00:54:18
+优化data-source数据
+
 ## todos
 
 一、接口数据源的开发。

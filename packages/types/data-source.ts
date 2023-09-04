@@ -2,18 +2,25 @@ import { Environment } from './index';
 
 export enum DataSourceType {
   All = 'All',
-  UrlParams = 'UrlParams',
+  DefaultData = 'DefaultData',
   PageVariable = 'PageVariable',
   ApiDataSource = 'ApiDataSource',
 }
 
 
 export type DataSourceItem = PageVariable | ApiDataSource;
+
+export interface DefaultData {
+  name: string,
+  desc: string,
+  expression: string,
+  type: DataSourceType.DefaultData,
+}
 export interface PageVariable {
   name: string,
   desc: string,
   expression: string,
-  type: DataSourceType.PageVariable | DataSourceType.UrlParams,
+  type: DataSourceType.PageVariable,
 }
 
 export interface EnvUrl extends Environment {

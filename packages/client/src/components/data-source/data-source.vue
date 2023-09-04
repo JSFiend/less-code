@@ -11,7 +11,9 @@
     <add-data-source></add-data-source>
     <p class="h-8"></p>
     <el-tabs type="border-card">
-      <el-tab-pane label="数据源集合"><DataSourceCollection></DataSourceCollection></el-tab-pane>
+      <el-tab-pane label="默认数据"><defaultDataListVue></defaultDataListVue></el-tab-pane>
+      <el-tab-pane label="页面变量"><page-variable-list></page-variable-list></el-tab-pane>
+      <el-tab-pane label="Api数据源"><DataSourceCollection></DataSourceCollection></el-tab-pane>
   </el-tabs>
   </el-dialog>
 </template>
@@ -23,6 +25,7 @@ import * as _ from 'lodash-es';
 
 const addDataSource = defineAsyncComponent(() => import('@/components/data-source/add-data-source.vue'));
 const DataSourceCollection = defineAsyncComponent(() => import('@/components/data-source/data-source-collection.vue'));
+const defaultDataListVue = defineAsyncComponent(() => import('@/components/data-source/default-data-list.vue'));
 
 const openDataSourcePaneParams = !!qs.parse(location.search)?.openDataSourcePane;
 const dialogVisible = ref(openDataSourcePaneParams || false);

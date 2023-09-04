@@ -87,7 +87,7 @@ async function submitForm(formEl: FormInstance | undefined) {
   await formEl.validate((valid: boolean, fields: any) => {
     if (valid) {
       console.log('submit!', data);
-      dataSource.addDataSource(data);
+      dataSource.addPageVariable(data);
     } else {
       console.log('error submit!', fields)
     }

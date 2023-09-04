@@ -6,4 +6,6 @@
 </template>
 
 <script setup lang="ts">
+
 </script>
+@/dataHook@/data-hook
