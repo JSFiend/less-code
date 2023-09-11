@@ -1,6 +1,5 @@
-import type { PiniaPluginContext } from "pinia";
-import localforage from "localforage";
-import { omit } from 'lodash-es';
+import type { PiniaPluginContext } from 'pinia';
+import localforage from 'localforage';
 
 export async function piniaSubscribe({ store }: PiniaPluginContext) {
   /**
@@ -8,12 +7,21 @@ export async function piniaSubscribe({ store }: PiniaPluginContext) {
    */
   store.$subscribe((mutation, state) => {
     const rawData = state;
-    if (mutation.storeId === "dataSource") {
+    if (mutation.storeId === 'dataSource') {
+      const defaultDataList = toRaw(rawData.defaultDataList);
+      const pageVariableList = toRaw(rawData.pageVariableList);
+      const apiDataSourceList = toRaw(rawData.apiDataSourceList);
+      console.log(
+        'dataSource',
+        defaultDataList,
+        pageVariableList,
+        apiDataSourceList
+      );
       // toRaw 可以从 proxy 对象中拿到原始值
       localforage.setItem(mutation.storeId, {
-        defaultDataList: toRaw(rawData.defaultDataList),
-        pageVariableList: toRaw(rawData.pageVariableList),
-        apiDataSourceList: toRaw(rawData.apiDataSourceList),
+        defaultDataList,
+        pageVariableList,
+        apiDataSourceList,
       });
     } else {
       localforage.setItem(mutation.storeId, rawData);
@@ -22,10 +30,8 @@ export async function piniaSubscribe({ store }: PiniaPluginContext) {
 
   // 数据持续话 - 读取
   const data = await localforage.getItem<Record<string, any>>(store.$id);
-  Object.assign(store.$state, data);
+  data && store.$patch(data as any);
 
   // 初始化 store
-  if (store.init) {
-    store.init();
-  }
+  store.init && store.init();
 }

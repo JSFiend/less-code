@@ -1,31 +1,21 @@
 
-import qs from "query-string";
-import * as _ from "lodash-es";
 
+import { useCommonContext } from '@/context';
 
-type Context = {[key: string]: any};
+type Context = { [key: string]: any };
 
-
-const commonContext = {
-  state: {},
-  qs,
-  _,
-  route: {},
-};
-
-
-
-export function setCommonContext(key: keyof typeof commonContext, value: any) {
-  commonContext[key] = value;
-}
 
 /**
  * 解析函数字符串
- * @param funStr 
- * @param context 
- * @returns 
+ * @param funStr
+ * @param context
+ * @returns
  */
-export function parseFunStr(funStr: string, context: Context): (...args: any[]) => any {
+export function parseFunStr(
+  funStr: string,
+  context: Context
+): (...args: any[]) => any {
+  const commonContext = useCommonContext();
   context = { ...commonContext, ...context };
   try {
     // 获取所有参数名
@@ -37,20 +27,25 @@ export function parseFunStr(funStr: string, context: Context): (...args: any[]) 
     // 加上表达式, new Function 实例化前面是参数，最后一个参数是表达式
     argNames.push(`return (${funStr})(...arguments)`);
     const func = new Function(...argNames);
-      return (...args: any[]) => func(...argValues, ...args);
+    return (...args: any[]) => func(...argValues, ...args);
   } catch (error) {
-      console.error(`Failed to create function: ${error}`);
-      return () => null;
+    console.error(`Failed to create function: ${error}`);
+    return () => null;
   }
 }
 /**
  * 解析表达式
- * @param expression 
- * @param context 
- * @param arg 
- * @returns 
+ * @param expression
+ * @param context
+ * @param arg
+ * @returns
  */
-export function parseExpression(expression: string, context?: Context, ...arg: any[]): any {
+export function parseExpression(
+  expression: string,
+  context?: Context,
+  ...arg: any[]
+): any {
+  const commonContext = useCommonContext();
   context = { ...commonContext, ...context };
   try {
     const argNames = Object.keys(context);
@@ -68,5 +63,4 @@ export function parseExpression(expression: string, context?: Context, ...arg: a
   } catch (error) {
     return null;
   }
-  
 }

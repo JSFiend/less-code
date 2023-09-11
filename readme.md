@@ -105,6 +105,11 @@ monaco editor 编辑器hover、focus 边框样式与element 一致。
 ## 2023年09月05日01:18:21
 fix： localforage 存储不了的问题
 
+## 2023年09月12日00:18:47
+1、使用了组合式函数 useFun 来解决上下文的问题，理解 vue 组合式函数的使用，返回相应对象，保持同步
+2、引用router 对象代替 useRouter 和 useRoute ，他们在纯函数使用的时候没有在 vue 上下文，里面的inject 办法回失效，导致 useRoute 不可用
+
+
 ## todos
 
 一、接口数据源的开发。

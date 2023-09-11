@@ -7,7 +7,7 @@ import {
   PageVariable,
   DefaultData,
 } from "~types/data-source";
-import { parseExpression, setCommonContext } from "@/utils/parse";
+import { parseExpression } from "@/utils/parse";
 import { ElMessageBox } from "element-plus";
 import "element-plus/theme-chalk/src/message-box.scss";
 import "element-plus/theme-chalk/src/message.scss";
@@ -33,11 +33,6 @@ export const useDataSource = defineStore("dataSource", () => {
   // 所有数据
   const state = reactive<Record<string, any>>({});
 
-  setCommonContext('state', state);
-  setCommonContext('route', useRoute());
-  window.route = useRoute();
-  window.router = useRouter();
-
   watch(defaultDataList, (list) => {
     list.forEach(({expression, name}) => {
       const value = parseExpression(expression);
@@ -55,6 +50,7 @@ export const useDataSource = defineStore("dataSource", () => {
     });
   }, {
     immediate: true,
+    deep: true,
   });
 
 
