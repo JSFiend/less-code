@@ -1,31 +1,18 @@
 import type { PiniaPluginContext } from 'pinia';
 import localforage from 'localforage';
+import { refWithControl } from '@vueuse/core';
 
 export async function piniaSubscribe({ store }: PiniaPluginContext) {
   /**
    * 数据持续化 - 保存
    */
   store.$subscribe((mutation, state) => {
-    const rawData = state;
+    const rawData: Record<string, any> = {};
+    Object.keys(state).forEach((key) => (rawData[key] = toRaw(state[key])));
     if (mutation.storeId === 'dataSource') {
-      const defaultDataList = toRaw(rawData.defaultDataList);
-      const pageVariableList = toRaw(rawData.pageVariableList);
-      const apiDataSourceList = toRaw(rawData.apiDataSourceList);
-      console.log(
-        'dataSource',
-        defaultDataList,
-        pageVariableList,
-        apiDataSourceList
-      );
-      // toRaw 可以从 proxy 对象中拿到原始值
-      localforage.setItem(mutation.storeId, {
-        defaultDataList,
-        pageVariableList,
-        apiDataSourceList,
-      });
-    } else {
-      localforage.setItem(mutation.storeId, rawData);
+      delete rawData.state;
     }
+    localforage.setItem(mutation.storeId, rawData);
   });
 
   // 数据持续话 - 读取

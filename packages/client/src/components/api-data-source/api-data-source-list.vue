@@ -1,7 +1,11 @@
 <template>
   <!-- 页面变量 -->
   <div class="flex">
-    <el-card class="mr-4.5 mb-4.5 w-96" v-for="item in pageVariableList" :key="item.name">
+    <el-card
+      class="mr-4.5 mb-4.5 w-96"
+      v-for="item in apiDataSourceList"
+      :key="item.name"
+    >
       <template #header>
         <div class="card-header flex justify-between">
           <span>{{ item.name }}</span>
@@ -37,14 +41,18 @@
         <el-descriptions-item
           label-class-name="w-24 "
           label-align="right"
-          label="表达式"
-          >{{ item.expression }}</el-descriptions-item
-        >
+          label="url"
+          >{{ item.url}}</el-descriptions-item>
+          <el-descriptions-item
+          label-class-name="w-24 "
+          label-align="right"
+          label="请求办法"
+          >{{ item.method}}</el-descriptions-item>
         <el-descriptions-item
           label-class-name="w-24 "
           label-align="right"
           label="具体值"
-          >{{ state[item.name] }}</el-descriptions-item
+          >{{ state[item.response] }}</el-descriptions-item
         >
       </el-descriptions>
     </el-card>
@@ -56,7 +64,7 @@
 import { useDataSource } from "@/components/data-source/store";
 import { Edit, CopyDocument, Delete } from "@element-plus/icons-vue";
 
-const { pageVariableList, state } = toRefs(useDataSource());
+const { apiDataSourceList, state } = toRefs(useDataSource());
 
 function openEditDataSource(a: any) {
   console.log(a);

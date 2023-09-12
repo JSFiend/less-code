@@ -1,23 +1,23 @@
-import qs from "query-string";
-import * as _ from "lodash-es";
-import { cloneDeep, merge, remove } from "lodash-es";
+import qs from 'query-string';
+import * as _ from 'lodash-es';
+import { cloneDeep, merge, remove } from 'lodash-es';
 import {
   ApiDataSource,
   DataSourceType,
   PageVariable,
   DefaultData,
-} from "~types/data-source";
-import { parseExpression } from "@/utils/parse";
-import { ElMessageBox } from "element-plus";
-import "element-plus/theme-chalk/src/message-box.scss";
-import "element-plus/theme-chalk/src/message.scss";
+} from '~types/data-source';
+import { parseExpression } from '@/utils/parse';
+import { ElMessageBox } from 'element-plus';
+import 'element-plus/theme-chalk/src/message-box.scss';
+import 'element-plus/theme-chalk/src/message.scss';
 
-export const useDataSource = defineStore("dataSource", () => {
+export const useDataSource = defineStore('dataSource', () => {
   // 默认数据
   const defaultDataList = ref<DefaultData[]>([
     {
-      name: "urlParams",
-      desc: "URL 上 querystring 解析后的对象",
+      name: 'urlParams',
+      desc: 'URL 上 querystring 解析后的对象',
       // expression: `console.log(route);return route.query`,
       expression: `route.query`,
       type: DataSourceType.DefaultData,
@@ -33,27 +33,41 @@ export const useDataSource = defineStore("dataSource", () => {
   // 所有数据
   const state = reactive<Record<string, any>>({});
 
-  watch(defaultDataList, (list) => {
-    list.forEach(({expression, name}) => {
-      const value = parseExpression(expression);
-      console.log('express', expression, name, value);
-      state[name] = value;
-    });
-  }, {
-    immediate: true,
-  });
+  // 当前打开的数据源 tabs
+  const currentDataSourceTab = ref(DataSourceType.DefaultData);
 
-  watch(pageVariableList, (list) => {
-    list.forEach(({expression, name}) => {
-      const value = parseExpression(expression);
-      state[name] = value;
-    });
-  }, {
-    immediate: true,
-    deep: true,
-  });
+  // 是否打开数据源面板
+  const isOpenDataSourcePanel = ref(false);
 
+  // 初始化默认数据值
+  watch(
+    defaultDataList,
+    (list) => {
+      list.forEach(({ expression, name }) => {
+        const value = parseExpression(expression);
+        console.log('express', expression, name, value);
+        state[name] = value;
+      });
+    },
+    {
+      immediate: true,
+    }
+  );
 
+  // 初始化页面变量的值
+  watch(
+    pageVariableList,
+    (list) => {
+      list.forEach(({ expression, name }) => {
+        const value = parseExpression(expression);
+        state[name] = value;
+      });
+    },
+    {
+      immediate: true,
+      deep: true,
+    }
+  );
 
   /**
    * 添加页面变量
@@ -61,10 +75,10 @@ export const useDataSource = defineStore("dataSource", () => {
    * @returns
    */
   function addPageVariable(pageVariable: PageVariable) {
-    if (pageVariableList.value.find(item => item.name === pageVariable.name)) {
+    if (state[pageVariable.name]) {
       ElMessage({
         showClose: true,
-        message: `数据源变量名 ${pageVariable.name} 已存在`,
+        message: `已存在 ${pageVariable.name} 页面变量名或者数据源变量名`,
         type: 'error',
       });
       return false;
@@ -74,23 +88,32 @@ export const useDataSource = defineStore("dataSource", () => {
     pageVariableList.value.push(pageVariable);
     ElMessage({
       showClose: true,
-      message: `数据源 ${pageVariable.name} 添加成功`,
+      message: `页面变量 ${pageVariable.name} 添加成功`,
       type: 'success',
     });
   }
-
   /**
-   * 初始化页面变量的数据
+   * 添加接口数据源
+   * @param pageVariable
+   * @returns
    */
-  function initPageVariableState({ expression, name }: PageVariable) {
-    const context = {
-      state: state,
-      qs,
-      _,
-    };
-    const value = parseExpression(expression, context);
-    state.value[name] = value;
-
+  function addApiDataSource(apiDataSource: ApiDataSource) {
+    if (state[apiDataSource.name]) {
+      ElMessage({
+        showClose: true,
+        message: `已存在 ${apiDataSource.name} 页面变量名或者数据源变量名`,
+        type: 'error',
+      });
+      return false;
+    }
+    // 脱离表单的内容
+    apiDataSource = cloneDeep(apiDataSource);
+    apiDataSourceList.value.push(apiDataSource);
+    ElMessage({
+      showClose: true,
+      message: `数据源 ${apiDataSource.name} 添加成功`,
+      type: 'success',
+    });
   }
 
   /**
@@ -98,7 +121,9 @@ export const useDataSource = defineStore("dataSource", () => {
    * @param pageVariable
    */
   function editPageVariable(pageVariable: PageVariable) {
-    const preDataSource = pageVariableList.value.find(item => item.name === pageVariable.name)!;
+    const preDataSource = pageVariableList.value.find(
+      (item) => item.name === pageVariable.name
+    )!;
     merge(preDataSource, pageVariable);
     ElMessage({
       showClose: true,
@@ -112,23 +137,18 @@ export const useDataSource = defineStore("dataSource", () => {
    * @param param0
    */
   function deletePageVariable({ name }: PageVariable) {
-    ElMessageBox.confirm(
-      `确定删除数据源 ${name} 吗？`,
-      `删除数据源 ${name}`,
-      {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-      }
-    )
-      .then(() => {
-        remove(pageVariableList.value, item => item.name === name);
-        delete state.value[name];
-        ElMessage({
-          type: 'success',
-          message: `数据源 ${name} 已被删除`,
-        })
+    ElMessageBox.confirm(`确定删除数据源 ${name} 吗？`, `删除数据源 ${name}`, {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }).then(() => {
+      remove(pageVariableList.value, (item) => item.name === name);
+      delete state.value[name];
+      ElMessage({
+        type: 'success',
+        message: `数据源 ${name} 已被删除`,
       });
+    });
   }
 
   /**
@@ -150,16 +170,17 @@ export const useDataSource = defineStore("dataSource", () => {
     });
   }
 
-
-
   return {
     defaultDataList,
     pageVariableList,
     apiDataSourceList,
     state,
+    currentDataSourceTab,
+    isOpenDataSourcePanel,
     addPageVariable,
     editPageVariable,
-  }
+    addApiDataSource,
+  };
 });
 
 // export const useDataSource = defineStore('dataSource', {

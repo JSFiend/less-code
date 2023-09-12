@@ -81,7 +81,7 @@ monaco editor 编辑器hover、focus 边框样式与element 一致。
 添加了参数修剪和响应修剪的 monaco-editor， 定义了插件
 ```
   // 响应数据结构 json string
-  responseStructure: string,
+  response: string,
   // 数据源本身的前置插件
   prePlugin: '',
   // 数据源引用的前置插件
@@ -108,6 +108,9 @@ fix： localforage 存储不了的问题
 ## 2023年09月12日00:18:47
 1、使用了组合式函数 useFun 来解决上下文的问题，理解 vue 组合式函数的使用，返回相应对象，保持同步
 2、引用router 对象代替 useRouter 和 useRoute ，他们在纯函数使用的时候没有在 vue 上下文，里面的inject 办法回失效，导致 useRoute 不可用
+
+## 2023年09月12日23:51:06
+1、通过 pinia 的监听保存，实现了数据源是否打开，选中了那个数据源的缓存
 
 
 ## todos

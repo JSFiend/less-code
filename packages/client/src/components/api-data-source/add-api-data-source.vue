@@ -51,9 +51,9 @@
                 </template>
               </el-input>
             </el-form-item>
-            <el-form-item label="响应数据结构" required prop="responseStructure">
+            <el-form-item label="响应数据结构" required prop="response">
               <monaco-editor
-                v-model.trim="data.responseStructure"
+                v-model.trim="data.response"
                 language="json"
               ></monaco-editor>
             </el-form-item>
@@ -73,7 +73,9 @@
                     :value="item.env"
                   />
                 </el-select>
-                <el-button type="primary" class="button" @click="doDebugRequest">调试</el-button>
+                <el-button type="primary" class="button" @click="doDebugRequest"
+                  >调试</el-button
+                >
               </div>
             </div>
           </template>
@@ -83,7 +85,7 @@
             <el-tab-pane label="请求结果" name="third">Role</el-tab-pane>
           </el-tabs>
         </el-card>
-         <!-- 调试接口 env -->
+        <!-- 调试接口 env -->
       </div>
       <el-card class="mt-4">
         <template #header>
@@ -124,7 +126,7 @@ import { DataSourceType } from "~types";
 import { useDataSource } from "@/components/data-source/store";
 import { ApiMethod } from "~types/data-source";
 import { useEnvironmentStore } from "@/components/environment/store";
-import { debugRequest } from '@/utils';
+import { debugRequest } from "@/utils";
 
 const monacoEditor = defineAsyncComponent(
   () => import("@/components/monano-editor/monaco-editor.vue")
@@ -162,7 +164,7 @@ const data = reactive<ApiDataSource>({
   method: ApiMethod.GET,
   url: "",
   envUrl: environment.value.map((env) => Object.assign({}, env, { url: "" })),
-  responseStructure: '{}',
+  response: "{}",
   prePlugin,
   prePlugins: [],
   postPlugin,
@@ -188,7 +190,7 @@ const rules = reactive<FormRules<any>>({
       trigger: "blur",
     },
   ],
-  responseStructure: [
+  response: [
     {
       required: true,
       message: "请填入响应json结构",
@@ -208,20 +210,23 @@ const rules = reactive<FormRules<any>>({
   ],
 });
 
-async function submitForm(formEl: FormInstance | undefined = formRef.value, isDebug = false) {
+async function submitForm(
+  formEl: FormInstance | undefined = formRef.value,
+  isDebug = false
+) {
   if (!formEl) return;
   return new Promise(async (resolve, reject) => {
     await formEl.validate((valid: boolean, fields: any) => {
-    if (valid) {
-      console.log("submit!", data);
-      // 不是debug 就提交
-      if (!isDebug) dataSource.addDataSource(data);
-      return resolve(data);
-    } 
-    console.log("error submit!", fields);
-    reject("error submit!");
+      if (valid) {
+        console.log("submit!", data);
+        // 不是debug 就提交
+        if (!isDebug) dataSource.addApiDataSource(data);
+        return resolve(data);
+      }
+      console.log("error submit!", fields);
+      reject("error submit!");
+    });
   });
-  })
 }
 
 function resetForm(formEl: FormInstance | undefined) {
@@ -232,14 +237,13 @@ function resetForm(formEl: FormInstance | undefined) {
 async function doDebugRequest() {
   await submitForm(formRef.value, true);
   const options = {
-    url: data.envUrl.find(env => env.env === debugEnv.value)?.url || data.url,
+    url: data.envUrl.find((env) => env.env === debugEnv.value)?.url || data.url,
     method: data.method,
     prePlugin,
     postPlugin,
-  }
+  };
   await debugRequest(options);
 }
-
 </script>
 
 <style scoped></style>

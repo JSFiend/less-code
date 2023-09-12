@@ -34,8 +34,10 @@ export interface ApiDataSource {
   method: ApiMethod,
   url: string,
   envUrl: EnvUrl[],
+  // 请求参数
+  params: Record<string, any>,
   // 响应数据结构 json string
-  responseStructure: string,
+  response: Record<string, any>,
   // 数据源本身的前置插件
   prePlugin: string,
   // 数据源引用的前置插件
