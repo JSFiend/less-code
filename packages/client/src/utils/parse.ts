@@ -64,3 +64,23 @@ export function parseExpression(
     return null;
   }
 }
+
+/**
+ * 
+ * @param input 解析 js 字符串，返回 json 字符串
+ * @returns 
+ */
+export function isJsObject(input: string): [boolean, string | null] {
+  try {
+    // Use new Function for safer execution
+    const func = new Function('return ' + input);
+    const obj = func();
+
+    if (obj && typeof obj === 'object' && !Array.isArray(obj)) {
+      return [true, JSON.stringify(obj)];
+    }
+    return [false, null];
+  } catch (e) {
+    return [false, null];
+  }
+}

@@ -52,10 +52,12 @@
               </el-input>
             </el-form-item>
             <el-form-item label="响应数据结构" required prop="response">
-              <monaco-editor
-                v-model.trim="data.response"
-                language="json"
-              ></monaco-editor>
+              <request-and-response
+                :request="data.request"
+                :response="data.response"
+                @update:request="data.request = $event"
+                @update:response="data.response = $event"
+              ></request-and-response>
             </el-form-item>
           </el-form>
         </el-card>
@@ -164,6 +166,7 @@ const data = reactive<ApiDataSource>({
   method: ApiMethod.GET,
   url: "",
   envUrl: environment.value.map((env) => Object.assign({}, env, { url: "" })),
+  request: "{}",
   response: "{}",
   prePlugin,
   prePlugins: [],

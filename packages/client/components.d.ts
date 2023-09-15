@@ -54,6 +54,7 @@ declare module 'vue' {
     MultipleEnvUrlConfig: typeof import('./src/components/api-data-source/multiple-env-url-config.vue')['default']
     PageVariableList: typeof import('./src/components/page-variable/page-variable-list.vue')['default']
     ProjectName: typeof import('./src/components/header/project-name.vue')['default']
+    RequestAndResponse: typeof import('./src/components/api-data-source/request-and-response.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     TabCard: typeof import('./src/ui-lib/tab-card/tab-card.vue')['default']
