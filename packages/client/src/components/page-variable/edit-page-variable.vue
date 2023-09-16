@@ -1,11 +1,10 @@
 <template>
   <el-dialog
-    v-model="dialogVisible"
+    v-model="dataSource.editPageVariableVisible"
     title="编辑页面变量"
     append-to-body
     width="50%"
     draggable
-    @close="close"
   >
     <el-form :model="data" label-width="80px" ref="formRef" :rules="rules">
       <el-form-item label="变量名" required prop="name">
@@ -33,7 +32,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="submitForm(formRef)">更新页面变量</el-button>
-        <el-button @click="dialogVisible = false">关闭</el-button>
+        <el-button @click="dataSource.editPageVariableVisible = false">关闭</el-button>
       </el-form-item>
     </el-form>
 
@@ -45,16 +44,7 @@ import { FormInstance, FormRules } from 'element-plus';
 import type { PageVariable } from '~types/data-source';
 import { DataSourceType } from '~types/data-source';
 import { useDataSource } from '@/components/data-source/store';
-
-
-const props = defineProps<{
-  dataSource: PageVariable,
-  modelValue: boolean;
-}>();
-
-const emit = defineEmits<{
-  (e: 'update:modelValue', visible: boolean): void,
-}>();
+import { cloneDeep, merge, remove } from 'lodash-es';
 
 const text = `字符串: "string"
               数字: 123
@@ -78,14 +68,12 @@ let data = reactive<PageVariable>({
   type: DataSourceType.PageVariable,
 });
 
-watch(() => props, (value) => {
-  data = Object.assign(data, value.dataSource);
-  dialogVisible.value = value.modelValue;
+watch(() => dataSource.editPageVariableVisible, (visible) => {
+  if (visible === true) {
+    merge(data, dataSource.currentEditPageVariable);
+  }
 }, { deep: true });
 
-function close() {
-  emit('update:modelValue', false);
-}
 
 
 const rules = reactive<FormRules>({
@@ -106,7 +94,8 @@ async function submitForm(formEl: FormInstance | undefined) {
   await formEl.validate((valid: boolean, fields: any) => {
     if (valid) {
       console.log('submit!', data);
-      dataSource.editDataSource(data);
+      merge(dataSource.currentEditPageVariable, data);
+      dataSource.editPageVariableVisible = false;
     } else {
       console.log('error submit!', fields)
     }
@@ -117,4 +106,4 @@ async function submitForm(formEl: FormInstance | undefined) {
 
 <style scoped>
 
-</style>~types/data-source~types/data-source
+</style>

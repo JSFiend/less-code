@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button type="primary" @click="dialogVisible = true">打开</el-button>
+    <el-button type="primary" @click="dialogVisible = true">输入请求参数结构与响应结构</el-button>
     <el-dialog 
       :model-value="dialogVisible" 
       @update:model-value="dialogVisible = $event" 
@@ -24,7 +24,7 @@
 </template>
 
 <script setup lang="ts">
-import { ElNotification } from "element-plus";
+import { ElMessage } from "element-plus";
 import { isJsObject } from "@/utils"; // 修改导入路径
 
 const props = defineProps({
@@ -57,10 +57,9 @@ function confirmDialog () {
     dialogVisible.value = false;
   } else {
     // Notify the user with a message
-    ElNotification({
-      title: "Error",
+    ElMessage({
       message: "json 对象不合法",
-      type: "error",
+      type: "warning",
       duration: 3000,
     });
   }

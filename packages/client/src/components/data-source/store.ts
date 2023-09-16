@@ -1,5 +1,3 @@
-import qs from 'query-string';
-import * as _ from 'lodash-es';
 import { cloneDeep, merge, remove } from 'lodash-es';
 import {
   ApiDataSource,
@@ -39,6 +37,17 @@ export const useDataSource = defineStore('dataSource', () => {
   // 是否打开数据源面板
   const isOpenDataSourcePanel = ref(false);
 
+  // 是否打开编辑编辑页面变量
+  const editPageVariableVisible = ref(false);
+
+  // 当前编辑的页面变量
+  const currentEditPageVariable = ref<PageVariable>({
+    name: '',
+    desc: '',
+    expression: ``,
+    type: DataSourceType.PageVariable,
+  });
+
   // 初始化默认数据值
   watch(
     defaultDataList,
@@ -61,6 +70,27 @@ export const useDataSource = defineStore('dataSource', () => {
       list.forEach(({ expression, name }) => {
         const value = parseExpression(expression);
         state[name] = value;
+      });
+    },
+    {
+      immediate: true,
+      deep: true,
+    }
+  );
+
+  // 初始化api数据源变量的值
+  watch(
+    apiDataSourceList,
+    (list) => {
+      list.forEach(({ name, response }) => {
+        console.log('response', response);
+        state[name] = computed(() => {
+          try {
+            return JSON.parse(response);
+          } catch (error) {
+            return {}; // 或返回其他默认值
+          }
+        });
       });
     },
     {
@@ -143,7 +173,7 @@ export const useDataSource = defineStore('dataSource', () => {
       type: 'warning',
     }).then(() => {
       remove(pageVariableList.value, (item) => item.name === name);
-      delete state.value[name];
+      delete state[name];
       ElMessage({
         type: 'success',
         message: `数据源 ${name} 已被删除`,
@@ -155,13 +185,28 @@ export const useDataSource = defineStore('dataSource', () => {
    * 复制数据源
    * @param dataSource
    */
-  function copyDataSource(dataSource: PageVariable | ApiDataSource) {
-    dataSource = cloneDeep(dataSource);
+  function copyDataSource(originDataSource: PageVariable | ApiDataSource) {
+    const dataSource = cloneDeep(originDataSource);
     dataSource.name = dataSource.name + 'Copy';
+    if (state[dataSource.name]) {
+      ElMessage({
+        message: `数据源 ${dataSource.name} 已存在`
+      });
+      return false;
+    }
     if (dataSource.type === DataSourceType.PageVariable) {
-      pageVariableList.value.push(dataSource);
+      // 找到目标项的下标
+      const index = pageVariableList.value.findIndex(
+        (item) => item.name === originDataSource.name
+      );
+      pageVariableList.value.splice(index + 1, 0, dataSource);
+      console.log('pageVariableList.value', JSON.stringify(pageVariableList.value));
     } else if (dataSource.type === DataSourceType.ApiDataSource) {
-      apiDataSourceList.value.push(dataSource);
+      // 找到目标项的下标
+      const index = pageVariableList.value.findIndex(
+        (item) => item.name === originDataSource.name
+      );
+      apiDataSourceList.value.splice(index + 1, 0, dataSource);
     }
     ElMessage({
       showClose: true,
@@ -177,9 +222,13 @@ export const useDataSource = defineStore('dataSource', () => {
     state,
     currentDataSourceTab,
     isOpenDataSourcePanel,
+    currentEditPageVariable,
+    editPageVariableVisible,
     addPageVariable,
     editPageVariable,
     addApiDataSource,
+    deletePageVariable,
+    copyDataSource,
   };
 });
 

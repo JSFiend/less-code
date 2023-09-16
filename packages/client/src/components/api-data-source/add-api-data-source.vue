@@ -51,7 +51,7 @@
                 </template>
               </el-input>
             </el-form-item>
-            <el-form-item label="响应数据结构" required prop="response">
+            <el-form-item label="请求响应结构" required prop="response">
               <request-and-response
                 :request="data.request"
                 :response="data.response"

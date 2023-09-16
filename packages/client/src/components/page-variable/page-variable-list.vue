@@ -1,6 +1,6 @@
 <template>
   <!-- 页面变量 -->
-  <div class="flex">
+  <div class="flex flex-wrap">
     <el-card class="mr-4.5 mb-4.5 w-96" v-for="item in pageVariableList" :key="item.name">
       <template #header>
         <div class="card-header flex justify-between">
@@ -15,14 +15,14 @@
             />
             <el-button
               size="small"
-              @click="openEditDataSource(item)"
+              @click="copyDataSource(item)"
               type="warning"
               :icon="CopyDocument"
               circle
             />
             <el-button
               size="small"
-              @click="openEditDataSource(item)"
+              @click="deletePageVariable(item)"
               type="danger"
               :icon="Delete"
               circle
@@ -50,17 +50,29 @@
     </el-card>
   </div>
   <!-- 页面变量 end -->
+  <edit-page-variable></edit-page-variable>
 </template>
 
 <script setup lang="ts">
 import { useDataSource } from "@/components/data-source/store";
 import { Edit, CopyDocument, Delete } from "@element-plus/icons-vue";
+import { PageVariable } from "~types/index";
 
-const { pageVariableList, state } = toRefs(useDataSource());
+const {
+  pageVariableList,
+  deletePageVariable,
+  copyDataSource,
+  state,
+  editPageVariableVisible,
+  currentEditPageVariable,
+} = toRefs(useDataSource());
 
-function openEditDataSource(a: any) {
-  console.log(a);
+
+function openEditDataSource(pageVariable: PageVariable) {
+  currentEditPageVariable.value = pageVariable;
+  editPageVariableVisible.value = true;
 }
+
 </script>
 
 <style scoped></style>

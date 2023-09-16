@@ -25,7 +25,7 @@
           </el-collapse-item>
         </el-collapse>
         <el-input
-          v-model.trim="data.expression"
+          v-model="data.expression"
           :autosize="{ minRows: 5 }"
           type="textarea"
           placeholder="支持表达式"

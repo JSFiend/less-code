@@ -1,6 +1,6 @@
 <template>
   <!-- 页面变量 -->
-  <div class="flex">
+  <div class="flex flex-wrap">
     <el-card
       class="mr-4.5 mb-4.5 w-96"
       v-for="item in apiDataSourceList"
@@ -52,7 +52,7 @@
           label-class-name="w-24 "
           label-align="right"
           label="具体值"
-          >{{ state[item.response] }}</el-descriptions-item
+          >{{ state[item.name] }}</el-descriptions-item
         >
       </el-descriptions>
     </el-card>

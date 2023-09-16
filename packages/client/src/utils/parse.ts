@@ -50,7 +50,9 @@ export function parseExpression(
   try {
     const argNames = Object.keys(context);
     let argValues = Object.values(context);
-    expression = `return () => ${expression}`;
+    expression = `return () => {
+      try { return ${expression} } catch(err) {return ''}
+    }`;
     argNames.push(expression);
     const fun = new Function(...argNames);
     const refFun = fun(...argValues, ...arg);
@@ -61,7 +63,12 @@ export function parseExpression(
       set() {},
     });
   } catch (error) {
-    return null;
+    console.log('error', error);
+    return {
+      get() { return null },
+      // computed 默认不可编辑， 使用set 允许设置值
+      set() {},
+    };
   }
 }
 
