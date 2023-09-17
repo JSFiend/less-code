@@ -43,7 +43,7 @@
 import { FormInstance, FormRules } from 'element-plus';
 import type { PageVariable } from '~types/data-source';
 import { DataSourceType } from '~types/data-source';
-import { useDataSource } from '@/components/data-source/store';
+import { usePageVariableStore } from '@/components/page-variable/page-variable-store';
 import { cloneDeep, merge, remove } from 'lodash-es';
 
 const text = `字符串: "string"
@@ -55,7 +55,7 @@ const text = `字符串: "string"
               state引用: state.urlParams.isOpen ? 1 : 0
               `;
 
-const dataSource = useDataSource();
+const dataSource = usePageVariableStore();
 
 const formRef = ref<FormInstance>();
 

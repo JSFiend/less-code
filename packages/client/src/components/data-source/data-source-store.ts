@@ -10,14 +10,19 @@ import { ElMessageBox } from 'element-plus';
 import 'element-plus/theme-chalk/src/message-box.scss';
 import 'element-plus/theme-chalk/src/message.scss';
 
-export const useDataSource = defineStore('dataSource', () => {
+export const useDataSourceStore = defineStore('dataSourceStore', () => {
   // 默认数据
   const defaultDataList = ref<DefaultData[]>([
     {
       name: 'urlParams',
       desc: 'URL 上 querystring 解析后的对象',
-      // expression: `console.log(route);return route.query`,
       expression: `route.query`,
+      type: DataSourceType.DefaultData,
+    },
+    {
+      name: 'cookies',
+      desc: 'cookies 对象',
+      expression: `cookies`,
       type: DataSourceType.DefaultData,
     },
   ]);
@@ -48,13 +53,26 @@ export const useDataSource = defineStore('dataSource', () => {
     type: DataSourceType.PageVariable,
   });
 
+  // 是否打开编辑编辑页面变量
+  enum ApiDataSourceContentStatus {
+    // 新增
+    ADD,
+    // 编辑
+    EDIT,
+    // 关闭
+    NONE,
+  }
+  const editApiDataSourceVisible = ref(false);
+
+  // 当前编辑的页面变量
+  const currentEditApiDataSource = ref({}) as unknown as ApiDataSource;
+
   // 初始化默认数据值
   watch(
     defaultDataList,
     (list) => {
       list.forEach(({ expression, name }) => {
         const value = parseExpression(expression);
-        console.log('express', expression, name, value);
         state[name] = value;
       });
     },
@@ -182,6 +200,25 @@ export const useDataSource = defineStore('dataSource', () => {
   }
 
   /**
+   * 删除 ApiDataSource 数据源
+   * @param param0
+   */
+  function deleteApiDataSource({ name }: ApiDataSource) {
+    ElMessageBox.confirm(`确定删除数据源 ${name} 吗？`, `删除数据源 ${name}`, {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    }).then(() => {
+      remove(apiDataSourceList.value, (item) => item.name === name);
+      delete state[name];
+      ElMessage({
+        type: 'success',
+        message: `数据源 ${name} 已被删除`,
+      });
+    });
+  }
+
+  /**
    * 复制数据源
    * @param dataSource
    */
@@ -190,7 +227,7 @@ export const useDataSource = defineStore('dataSource', () => {
     dataSource.name = dataSource.name + 'Copy';
     if (state[dataSource.name]) {
       ElMessage({
-        message: `数据源 ${dataSource.name} 已存在`
+        message: `数据源 ${dataSource.name} 已存在`,
       });
       return false;
     }
@@ -200,10 +237,9 @@ export const useDataSource = defineStore('dataSource', () => {
         (item) => item.name === originDataSource.name
       );
       pageVariableList.value.splice(index + 1, 0, dataSource);
-      console.log('pageVariableList.value', JSON.stringify(pageVariableList.value));
     } else if (dataSource.type === DataSourceType.ApiDataSource) {
       // 找到目标项的下标
-      const index = pageVariableList.value.findIndex(
+      const index = apiDataSourceList.value.findIndex(
         (item) => item.name === originDataSource.name
       );
       apiDataSourceList.value.splice(index + 1, 0, dataSource);
@@ -217,135 +253,8 @@ export const useDataSource = defineStore('dataSource', () => {
 
   return {
     defaultDataList,
-    pageVariableList,
-    apiDataSourceList,
     state,
     currentDataSourceTab,
     isOpenDataSourcePanel,
-    currentEditPageVariable,
-    editPageVariableVisible,
-    addPageVariable,
-    editPageVariable,
-    addApiDataSource,
-    deletePageVariable,
-    copyDataSource,
   };
 });
-
-// export const useDataSource = defineStore('dataSource', {
-//   state: (): State => {
-//     return {
-//       // url 变量
-//       urlParams: {
-//         name: 'urlParams',
-//         desc: 'URL 上 querystring 解析后的对象',
-//         expression: `qs.parse(window.location.search);`,
-//         type: DataSourceType.UrlParams,
-//       },
-//       pageVariable: [],
-//       apiDataSource: [],
-//       state: {},
-//     };
-//   },
-//   actions: {
-
-//     /**
-//      * 添加页面变量
-//      * @param pageVariable
-//      * @returns
-//      */
-//     addPageVariable(pageVariable: PageVariable) {
-//       if (this.pageVariable.find(item => item.name === pageVariable.name)) {
-//         ElMessage({
-//           showClose: true,
-//           message: `数据源变量名 ${pageVariable.name} 已存在`,
-//           type: 'error',
-//         });
-//         return false;
-//       }
-//       // 脱离表单的内容
-//       pageVariable = cloneDeep(pageVariable);
-//       this.pageVariable.push(pageVariable);
-//       // 初始化表达式值
-//       this.initPageVariableState(pageVariable);
-//       ElMessage({
-//         showClose: true,
-//         message: `数据源 ${pageVariable.name} 添加成功`,
-//         type: 'success',
-//       });
-//     },
-
-//     /**
-//      * 编辑页面变量
-//      * @param pageVariable
-//      */
-//     editPageVariable(pageVariable: PageVariable) {
-//       const preDataSource = this.pageVariable.find(item => item.name === pageVariable.name)!;
-//       merge(preDataSource, pageVariable);
-//       // 初始化表达式值
-//       this.initPageVariableState(pageVariable);
-//       ElMessage({
-//         showClose: true,
-//         message: `数据源 ${pageVariable.name} 更新成功`,
-//         type: 'success',
-//       });
-//     },
-
-//     /**
-//      * 删除页面变量
-//      * @param param0
-//      */
-//     deletePageVariable({ name }: PageVariable) {
-//       ElMessageBox.confirm(
-//         `确定删除数据源 ${name} 吗？`,
-//         `删除数据源 ${name}`,
-//         {
-//           confirmButtonText: '确定',
-//           cancelButtonText: '取消',
-//           type: 'warning',
-//         }
-//       )
-//         .then(() => {
-//           remove(this.pageVariable, item => item.name === name);
-//           delete this.state[name];
-//           ElMessage({
-//             type: 'success',
-//             message: `数据源 ${name} 已被删除`,
-//           })
-//         });
-//     },
-
-//     /**
-//      * 复制数据源
-//      * @param dataSource
-//      */
-//     copyDataSource(dataSource: PageVariable | ApiDataSource) {
-//       dataSource = cloneDeep(dataSource);
-//       dataSource.name = dataSource.name + 'Copy';
-//       if (dataSource.type === DataSourceType.PageVariable) {
-//         this.pageVariable.push(dataSource);
-//       } else if (dataSource.type === DataSourceType.ApiDataSource) {
-//         this.apiDataSource.push(dataSource);
-//       }
-//       ElMessage({
-//         showClose: true,
-//         message: `数据源 ${dataSource.name} 添加成功`,
-//         type: 'success',
-//       });
-//     },
-
-//     initPageVariableState({ expression, name }: PageVariable) {
-//       this.pageVariable
-//       const context = {
-//         state: this.state,
-//         qs,
-//         _,
-//       };
-//       const value = parseExpression(expression, context);
-//       this.state[name] = value;
-
-//     },
-//     init() {
-//       this.initPageVariableState();
-//   },
-// });

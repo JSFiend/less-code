@@ -1,6 +1,5 @@
 import type { PiniaPluginContext } from 'pinia';
 import localforage from 'localforage';
-import { refWithControl } from '@vueuse/core';
 
 export async function piniaSubscribe({ store }: PiniaPluginContext) {
   /**
@@ -9,7 +8,11 @@ export async function piniaSubscribe({ store }: PiniaPluginContext) {
   store.$subscribe((mutation, state) => {
     const rawData: Record<string, any> = {};
     Object.keys(state).forEach((key) => (rawData[key] = toRaw(state[key])));
-    if (mutation.storeId === 'dataSource') {
+    if (
+      ['dataSourceStore'].includes(
+        mutation.storeId
+      )
+    ) {
       delete rawData.state;
     }
     localforage.setItem(mutation.storeId, rawData);

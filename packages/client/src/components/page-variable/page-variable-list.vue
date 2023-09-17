@@ -1,5 +1,13 @@
 <template>
   <!-- 页面变量 -->
+  <div v-if="pageVariableList.length === 0" class="empty-data-container">
+    <el-alert
+      title="没有页面变量可供显示"
+      type="success"
+      center
+      description="请在左上角添加页面变量"
+    />
+  </div>
   <div class="flex flex-wrap">
     <el-card class="mr-4.5 mb-4.5 w-96" v-for="item in pageVariableList" :key="item.name">
       <template #header>
@@ -15,7 +23,7 @@
             />
             <el-button
               size="small"
-              @click="copyDataSource(item)"
+              @click="copyPageVariable(item)"
               type="warning"
               :icon="CopyDocument"
               circle
@@ -54,18 +62,20 @@
 </template>
 
 <script setup lang="ts">
-import { useDataSource } from "@/components/data-source/store";
+import { usePageVariableStore } from '@/components/page-variable/page-variable-store';
+import { useDataSourceStore } from '@/components/data-source/data-source-store';
 import { Edit, CopyDocument, Delete } from "@element-plus/icons-vue";
 import { PageVariable } from "~types/index";
 
 const {
   pageVariableList,
   deletePageVariable,
-  copyDataSource,
-  state,
+  copyPageVariable,
   editPageVariableVisible,
   currentEditPageVariable,
-} = toRefs(useDataSource());
+} = toRefs(usePageVariableStore());
+
+const { state } = toRefs(useDataSourceStore());
 
 
 function openEditDataSource(pageVariable: PageVariable) {
@@ -76,3 +86,4 @@ function openEditDataSource(pageVariable: PageVariable) {
 </script>
 
 <style scoped></style>
+@/components/data-source/data-source-store
