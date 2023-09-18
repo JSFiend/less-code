@@ -15,12 +15,14 @@
       <el-tab-pane label="Api数据源" :name="DataSourceType.ApiDataSource"><api-data-source-list></api-data-source-list></el-tab-pane>
   </el-tabs>
   </el-dialog>
+  <api-data-source-panel></api-data-source-panel>
 </template>
 
 <script setup lang="ts">
 
 const addDataSource = defineAsyncComponent(() => import('@/components/data-source/add-data-source.vue'));
 const defaultDataList = defineAsyncComponent(() => import('@/components/data-source/default-data-list.vue'));
+const apiDataSourcePanel = defineAsyncComponent(() => import('@/components/api-data-source/api-data-source-panel.vue'));
 
 import { useDataSourceStore } from '@/components/data-source/data-source-store';
 import { DataSourceType } from '~types/data-source';

@@ -29,6 +29,13 @@ interface Emits {
 }
 const emits = defineEmits<Emits>();
 
+
+watch(() => props.modelValue, () => {
+  if (editor.setValue) {
+    editor.setValue(props.modelValue);
+  }
+})
+
 onMounted(() => {
   if (editorContainer.value) {
     editor = monaco.editor.create(editorContainer.value, {

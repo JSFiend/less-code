@@ -68,6 +68,7 @@ function confirmDialog () {
 watch(
   () => ({ request: props.request, response: props.response }),
   (newProps) => {
+    console.log('newProps', newProps);
     localData.value.request = newProps.request;
     localData.value.response = newProps.response;
   }

@@ -1,4 +1,4 @@
-import { cloneDeep, remove, has } from 'lodash-es';
+import { cloneDeep, remove, has, merge } from 'lodash-es';
 import { ApiDataSource } from '~types/data-source';
 import { ElMessageBox } from 'element-plus';
 import 'element-plus/theme-chalk/src/message-box.scss';
@@ -8,25 +8,27 @@ import { useDataSourceStore } from '@/components/data-source/data-source-store';
 export const useApiDataSourceStore = defineStore('apiDataSourceStore', () => {
   const dataSourceStore = useDataSourceStore();
 
+  // 是否打开api数据源面板
+  const isOpenApiDataSourcePanel = ref(false);
+
   // api 数据源
   const apiDataSourceList = ref<ApiDataSource[]>([]);
 
   // 所有数据
   const state = dataSourceStore.state;
 
-  // 是否打开编辑编辑页面变量
-  enum ApiDataSourceContentStatus {
-    // 新增
-    ADD,
-    // 编辑
-    EDIT,
-    // 关闭
-    NONE,
-  }
-  const editApiDataSourceVisible = ref(false);
-
   // 当前编辑的页面变量
-  const currentEditApiDataSource = ref({}) as unknown as ApiDataSource;
+  const currentEditApiDataSource = ref<null | ApiDataSource>(null);
+
+  watch(isOpenApiDataSourcePanel, (is) => {
+    if (is) {
+    } else {
+      // 关闭的时候把编辑对象清空
+      currentEditApiDataSource.value = null;
+    }
+  });
+
+  const isEdit = computed(() => !!currentEditApiDataSource.value);
 
   // 初始化api数据源变量的值
   watch(
@@ -117,12 +119,30 @@ export const useApiDataSourceStore = defineStore('apiDataSourceStore', () => {
     });
   }
 
+   /**
+   * 编辑api数据源
+   * @param ApiDataSource
+   */
+   function editApiDataSource(apiDataSource: ApiDataSource) {
+    const preDataSource = apiDataSourceList.value.find(
+      (item) => item.name === apiDataSource.name
+    )!;
+    merge(preDataSource, apiDataSource);
+    ElMessage({
+      showClose: true,
+      message: `数据源 ${apiDataSource.name} 更新成功`,
+      type: 'success',
+    });
+  }
+
   return {
     apiDataSourceList,
-    editApiDataSourceVisible,
     currentEditApiDataSource,
+    isOpenApiDataSourcePanel,
+    isEdit,
     addApiDataSource,
     deleteApiDataSource,
     copyApiDataSource,
+    editApiDataSource,
   };
 });

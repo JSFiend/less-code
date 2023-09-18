@@ -27,7 +27,7 @@
             />
             <el-button
               size="small"
-              @click="copyDataSource(item)"
+              @click="copyApiDataSource(item)"
               type="warning"
               :icon="CopyDocument"
               circle
@@ -72,15 +72,17 @@ import { useDataSourceStore } from '@/components/data-source/data-source-store';
 import { useApiDataSourceStore } from '@/components/api-data-source/api-data-source-store';
 
 import { Edit, CopyDocument, Delete } from "@element-plus/icons-vue";
+import { ApiDataSource } from '~types/index';
 
 
-const { apiDataSourceList, deleteApiDataSource, copyApiDataSource } = toRefs(
+const { apiDataSourceList, deleteApiDataSource, copyApiDataSource, currentEditApiDataSource, isOpenApiDataSourcePanel } = toRefs(
   useApiDataSourceStore()
 );
 const { state } = toRefs(useDataSourceStore());
 
-function openEditDataSource(a: any) {
-  console.log(a);
+function openEditDataSource(item: ApiDataSource) {
+  isOpenApiDataSourcePanel.value = true;
+  currentEditApiDataSource.value = item;
 }
 </script>
 
