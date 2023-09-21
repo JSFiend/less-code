@@ -27,6 +27,8 @@ export interface EnvUrl extends Environment {
   url: string,
 }
 
+
+
 export interface ApiDataSource {
   name: string,
   desc: string,
@@ -38,6 +40,8 @@ export interface ApiDataSource {
   request: string,
   // 响应数据结构 json string
   response: string,
+  // 实际参数
+  ActualRequest: Record<string, any>,
   // 数据源本身的前置插件
   prePlugin: string,
   // 数据源引用的前置插件
@@ -53,4 +57,9 @@ export enum ApiMethod {
   POST = "POST",
   PUT = "PUT",
   DELETE = "DELETE",
+}
+
+export interface ActualRequestItem {
+  key: string;
+  value: any;
 }

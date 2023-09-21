@@ -81,6 +81,7 @@ const { apiDataSourceList, deleteApiDataSource, copyApiDataSource, currentEditAp
 const { state } = toRefs(useDataSourceStore());
 
 function openEditDataSource(item: ApiDataSource) {
+  console.log('item', item);
   isOpenApiDataSourcePanel.value = true;
   currentEditApiDataSource.value = item;
 }

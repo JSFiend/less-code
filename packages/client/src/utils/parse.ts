@@ -13,7 +13,7 @@ type Context = { [key: string]: any };
  */
 export function parseFunStr(
   funStr: string,
-  context: Context
+  context?: Context
 ): (...args: any[]) => any {
   const commonContext = useCommonContext();
   context = { ...commonContext, ...context };
@@ -84,10 +84,23 @@ export function isJsObject(input: string): [boolean, string | null] {
     const obj = func();
 
     if (obj && typeof obj === 'object' && !Array.isArray(obj)) {
-      return [true, JSON.stringify(obj)];
+      return [true, JSON.stringify(obj, null, 2)];
     }
     return [false, null];
   } catch (e) {
     return [false, null];
   }
+}
+
+/**
+ * 检测一个字符串是否表示一个函数定义。
+ * 
+ * @param str 要检查的字符串。
+ * @returns 返回 `true` 如果字符串可能是一个函数定义，否则返回 `false`。
+ * 
+ * 注意：这个函数主要使用正则表达式进行模式匹配，可能不会涵盖所有可能的函数格式或样式。
+ */
+export function isFunctionString(str: string) {
+  const FUNCTION_PATTERN = /^(async\s+)?function[\s*]*\w*\s*\([\w\s,]*\)\s*{[\s\S]*}|^\([\w\s,]*\)\s*=>[\s\S]*|^\w+\s*=>[\s\S]*$/;
+  return FUNCTION_PATTERN.test(str.trim());
 }

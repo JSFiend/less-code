@@ -49,12 +49,27 @@
               </el-input>
             </el-form-item>
             <el-form-item label="请求响应结构" required prop="response">
-              <request-and-response
+              <request-and-response-structure
                 :request="data.request"
                 :response="data.response"
                 @update:request="data.request = $event"
                 @update:response="data.response = $event"
-              ></request-and-response>
+              ></request-and-response-structure>
+            </el-form-item>
+            <el-form-item label="请求响应插件" required prop="postPlugin">
+              <request-and-response-plugin
+                :prePlugin="data.prePlugin"
+                :postPlugin="data.postPlugin"
+                @update:prePlugin="data.prePlugin = $event"
+                @update:postPlugin="data.postPlugin = $event"
+              ></request-and-response-plugin>
+            </el-form-item>
+            <el-form-item label="请求默认参数">
+              <template v-for="(value, key, index) in data.ActualRequest">
+                {{ index }}.{{ key }}
+                <!-- <el-input :value="key" @input="updateValue(key, $event)" /> -->
+                <el-input :model-value="value" @input="updateValue(key, $event)"  />
+              </template>
             </el-form-item>
           </el-form>
         </el-card>
@@ -86,49 +101,26 @@
         </el-card>
         <!-- 调试接口 env -->
       </div>
-      <el-card class="mt-4">
-        <template #header>
-          <div class="flex items-center justify-between text-2xl">
-            <span>接口处理</span>
-          </div>
-        </template>
-        <el-tabs>
-          <el-tabs v-model="activePlugin">
-            <el-tab-pane label="参数修剪" name="prePlugin">
-              <monaco-editor
-                v-model.trim="data.prePlugin"
-                language="javascript"
-              ></monaco-editor>
-            </el-tab-pane>
-            <el-tab-pane label="响应修剪" name="postPlugin">
-              <monaco-editor
-                v-model.trim="data.postPlugin"
-                language="javascript"
-              ></monaco-editor>
-            </el-tab-pane>
-          </el-tabs>
-        </el-tabs>
-      </el-card>
     </template>
     <template #footer>
       <div style="flex: auto">
-        <el-button @click="isOpenApiDataSourcePanel = false"
-          >关闭</el-button
-        >
-        <el-button type="primary" @click="submitForm(formRef)">{{ isEdit? '更新' : '添加' }}</el-button>
+        <el-button @click="isOpenApiDataSourcePanel = false">关闭</el-button>
+        <el-button type="primary" @click="submitForm(formRef)">{{
+          isEdit ? "更新" : "添加"
+        }}</el-button>
       </div>
     </template>
   </el-drawer>
 </template>
 <script setup lang="ts">
 import type { FormInstance, FormRules } from "element-plus";
-import type { ApiDataSource, EnvUrl } from "~types";
+import type { ApiDataSource, EnvUrl, ActualRequestItem } from "~types";
 import { DataSourceType } from "~types";
 import { useApiDataSourceStore } from "@/components/api-data-source/api-data-source-store";
 import { ApiMethod } from "~types/data-source";
 import { useEnvironmentStore } from "@/components/environment/store";
 import { debugRequest } from "@/utils";
-import { cloneDeep } from "lodash-es";
+import { cloneDeep, defaults } from "lodash-es";
 
 const monacoEditor = defineAsyncComponent(
   () => import("@/components/monano-editor/monaco-editor.vue")
@@ -136,13 +128,13 @@ const monacoEditor = defineAsyncComponent(
 
 const apiDataSourceStore = useApiDataSourceStore();
 
-const { isEdit, currentEditApiDataSource, isOpenApiDataSourcePanel } = toRefs(apiDataSourceStore);
+const { isEdit, currentEditApiDataSource, isOpenApiDataSourcePanel } = toRefs(
+  apiDataSourceStore
+);
 
 const formRef = ref<FormInstance>();
 
 const { environment } = storeToRefs(useEnvironmentStore());
-
-const activePlugin = ref("prePlugin");
 
 const debugEnv = ref("dev");
 
@@ -168,6 +160,7 @@ const initData: ApiDataSource = {
   envUrl: environment.value.map((env) => Object.assign({}, env, { url: "" })),
   request: "{}",
   response: "{}",
+  ActualRequest: {},
   prePlugin,
   prePlugins: [],
   postPlugin,
@@ -176,23 +169,55 @@ const initData: ApiDataSource = {
 
 const data = ref<ApiDataSource>(cloneDeep(initData));
 
-watch(isOpenApiDataSourcePanel, (isOpenApiDataSourcePanel) =>{
+watch(isOpenApiDataSourcePanel, (isOpenApiDataSourcePanel) => {
   if (isOpenApiDataSourcePanel === false) {
     data.value = cloneDeep(initData);
   }
-})
+});
+
+// 请求体改变，更新实参，并以实参的值为准
+watch(
+  () => data.value.request,
+  (request) => {
+    request = JSON.parse(request);
+    // 一旦设置了相同属性的值，后续的将被忽略掉。
+    defaults(data.value.ActualRequest, request);
+  }
+);
+
+const ActualRequestList = ref<ActualRequestItem[]>([]);
+watch(
+  () => data.value.ActualRequest,
+  (ActualRequest) => {
+    ActualRequestList.value = Object.keys(ActualRequest).map((key) => ({
+      key,
+      value: data.value.ActualRequest[key],
+    }));
+  }
+);
 
 // 编辑状态，把编辑数据覆盖添加数据
-watch(isEdit, (isEdit) => {
-  if (isEdit) {
-    data.value = cloneDeep(currentEditApiDataSource.value!);
-  } else {
-    data.value = cloneDeep(initData);
+watch(
+  isEdit,
+  (isEdit) => {
+    console.log("isEdit", isEdit);
+    if (isEdit) {
+      data.value = cloneDeep(currentEditApiDataSource.value!);
+    } else {
+      data.value = cloneDeep(initData);
+    }
+  },
+  {
+    immediate: true,
   }
-})
+);
 
 function updateEnvUrlConfig(envUrl: EnvUrl[]) {
   data.value.envUrl = envUrl;
+}
+
+function updateValue(key: string, value: any) {
+  data.value.ActualRequest[key] = value;
 }
 
 const rules = reactive<FormRules<any>>({
@@ -246,8 +271,11 @@ async function submitForm(
             apiDataSourceStore.editApiDataSource(data.value);
           } else {
             // 新增
-            apiDataSourceStore.addApiDataSource(data.value);
+            const isAddSuccess = apiDataSourceStore.addApiDataSource(data.value);
+            if (!isAddSuccess) return false;
+
           }
+          isOpenApiDataSourcePanel.value = false;
         }
         return resolve(data);
       }
