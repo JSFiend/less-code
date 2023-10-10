@@ -57,6 +57,7 @@ declare module 'vue' {
     MonacoEditor: typeof import('./src/components/monano-editor/monaco-editor.vue')['default']
     MultipleEnvUrlConfig: typeof import('./src/components/api-data-source/multiple-env-url-config.vue')['default']
     PageVariableList: typeof import('./src/components/page-variable/page-variable-list.vue')['default']
+    ParseParamTable: typeof import('./src/components/api-data-source/parse-param-table.vue')['default']
     ProjectName: typeof import('./src/components/header/project-name.vue')['default']
     RequestAndResponse: typeof import('./src/components/api-data-source/request-and-response-plugin.vue')['default']
     RequestAndResponsePlugin: typeof import('./src/components/api-data-source/request-and-response-plugin.vue')['default']

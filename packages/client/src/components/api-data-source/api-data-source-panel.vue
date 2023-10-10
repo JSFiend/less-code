@@ -65,11 +65,7 @@
               ></request-and-response-plugin>
             </el-form-item>
             <el-form-item label="请求默认参数">
-              <template v-for="(value, key, index) in data.ActualRequest">
-                {{ index }}.{{ key }}
-                <!-- <el-input :value="key" @input="updateValue(key, $event)" /> -->
-                <el-input :model-value="value" @input="updateValue(key, $event)"  />
-              </template>
+              <parse-param-table :json-data="data.ActualRequest"></parse-param-table>
             </el-form-item>
           </el-form>
         </el-card>
@@ -120,7 +116,7 @@ import { useApiDataSourceStore } from "@/components/api-data-source/api-data-sou
 import { ApiMethod } from "~types/data-source";
 import { useEnvironmentStore } from "@/components/environment/store";
 import { debugRequest } from "@/utils";
-import { cloneDeep, defaults } from "lodash-es";
+import { cloneDeep, mergeWith, has } from "lodash-es";
 
 const monacoEditor = defineAsyncComponent(
   () => import("@/components/monano-editor/monaco-editor.vue")
@@ -180,19 +176,19 @@ watch(
   () => data.value.request,
   (request) => {
     request = JSON.parse(request);
-    // 一旦设置了相同属性的值，后续的将被忽略掉。
-    defaults(data.value.ActualRequest, request);
-  }
-);
-
-const ActualRequestList = ref<ActualRequestItem[]>([]);
-watch(
-  () => data.value.ActualRequest,
-  (ActualRequest) => {
-    ActualRequestList.value = Object.keys(ActualRequest).map((key) => ({
-      key,
-      value: data.value.ActualRequest[key],
-    }));
+    mergeWith(
+      data.value.ActualRequest,
+      request,
+      (objValue, srcValue, key, object, source) => {
+        console.log('objValue, srcValue, key, object, source', objValue, srcValue, key, object, source);
+        // 如果目标对象有某属性，但源对象没有，删除该属性
+        if (!has(source, key)) {
+          delete object[key];
+        }
+        // 返回 objValue 以保持目标对象的值不变
+        return objValue;
+      }
+    );
   }
 );
 
@@ -273,7 +269,6 @@ async function submitForm(
             // 新增
             const isAddSuccess = apiDataSourceStore.addApiDataSource(data.value);
             if (!isAddSuccess) return false;
-
           }
           isOpenApiDataSourcePanel.value = false;
         }
