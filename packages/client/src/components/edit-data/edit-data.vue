@@ -8,125 +8,111 @@
 
 <script setup lang="ts">
 import VueForm from '@lljj/vue3-form-element';
+import { useDark, useToggle } from "@vueuse/core";
+
+const isDark = useDark();
 
 
 const formData = reactive<any>({});
-const schema = reactive({
+const schemaJson = {
+    "title": "Widgets",
     "type": "object",
-    "required": [
-        "age"
-    ],
     "properties": {
-        "age": {
-            "title": "测试基础类型 anyOf",
-            "anyOf": [
-                {
-                    "title": "测试基础类型 anyOf 5的倍数",
-                    "type": "integer",
-                    "multipleOf": 5
-                },
-                {
-                    "title": "测试基础类型 anyOf 3的倍数",
-                    "type": "integer",
-                    "multipleOf": 3
-                }
+        "stringFormats": {
+            "type": "object",
+            "title": "String formats",
+            "required": [
+                "email",
+                "uri"
             ],
-            "anyOfSelect": {
-                "ui:widget": "RadioWidget",
-                "ui:title": "选择选项",
-                "ui:options": {}
+            "properties": {
+                "email": {
+                    "title": "Email",
+                    "type": "string",
+                    "format": "email"
+                },
+                "uri": {
+                    "title": "Uri",
+                    "type": "string",
+                    "format": "uri"
+                }
             }
         },
-        "test": {
-            "title": "测试 const anyOf",
+        "boolean": {
+            "type": "object",
+            "title": "Boolean field",
+            "properties": {
+                "default": {
+                    "type": "boolean",
+                    "title": "checkbox (default)",
+                    "description": "This is the checkbox-description"
+                },
+                "radio": {
+                    "type": "boolean",
+                    "title": "radio buttons",
+                    "description": "This is the radio-description"
+                },
+                "select": {
+                    "type": "boolean",
+                    "title": "select box",
+                    "description": "This is the select-description"
+                }
+            }
+        },
+        "string": {
+            "type": "object",
+            "title": "String field",
+            "properties": {
+                "default": {
+                    "type": "string",
+                    "title": "text input (default)"
+                },
+                "textarea": {
+                    "type": "string",
+                    "title": "textarea"
+                },
+                "color": {
+                    "type": "string",
+                    "title": "color picker",
+                    "format": "color",
+                    "default": "#151ce6"
+                }
+            }
+        },
+        "secret": {
             "type": "string",
-            "anyOf": [
-                {
-                    "title": "schema option1",
-                    "const": "111"
-                },
-                {
-                    "ui:title": "ui-option2",
-                    "const": "222"
-                }
+            "default": "I'm a hidden string."
+        },
+        "disabled": {
+            "type": "string",
+            "title": "A disabled field",
+            "default": "I am disabled."
+        },
+        "readonly": {
+            "type": "string",
+            "title": "A readonly field",
+            "default": "I am read-only."
+        },
+        "widgetOptions": {
+            "title": "Custom widget with options",
+            "type": "string",
+            "default": "I am yellow"
+        },
+        "selectWidgetOptions": {
+            "title": "Custom select widget with options",
+            "type": "string",
+            "enum": [
+                "foo",
+                "bar"
+            ],
+            "enumNames": [
+                "Foo",
+                "Bar"
             ]
-        },
-        "items": {
-            "title": "测试OneOf Array Items",
-            "type": "array",
-            "items": {
-                "type": "object",
-                "anyOf": [
-                    {
-                        "properties": {
-                            "foo": {
-                                "type": "string"
-                            }
-                        }
-                    },
-                    {
-                        "properties": {
-                            "bar": {
-                                "type": "string"
-                            }
-                        }
-                    }
-                ]
-            }
         }
-    },
-    "anyOfSelect": {
-        "ui:widget": "RadioWidget",
-        "ui:title": "测试 anyOf object",
-        "ui:options": {
-            "style": {}
-        }
-    },
-    "anyOf": [
-        {
-            "ui:showTitle": true,
-            "title": "First method of identification",
-            "properties": {
-                "type": {
-                    "ui:hidden": true,
-                    "type": "string",
-                    "default": "userName",
-                    "const": "userName"
-                },
-                "firstName": {
-                    "type": "string",
-                    "title": "First name",
-                    "default": "Chuck"
-                },
-                "lastName": {
-                    "type": "string",
-                    "title": "Last name"
-                }
-            }
-        },
-        {
-            "ui:showTitle": true,
-            "title": "Second method of identification",
-            "properties": {
-                "type": {
-                    "ui:hidden": true,
-                    "type": "string",
-                    "default": "id",
-                    "const": "id"
-                },
-                "firstName": {
-                    "type": "string",
-                    "title": "First name"
-                },
-                "idCode": {
-                    "type": "string",
-                    "title": "ID code",
-                    "default": "Default id"
-                }
-            }
-        }
-    ]
-});
+    }
+};
+const schema = ref(schemaJson);
 </script>
 
 <style scoped>

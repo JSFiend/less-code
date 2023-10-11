@@ -47,7 +47,7 @@ function showFooter(show: boolean) {
 </script>
 <style lang="scss">
 .tab-card-header {
-  @apply box-content h-14 px-2 bg-title border-black rounded-t-2xl flex place-items-center;
+  @apply box-content h-14 px-2 bg-title border-black rounded-t-2xl flex place-items-center text-gray-300;
   border-bottom-width: 1.5px;
 }
 .tab-card-footer {

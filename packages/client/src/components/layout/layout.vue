@@ -1,5 +1,5 @@
 <template>
-  <splitpanes class="text-gray-300 h-full w-full -mt-10 pt-10 px-2">
+  <splitpanes class="h-full w-full -mt-10 pt-10 px-2">
     <!-- 左侧面板 -->
     <pane min-size="15">
       <splitpanes horizontal>
@@ -60,7 +60,7 @@
           <tabLink area="editArea" areaComponent="operator">交互</tabLink>
           <tabLink area="editArea" areaComponent="style">样式</tabLink>
         </template>
-        <div class="m2">
+        <div class="p2" :style="{ background: rightPanelBackgroundColor}">
           <router-view :name="($route.params['editArea'] as string)"></router-view>
         </div>
         <template v-slot:footer> </template>
@@ -73,7 +73,12 @@
 <script setup lang="ts">
 import { Pane, Splitpanes } from "splitpanes";
 import "splitpanes/dist/splitpanes.css";
-import { watch, ref } from "vue";       
+import { watch, ref } from "vue";
+import { useDark } from "@vueuse/core";
+const isDark = useDark();
+
+// 编辑区域底色
+const rightPanelBackgroundColor = computed(() => isDark.value ? 'transparent' : 'white');
 
 const topLeftTakeUp = ref(false);
 const bottomLeftTakeUp = ref(false);

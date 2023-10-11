@@ -141,6 +141,10 @@ api数据源支持添加、复制、删除
 1、添加了 vite-plugin-mock 来模拟本地开发数据
 2、添加了 接口调试面板
 
+## 2023年10月11日23:48:24
+1、 引入了 Vjsf (Vue JSON Schema Form) 作为组件属性编辑
+
+
 
 ## todos
 
