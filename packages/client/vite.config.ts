@@ -6,6 +6,8 @@ import Components from 'unplugin-vue-components/vite';
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers';
 import Unocss from 'unocss/vite';
 import monacoEditorPlugin from 'vite-plugin-monaco-editor';
+import { viteMockServe } from 'vite-plugin-mock';
+
 import {
   presetAttributify,
   presetIcons,
@@ -19,6 +21,7 @@ import {
 export default defineConfig({
   plugins: [
     vue(),
+    viteMockServe({ watchFiles: true }),
     monacoEditorPlugin.default({}),
     AutoImport({ 
       imports: [

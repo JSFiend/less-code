@@ -13,6 +13,6 @@ interface DebugRequest {
 }
 
 export function debugRequest(option: DebugRequest) {
-
+  return axios(option);
 }
 
