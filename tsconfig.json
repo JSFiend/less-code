@@ -108,7 +108,7 @@
     "paths": {
       "@/*": ["./packages/client/src/*"],
       "~types/*": ["./packages/types/*"],
-      "~types": ["./packages/types"]
+      "~types": ["./packages/types"],
     }
   },
   "include": [

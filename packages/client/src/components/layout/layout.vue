@@ -1,15 +1,18 @@
 <template>
   <splitpanes class="h-full w-full -mt-10 pt-10 px-2">
     <!-- 左侧面板 -->
-    <pane min-size="15">
+    <pane min-size="25">
       <splitpanes horizontal>
-        <pane min-size="20" size="50" :style="topLeftStyle">
+        <pane min-size="25" size="50" :style="topLeftStyle">
           <tabCard v-model="topLeftTakeUp">
             <template v-slot:header>
-              <tabLink area="materialArea" areaComponent="components">组件</tabLink>
+              <tabLink area="materialArea" areaComponent="ComponentLibrary">组件</tabLink>
               <tabLink area="materialArea" areaComponent="components2">组件2</tabLink>
             </template>
-            <router-view :name="($route.params['materialArea'] as string)"></router-view>
+            <router-view
+              :style="{ background: rightPanelBackgroundColor }"
+              :name="($route.params['materialArea'] as string)"
+            ></router-view>
             <template v-slot:footer>
               <tabLink
                 area="materialArea"
@@ -28,7 +31,10 @@
                 >组件结构</tabLink
               >
             </template>
-            <router-view :name="($route.params['nodeTreeArea'] as string)"></router-view>
+            <router-view
+              :style="{ background: rightPanelBackgroundColor }"
+              :name="($route.params['nodeTreeArea'] as string)"
+            ></router-view>
             <template v-slot:footer> </template>
           </tabCard>
         </pane>
@@ -43,7 +49,11 @@
             <template v-slot:header>
               <tabLink area="simulatorArea" areaComponent="simulator">模拟器</tabLink>
             </template>
-            <router-view :name="($route.params['simulatorArea'] as string)"></router-view>
+            <router-view
+              :style="{ background: rightPanelBackgroundColor }"
+              :name="($route.params['simulatorArea'] as string)"
+            ></router-view>
+
             <template v-slot:footer>
               <!-- <tagPageVue></tagPageVue> -->
             </template>
@@ -60,9 +70,10 @@
           <tabLink area="editArea" areaComponent="operator">交互</tabLink>
           <tabLink area="editArea" areaComponent="style">样式</tabLink>
         </template>
-        <div class="p2" :style="{ background: rightPanelBackgroundColor}">
-          <router-view :name="($route.params['editArea'] as string)"></router-view>
-        </div>
+        <router-view
+          :style="{ background: rightPanelBackgroundColor }"
+          :name="($route.params['editArea'] as string)"
+        ></router-view>
         <template v-slot:footer> </template>
       </tabCard>
     </pane>
@@ -78,7 +89,9 @@ import { useDark } from "@vueuse/core";
 const isDark = useDark();
 
 // 编辑区域底色
-const rightPanelBackgroundColor = computed(() => isDark.value ? 'transparent' : 'white');
+const rightPanelBackgroundColor = computed(() =>
+  isDark.value ? "transparent" : "white"
+);
 
 const topLeftTakeUp = ref(false);
 const bottomLeftTakeUp = ref(false);
