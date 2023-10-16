@@ -1,19 +1,40 @@
 import { getDefaultFormState } from '@lljj/vue3-form-element';
-import { commonData } from '@/library/common/config';
+import { hiddenProperty } from '../../common/config';
+import icon from './button.png';
+
+const metaData = {
+  // 组件名称
+  name: '按钮',
+  // 组件名
+  componentName: 'op-button',
+  // 是否容器组件
+  isContainer: false,
+  // 类型
+  category: '',
+  // 图标
+  icon,
+}
 
 const dataSchema = {
   title: 'A list of tasks',
   type: 'object',
   required: ['title'],
   properties: {
-    ...commonData,
+    /**
+     * 是否隐藏
+     */
+    hiddenProperty,
+    /**
+     * 按钮文本
+     */
     text: {
       type: 'string',
       title: '文本',
-      default: '按钮'
+      default: '提交'
     },
   },
 };
+
 
 const data = getDefaultFormState(dataSchema, {}, dataSchema);
 
@@ -25,4 +46,4 @@ const eventSchema = {};
 
 const event = getDefaultFormState(eventSchema, {}, eventSchema);
 
-export { data, style, event, dataSchema, styleSchema, eventSchema };
+export { metaData, data, style, event, dataSchema, styleSchema, eventSchema };

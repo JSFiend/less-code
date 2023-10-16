@@ -59,6 +59,7 @@ export default defineConfig({
 		alias: {
 			'@': resolve(__dirname, 'src'),
       '~types': resolve(__dirname, '../types'),
+      'op-kit': resolve(__dirname, '../op-kit/src')
 		},
 	},
   css: {

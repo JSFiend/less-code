@@ -113,12 +113,6 @@ importers:
         specifier: ^1.8.19
         version: 1.8.19(typescript@5.2.2)
 
-  packages/library:
-    dependencies:
-      '@lljj/vue-json-schema-form':
-        specifier: ^1.19.0
-        version: 1.19.0
-
 packages:
 
   /@alloc/quick-lru@5.2.0:
@@ -485,19 +479,6 @@ packages:
     resolution: {integrity: sha512-dnW7bmwJdPLFjV3W54TA/9DTcB5WT5ElntNJZfaYbRldZywztmBpBO+JEZ8uTyKSchke1eBXDyP8kC/9wbvjwg==}
     dependencies:
       ajv: 6.12.6
-    dev: false
-
-  /@lljj/vue-json-schema-form@1.19.0:
-    resolution: {integrity: sha512-jNhA0BNJerKC/eUUgZ0pS6hPODDFavfObKztU5IBDG2Nsi+ghEiKs6g6YmbOB5UGgatxhAGeIDqgVj/oaP/5DQ==}
-    dependencies:
-      '@lljj/vjsf-utils': 1.19.0
-      '@lljj/vue2-form-core': 1.19.0
-    dev: false
-
-  /@lljj/vue2-form-core@1.19.0:
-    resolution: {integrity: sha512-LhmoJWOEilNg2K6fJMnrJ8waRXD3UVSp3KEeyi47dfDAzRCkEI/Qm/F+XILkqiJz5TPp2RDfThWktXPChtWzaQ==}
-    dependencies:
-      '@lljj/vjsf-utils': 1.19.0
     dev: false
 
   /@lljj/vue3-form-core@1.19.0:

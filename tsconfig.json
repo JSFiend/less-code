@@ -109,6 +109,8 @@
       "@/*": ["./packages/client/src/*"],
       "~types/*": ["./packages/types/*"],
       "~types": ["./packages/types"],
+      "op-kit/*": ["./packages/op-kit/src/*"],
+      "op-kit": ["./packages/op-kit/src"],
     }
   },
   "include": [

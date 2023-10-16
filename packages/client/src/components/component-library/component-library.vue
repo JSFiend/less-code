@@ -12,6 +12,23 @@
     </el-aside>
     <el-main>
       <el-scrollbar>
+        <!-- 基础组件 -->
+        <div>
+          <h3>基础组件</h3>
+          <div class="component-list">
+            <div
+              class="component-item"
+              v-for="{ metaData } in baseComponents"
+              :key="metaData.name"
+            >
+              <el-icon :size="20" v-if="metaData.icon">
+                <img :src="metaData.icon" />
+              </el-icon>
+              <p>{{ metaData.name }}</p>
+            </div>
+          </div>
+        </div>
+        <!-- 基本组件 end -->
         <div
           v-for="(components, category) in mockComponents"
           :key="category"
@@ -37,9 +54,13 @@
 </template>
 
 <script lang="ts" setup>
-import { componentConfigs, libraryComponents} from '@/library/';
+import { componentConfigs, opComponents } from "op-kit";
 
-console.log('libraryComponents', componentConfigs, libraryComponents);
+console.log("libraryComponents", componentConfigs, opComponents);
+
+const baseComponents = computed(() =>
+  componentConfigs?.filter((config) => !config?.metaData?.isContainer)
+);
 
 interface ComponentMetadata {
   type: string; // 组件类型
@@ -107,3 +128,4 @@ el-aside {
   top: 0;
 }
 </style>
+@/op-kit
