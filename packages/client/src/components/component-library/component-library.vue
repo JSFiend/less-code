@@ -16,16 +16,25 @@
         <div>
           <h3>基础组件</h3>
           <div class="component-list">
-            <div
-              class="component-item"
-              v-for="{ metaData } in baseComponents"
-              :key="metaData.name"
+            <componentInfo :components-info="baseComponents" v-if="baseComponents.length" />
+            <!-- <draggable
+              item-key="componentInfo"
+              v-model="baseComponents"
+              class="flex flex-wrap"
+              :group="{ name: 'component', pull: 'clone', put: false }"
+              :sort="false"
+              :clone="cloneComponent"
             >
-              <el-icon :size="20" v-if="metaData.icon">
-                <img :src="metaData.icon" />
-              </el-icon>
-              <p>{{ metaData.name }}</p>
-            </div>
+              <div
+                class="component-item"
+                :key="metaData.name"
+              >
+                <el-icon :size="20" v-if="metaData.icon">
+                  <img :src="metaData.icon" />
+                </el-icon>
+                <p>{{ metaData.name }}</p>
+              </div>
+            </draggable> -->
           </div>
         </div>
         <!-- 基本组件 end -->
@@ -55,12 +64,17 @@
 
 <script lang="ts" setup>
 import { componentConfigs, opComponents } from "op-kit";
+import draggable from 'vuedraggable';
 
 console.log("libraryComponents", componentConfigs, opComponents);
 
 const baseComponents = computed(() =>
   componentConfigs?.filter((config) => !config?.metaData?.isContainer)
 );
+
+function cloneComponent(...arg: any[]) {
+  console.log(...arg)
+}
 
 interface ComponentMetadata {
   type: string; // 组件类型
@@ -98,25 +112,7 @@ const handleCategorySelect = (category: string) => {
   height: 100%;
 }
 
-.component-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
-}
 
-.component-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  width: 80px;
-  height: 80px;
-  border: 1px solid #eee;
-  padding: 10px;
-  margin: 10px;
-  justify-content: center;
-  text-align: center;
-}
 
 el-main {
   overflow-y: auto;

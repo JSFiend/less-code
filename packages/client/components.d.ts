@@ -13,6 +13,7 @@ declare module 'vue' {
     ApiDataSourceContent: typeof import('./src/components/api-data-source/api-data-source-panel.vue')['default']
     ApiDataSourceList: typeof import('./src/components/api-data-source/api-data-source-list.vue')['default']
     ApiDataSourcePanel: typeof import('./src/components/api-data-source/api-data-source-panel.vue')['default']
+    ComponentInfo: typeof import('./src/components/component-library/componentInfo.vue')['default']
     ComponentLibrary: typeof import('./src/components/component-library/component-library.vue')['default']
     copy: typeof import('./src/components/api-data-source/request-and-response-structure.vue')['default']
     DataSource: typeof import('./src/components/data-source/data-source.vue')['default']
@@ -71,6 +72,7 @@ declare module 'vue' {
     RequestAndResponseStructure: typeof import('./src/components/api-data-source/request-and-response-structure.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Simulator: typeof import('./src/components/simulator/simulator.vue')['default']
     TabCard: typeof import('./src/ui-lib/tab-card/tab-card.vue')['default']
     TabLink: typeof import('./src/ui-lib/tab-card/tab-link.vue')['default']
   }

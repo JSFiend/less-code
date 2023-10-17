@@ -1,9 +1,9 @@
 // 属性：是否隐藏
 export const hiddenProperty = {
   hidden: {
-    type: 'boolean',
+    type: 'string',
     title: '隐藏组件',
-    default: false,
+    default: '',
   },
 };
 

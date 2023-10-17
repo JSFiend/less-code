@@ -6,7 +6,7 @@
         <pane min-size="25" size="50" :style="topLeftStyle">
           <tabCard v-model="topLeftTakeUp">
             <template v-slot:header>
-              <tabLink area="materialArea" areaComponent="ComponentLibrary">组件</tabLink>
+              <tabLink area="materialArea" areaComponent="componentLibrary">组件</tabLink>
               <tabLink area="materialArea" areaComponent="components2">组件2</tabLink>
             </template>
             <router-view
@@ -66,7 +66,7 @@
     <pane min-size="15" :style="bottomRightStyle">
       <tabCard>
         <template v-slot:header>
-          <tabLink area="editArea" areaComponent="EditData">数据</tabLink>
+          <tabLink area="editArea" areaComponent="editData">数据</tabLink>
           <tabLink area="editArea" areaComponent="operator">交互</tabLink>
           <tabLink area="editArea" areaComponent="style">样式</tabLink>
         </template>

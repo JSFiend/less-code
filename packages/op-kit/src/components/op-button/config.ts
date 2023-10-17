@@ -18,12 +18,15 @@ const metaData = {
 const dataSchema = {
   title: 'A list of tasks',
   type: 'object',
-  required: ['title'],
   properties: {
     /**
      * 是否隐藏
      */
-    hiddenProperty,
+    hidden: {
+      type: 'string',
+      title: '隐藏组件',
+      default: '',
+    },
     /**
      * 按钮文本
      */

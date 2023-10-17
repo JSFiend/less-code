@@ -5,8 +5,9 @@ import layout from '@/components/layout/layout.vue';
 // const simulator = () => import('@/components/simulator/simulator.vue');
 // const componentStructure = () => import('@/components/component-structure/component-structure.vue');
 // const page = () => import('@/components/page/page.vue');
-const EditData = () => import('@/components/edit-data/edit-data.vue');
-const ComponentLibrary = () => import('@/components/component-library/component-library.vue');
+const editData = () => import('@/components/edit-data/edit-data.vue');
+const componentLibrary = () => import('@/components/component-library/component-library.vue');
+const simulator = () => import('@/components/simulator/simulator.vue');
 
 export const routes = [
 	{
@@ -19,7 +20,7 @@ export const routes = [
 		children: [
 			{
 				path: '',
-				redirect: '/componentLibrary/simulator/page/data',
+				redirect: '/componentLibrary/simulator/page/editData',
 			},
 			{
 				path: '/:materialArea/:simulatorArea/:nodeTreeArea/:editArea',
@@ -27,17 +28,17 @@ export const routes = [
 				// 给各区域组件渲染内容组件 routerContent
 				components: {
 					// materialArea
-					ComponentLibrary,
+					componentLibrary,
 					// components: test,
 					// components2: test,
 					// components3: test,
 					// // simulatorArea
-					// simulator,
+					simulator,
 					// // nodeTreeArea
 					// componentStructure,
 					// page,
 					// // editArea
-					EditData,
+					editData,
 					// operator: test,
 					// style: test,
 				},
