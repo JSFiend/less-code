@@ -40,6 +40,7 @@ const props = defineProps({
 
 function cloneComponent(component: any) {
   console.log(component);
+  component = cloneDeep(component);
   componentInstanceStore.selectedInstance = component;
   return component;
   // 查找被放置的组件配置

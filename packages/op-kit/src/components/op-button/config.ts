@@ -13,31 +13,50 @@ const metaData = {
   category: '',
   // 图标
   icon,
-}
+};
 
 const dataSchema = {
   title: 'A list of tasks',
   type: 'object',
   properties: {
     /**
-     * 是否隐藏
+     * 是否显示
      */
-    hidden: {
+    display: {
       type: 'string',
-      title: '隐藏组件',
-      default: '',
+      title: '显示组件',
+      default: 'true',
     },
     /**
      * 按钮文本
      */
-    text: {
+    opText: {
       type: 'string',
       title: '文本',
-      default: '提交'
+      default: '提交',
+    },
+
+    type: {
+      type: 'string',
+      title: '按钮类型',
+      default: 'primary',
+      enum: [
+        'primary',
+        'success',
+        'warning',
+        'danger',
+        'info',
+      ],
+      enumNames: [
+        'primary',
+        'success',
+        'warning',
+        'danger',
+        'info',
+      ],
     },
   },
 };
-
 
 const data = getDefaultFormState(dataSchema, {}, dataSchema);
 

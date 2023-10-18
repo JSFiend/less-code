@@ -4,6 +4,7 @@ import App from './App.vue';
 import { piniaSubscribe } from './plugins/pinia-subscribe';
 import { piniaGlobalStore } from './plugins/pinia-global-store';
 import elementPlusPlugin from '@/plugins/element-plus';
+import opKitPlugin from '@/plugins/op-kit';
 import ElementPlus from 'element-plus';
 
 import 'element-plus/dist/index.css';
@@ -16,6 +17,6 @@ const pinia = createPinia();
 pinia.use(piniaSubscribe).use(piniaGlobalStore);
 
 app.use(ElementPlus);
-app.use(pinia).use(router).use(elementPlusPlugin);
+app.use(pinia).use(router).use(elementPlusPlugin).use(opKitPlugin);
 
 app.mount('#app');
