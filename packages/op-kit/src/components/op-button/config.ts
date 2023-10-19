@@ -1,5 +1,5 @@
 import { getDefaultFormState } from '@lljj/vue3-form-element';
-import { hiddenProperty } from '../../common/config';
+import { hiddenProperty, uniqueId } from '../../common/config';
 import icon from './button.png';
 
 const metaData = {
@@ -16,9 +16,10 @@ const metaData = {
 };
 
 const dataSchema = {
-  title: 'A list of tasks',
   type: 'object',
   properties: {
+    // 唯一属性
+    uniqueId,
     /**
      * 是否显示
      */
@@ -41,6 +42,7 @@ const dataSchema = {
       title: '按钮类型',
       default: 'primary',
       enum: [
+        '',
         'primary',
         'success',
         'warning',
@@ -48,6 +50,7 @@ const dataSchema = {
         'info',
       ],
       enumNames: [
+        'default',
         'primary',
         'success',
         'warning',

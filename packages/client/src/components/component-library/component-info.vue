@@ -25,6 +25,8 @@ import draggable from "vuedraggable";
 // import { simulatorInstance } from '../Simulator/simulatorInstance';
 import { cloneDeep } from "lodash";
 import { useComponentInstanceStore } from "@/store/component-instance-store";
+import { transformStringWithRandomChars } from '@/utils';
+
 
 const componentInstanceStore = useComponentInstanceStore();
 
@@ -41,6 +43,8 @@ const props = defineProps({
 function cloneComponent(component: any) {
   console.log(component);
   component = cloneDeep(component);
+  // 唯一id
+  component.data.uniqueId = transformStringWithRandomChars(component.metaData.componentName);
   componentInstanceStore.selectedInstance = component;
   return component;
   // 查找被放置的组件配置

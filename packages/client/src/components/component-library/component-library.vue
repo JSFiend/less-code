@@ -16,7 +16,7 @@
         <div>
           <h3>基础组件</h3>
           <div class="component-list">
-            <componentInfo :components-info="baseComponents" v-if="baseComponents.length" />
+            <component-info :components-info="baseComponents" v-if="baseComponents.length" />
             <!-- <draggable
               item-key="componentInfo"
               v-model="baseComponents"

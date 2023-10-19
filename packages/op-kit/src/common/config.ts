@@ -7,6 +7,12 @@ export const hiddenProperty = {
   },
 };
 
+export const uniqueId = {
+  type: 'string',
+  title: '唯一标识(uniqueId)',
+  default: '',
+}
+
 export enum Category {
   Container = 'Contarner',
 }
