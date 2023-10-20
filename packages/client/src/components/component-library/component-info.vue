@@ -1,11 +1,10 @@
 <template>
   <draggable
     v-model="props.componentsInfo"
-    item-key="componentsInfo"
     class="flex flex-wrap"
     :group="{ name: 'component', pull: 'clone', put: false }"
-    :sort="false"
     :clone="cloneComponent"
+    :sort="false"
   >
     <template #item="{ element: { metaData } }">
       <div class="component-item" :key="metaData.name">
@@ -24,11 +23,11 @@ import draggable from "vuedraggable";
 // import { ComponentConfig, ComponentType } from 'types';
 // import { simulatorInstance } from '../Simulator/simulatorInstance';
 import { cloneDeep } from "lodash";
-import { useComponentInstanceStore } from "@/store/component-instance-store";
-import { transformStringWithRandomChars } from '@/utils';
+// import { useComponentInstanceStore } from "@/store/component-instance-store";
+// import { transformStringWithRandomChars } from '@/utils';
 
 
-const componentInstanceStore = useComponentInstanceStore();
+// const componentInstanceStore = useComponentInstanceStore();
 
 const props = defineProps({
   componentsInfo: {
@@ -43,10 +42,11 @@ const props = defineProps({
 function cloneComponent(component: any) {
   console.log(component);
   component = cloneDeep(component);
-  // 唯一id
-  component.data.uniqueId = transformStringWithRandomChars(component.metaData.componentName);
-  componentInstanceStore.selectedInstance = component;
   return component;
+  // 唯一id
+  // component.data.uniqueId = transformStringWithRandomChars(component.metaData.componentName);
+  // componentInstanceStore.selectedInstance = component;
+  // return component;
   // 查找被放置的组件配置
   // const componentConfig = findComponentConfigByComponentName(componentName)!;
   // // 模拟器注册新增的组件
@@ -61,13 +61,13 @@ function cloneComponent(component: any) {
 }
 
 // 模拟器注册新增的组件
-function registerComponent(componentConfig: any) {
+// function registerComponent(componentConfig: any) {
   // const { component, info: { componentName } } = componentConfig;
   // if (!simulatorInstance.component(componentName)) {
   //   // toRaw 去掉 component 的响应性
   //   simulatorInstance.component(componentName, toRaw(component));
   // }
-}
+// }
 </script>
 <style scoped>
 .component-list {

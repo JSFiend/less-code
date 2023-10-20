@@ -1,5 +1,9 @@
 <template>
-  <el-button v-if="display" :type="props.type">{{ props.opText }}</el-button>
+  <div>
+    pre
+    <slot><div class="text-center text-gray-500 h-10 border-dashed border-primary border leading-10">请放置组件</div></slot>
+    next
+  </div>
 </template>
 
 
