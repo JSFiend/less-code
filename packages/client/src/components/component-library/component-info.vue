@@ -1,6 +1,7 @@
 <template>
   <draggable
     v-model="props.componentsInfo"
+    itemKey="component"
     class="flex flex-wrap"
     :group="{ name: 'component', pull: 'clone', put: false }"
     :clone="cloneComponent"
@@ -22,7 +23,7 @@ import draggable from "vuedraggable";
 // import { findComponentConfigByComponentName, getKey } from 'src/components/Component/composable';
 // import { ComponentConfig, ComponentType } from 'types';
 // import { simulatorInstance } from '../Simulator/simulatorInstance';
-import { cloneDeep } from "lodash";
+import { cloneDeep } from "lodash-es";
 // import { useComponentInstanceStore } from "@/store/component-instance-store";
 // import { transformStringWithRandomChars } from '@/utils';
 

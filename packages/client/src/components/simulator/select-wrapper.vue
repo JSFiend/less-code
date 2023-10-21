@@ -1,7 +1,7 @@
 <template>
   <template v-if="selectedInstance">
     <div class="relative select-wrapper" :style="wrapperStyle">
-      <div class="select-wrapper-title"> aa</div>
+      <div class="select-wrapper-title">aa</div>
     </div>
   </template>
 </template>
@@ -50,6 +50,5 @@ const wrapperStyle = computed(() => {
   @apply absolute;
   height: 1.5rem;
   top: -1.5rem;
-
 }
 </style>

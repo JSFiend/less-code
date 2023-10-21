@@ -1,7 +1,7 @@
 <template>
   <div class="simulator relative" id="simulator" @mousemove="handleHover">
     <render-component :instanceList="instanceList"></render-component>
-    <select-wrapper />
+    <!-- <select-wrapper /> -->
   </div>
 </template>
 
@@ -15,5 +15,6 @@ const { instanceList } = toRefs(componentInstanceStore);
 <style scoped>
 .simulator {
   padding: 20px;
+  @apply min-h-full;
 }
 </style>

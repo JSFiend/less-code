@@ -5,9 +5,9 @@
 
 <script lang="ts">
 import { data, metaData, dataSchema } from './config';
-import { convertSchemaToProps, parseExpression } from 'op-kit/utils/index';
+import { toDefinePropsFormat, parseExpression } from 'op-kit/utils/index';
 const name = metaData.componentName;
-const propsDefine = convertSchemaToProps(dataSchema);
+const propsDefine = toDefinePropsFormat(data);
 export default {  name }
 </script>
 <script setup lang="ts">

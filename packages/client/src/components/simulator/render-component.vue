@@ -8,7 +8,7 @@
     @start="dragstart"
     @change="change"
   >
-    <template #item="{ element, element: { data, metaData, style, children } }">
+    <template #item="{ element, element: { data, metaData, style } }">
       <component
         :is="metaData.componentName"
         :id="data.uniqueId"
@@ -16,8 +16,8 @@
         :style="style"
         @click="selectComponent(element, $event)"
       >
-        <template v-if="metaData.isContainer">
-          <render-component :instanceList="children"></render-component>
+        <template v-for="(child, index) in data.children" v-slot:[`slot${index}`]>
+          <render-component :instanceList="child.children"></render-component>
         </template>
       </component>
     </template>
@@ -63,7 +63,6 @@ function selectComponent(componentInstance: any, event: MouseEvent) {
   selectedInstance.value = componentInstance;
   event.stopPropagation();
   return false;
-
 }
 function dragstart(...arg: any) {
   console.log("start", arg);
@@ -76,8 +75,11 @@ function dragend(...arg: any) {
 </script>
 
 <style lang="scss">
+.renderContent {
+  @apply min-h-full;
+}
 .renderContent:empty::after {
-  content: '请放置组件';
+  content: "请放置组件";
 
   @apply w-full border border-primary border-dashed text-gray-500 h-10 block text-center leading-10;
 }

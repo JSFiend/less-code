@@ -71,6 +71,7 @@ declare module 'vue' {
     ProjectName: typeof import('./src/components/header/project-name.vue')['default']
     RenderBaseComponent: typeof import('./src/components/simulator/render-base-component.vue')['default']
     RenderComponent: typeof import('./src/components/simulator/render-component.vue')['default']
+    RenderComponentContainer: typeof import('./src/components/simulator/render-component-container.vue')['default']
     RenderContainerComponent: typeof import('./src/components/simulator/render-container-component.vue')['default']
     RequestAndResponse: typeof import('./src/components/api-data-source/request-and-response-plugin.vue')['default']
     RequestAndResponsePlugin: typeof import('./src/components/api-data-source/request-and-response-plugin.vue')['default']

@@ -1,14 +1,9 @@
 <template>
-  <div>
-    开始
-    <template v-for="(child, index) in children">
-      开始 slot
+  <el-tabs v-model="props.active" @tab-click="handleClick">
+    <el-tab-pane v-for="(tab, index) in props.children" :label="tab.label" :name="index">
       <slot :name="'slot' + index"></slot>
-      结束 slot
-    </template>
-    <slot>默认</slot>
-    结束
-  </div>
+    </el-tab-pane>
+  </el-tabs>
 </template>
 
 <script lang="ts">
@@ -21,9 +16,11 @@ export default { name };
 <script setup lang="ts">
 const props = defineProps(propsDefine);
 
-const { children } = toRefs(props);
+console.log("propsprops", props);
 
 const display = parseExpression(props.display);
+
+function handleClick() {}
 </script>
 
 <style scoped></style>

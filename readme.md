@@ -172,7 +172,27 @@ todo: 外框绑定选中组件，点击支持选中组件
 2、支持点击选中组件
 3、支持选中组件后显示外框
 
-todo: 事件编排
+## 2023年10月22日04:45:21
+重要！！！
+1、终于只用一个组件就可以实现了渲染容器组件和基础组件。
+1.1、对于容器组件来说， 不管是一个插槽还是多个插槽，都添加了一层插槽 child。
+就是渲染的时候：
+ list -> basecomponent
+ list -> containercomponent -> slotChildren(需要给容器组件定义children) -> slotChildren.children 才是拖拽进来的组件
+  容器组件决定了 slotChildren 插槽的显隐。 预览区确定了插槽的拖拽内容
+
+ 1.2、 插槽的命名使用 slot[slotChildren.index] 来区分，
+
+ 2、在template 中， v-if 和 v-slot 有冲突。去掉了 isCantainer 的判断
+
+ 3、 组件defineProps 属性的定义，从 dataSchema 转为 data 定义， 因为data 可能多一点数据
+
+ todo： 编辑区域的 VueForm， 组件的 schema 会 删除 data 多余的数据， 要做兼容，不删除和 schema key 不一致的数据 
+
+
+
+
+
 
 ## todos
 
