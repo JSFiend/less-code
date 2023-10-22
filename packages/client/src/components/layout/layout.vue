@@ -67,8 +67,8 @@
       <tabCard>
         <template v-slot:header>
           <tabLink area="editArea" areaComponent="editData">数据</tabLink>
-          <tabLink area="editArea" areaComponent="operator">交互</tabLink>
-          <tabLink area="editArea" areaComponent="style">样式</tabLink>
+          <tabLink area="editArea" areaComponent="editStyle">样式</tabLink>
+          <tabLink area="editArea" areaComponent="editEvent">事件</tabLink>
         </template>
         <router-view
           :style="{ background: rightPanelBackgroundColor }"

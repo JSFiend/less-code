@@ -1,6 +1,6 @@
 <template>
   <div class="p2" v-if="selectedInstance">
-    <VueForm :modelValue="value" @update:modelValue="updateValue" :schema="selectedInstance.dataSchema" :formFooter="formFooter"> </VueForm>
+    <VueForm :modelValue="value" @update:modelValue="updateValue" :schema="selectedInstance.styleSchema" :formFooter="formFooter"> </VueForm>
   </div>
 </template>
 
@@ -16,7 +16,8 @@ const { selectedInstance } = toRefs(componentInstanceStore);
 const value = ref<Record<string, any> | null>({});
 
 
-watchEffect(() => value.value = selectedInstance?.value?.data || {});
+watchEffect(() => value.value = selectedInstance?.value?.style || {});
+
 /**
  * 
  * @param value 
@@ -25,7 +26,7 @@ watchEffect(() => value.value = selectedInstance?.value?.data || {});
  */
 function updateValue(value: Record<string, any>) {
   console.log('value',selectedInstance.value,  value);
-  merge(selectedInstance.value.data, value);
+  merge(selectedInstance.value.style, value);
 }
 
 const formFooter = {

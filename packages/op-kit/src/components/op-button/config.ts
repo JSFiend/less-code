@@ -63,12 +63,48 @@ const dataSchema = {
 
 const data = getDefaultFormState(dataSchema, {}, dataSchema);
 
-const styleSchema = {};
+const styleSchema = {
+  type: 'object',
+  properties: {
+    margin: {
+      type: 'string',
+      title: '外边距',
+      default: '0px',
+    },
+    padding: {
+      type: 'string',
+      title: '内边距',
+    },
+  },
+};
 
 const style = getDefaultFormState(styleSchema, {}, styleSchema);
 
-const eventSchema = {};
+const event = [
+  {
+    label: '点击',
+    value: 'click',
+    params: [
+      {
+        label: '事件参数',
+        value: 'event',
+      },
+    ],
+  },
+  {
+    label: '初始化完成',
+    value: 'init',
+    params: [
+      {
+        label: '组件实例',
+        value: 'instance',
+      },
+      {
+        label: '组件参数',
+        value: 'props',
+      },
+    ],
+  },
+];
 
-const event = getDefaultFormState(eventSchema, {}, eventSchema);
-
-export { metaData, data, style, event, dataSchema, styleSchema, eventSchema };
+export { metaData, data, style, event, dataSchema, styleSchema };

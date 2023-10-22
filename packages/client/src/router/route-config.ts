@@ -6,6 +6,8 @@ import layout from '@/components/layout/layout.vue';
 // const componentStructure = () => import('@/components/component-structure/component-structure.vue');
 // const page = () => import('@/components/page/page.vue');
 const editData = () => import('@/components/edit-data/edit-data.vue');
+const editStyle = () => import('@/components/edit-style/edit-style.vue');
+const editEvent = () => import('@/components/edit-event/edit-event.vue');
 const componentLibrary = () => import('@/components/component-library/component-library.vue');
 const simulator = () => import('@/components/simulator/simulator.vue');
 
@@ -39,6 +41,8 @@ export const routes = [
 					// page,
 					// // editArea
 					editData,
+					editStyle,
+					editEvent,
 					// operator: test,
 					// style: test,
 				},
