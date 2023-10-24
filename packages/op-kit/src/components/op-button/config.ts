@@ -80,7 +80,8 @@ const styleSchema = {
 
 const style = getDefaultFormState(styleSchema, {}, styleSchema);
 
-const event = [
+
+const eventSchema = [
   {
     label: '点击',
     value: 'click',
@@ -105,6 +106,25 @@ const event = [
       },
     ],
   },
-];
+] as const;
+// as const 锁定下面的 typeof 返回的是 click 和 init
 
-export { metaData, data, style, event, dataSchema, styleSchema };
+type EventKeys = typeof eventSchema[number]['event'];
+
+type EventObject = {
+  [K in EventKeys]?: any;
+};
+
+const event: EventObject = {};
+
+
+
+// 示例：
+// const exampleObject: EventObject = {
+//   click: 'clicked',
+//   init: 'initialized'
+// };
+
+
+
+export { metaData, data, style, event, eventSchema, dataSchema, styleSchema };

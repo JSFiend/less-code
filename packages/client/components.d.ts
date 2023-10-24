@@ -58,6 +58,7 @@ declare module 'vue' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
+    ElTag: typeof import('element-plus/es')['ElTag']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     Environment: typeof import('./src/components/environment/environment.vue')['default']
     EnvironmentList: typeof import('./src/components/environment/environment-list.vue')['default']
