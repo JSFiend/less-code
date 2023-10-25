@@ -1,16 +1,16 @@
 <template>
   <div class="flex justify-center p10">
-    <el-button type="primary" @click="showDialog">事件编排</el-button>
+    <el-button type="primary" @click="eventPanelVisible = true">事件编排</el-button>
   </div>
-  <event-handle-panel v-model="dialogVisible" />
+  <event-panel />
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useEventStore } from '@/components/edit-event/edit-event-store';
 
-const dialogVisible = ref(false);
+const eventStore = useEventStore();
 
-const showDialog = () => {
-  dialogVisible.value = true;
-};
+const { eventPanelVisible } = toRefs(eventStore);
+
 </script>

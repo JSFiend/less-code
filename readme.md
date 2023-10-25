@@ -201,6 +201,18 @@ todo： 事件编排的交互设计以及数据设计
 
 todo： 添加组件交互面板
 
+## 2023年10月26日00:39:38
+
+study： 
+1、[&.active]:bg-teal-100  tailwind 自定义类的修饰符
+2、hover hover:bg-teal-100 hover:dark:bg-teal-700
+
+done： 
+1、组件事件面板支持了点击选中， hover、active显示美化
+2、行为面板 dialog 已做弹出
+
+
+todo： 行为面板添加行为
 
 ## todos
 

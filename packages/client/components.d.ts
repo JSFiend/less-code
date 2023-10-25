@@ -7,6 +7,8 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    ActionHandlePanel: typeof import('./src/components/edit-event/action-handle-panel.vue')['default']
+    ActionPanel: typeof import('./src/components/edit-event/action-panel.vue')['default']
     AddApiDataSource: typeof import('./src/components/api-data-source/add-api-data-source.vue')['default']
     AddDataSource: typeof import('./src/components/data-source/add-data-source.vue')['default']
     AddPageVariable: typeof import('./src/components/page-variable/add-page-variable.vue')['default']
@@ -63,6 +65,7 @@ declare module 'vue' {
     Environment: typeof import('./src/components/environment/environment.vue')['default']
     EnvironmentList: typeof import('./src/components/environment/environment-list.vue')['default']
     EventHandlePanel: typeof import('./src/components/edit-event/event-handle-panel.vue')['default']
+    EventPanel: typeof import('./src/components/edit-event/event-panel.vue')['default']
     Header: typeof import('./src/components/header/header.vue')['default']
     HoverWrapper: typeof import('./src/components/simulator/hover-wrapper.vue')['default']
     Layout: typeof import('./src/components/layout/layout.vue')['default']
