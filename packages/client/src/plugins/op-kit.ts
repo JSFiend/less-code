@@ -7,6 +7,7 @@ export default {
     console.log('opComponents', opComponents);
 		// app.component('SoldOut', SoldOut);
     Object.entries(opComponents).forEach(([key, value]) => {
+      console.log('key, value', key, value);
       app.component(key, value);
     });
 	}

@@ -12,6 +12,7 @@ export default {
 			title: '#28282C',
 			body: '#1A1A1B',
 			footer: '#242427',
+			primary: '#00C1D1'
 		}),
 		textColor: (theme) => ({
 			...theme('colors'),

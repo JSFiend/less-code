@@ -7,7 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    ActionHandlePanel: typeof import('./src/components/edit-event/action-handle-panel.vue')['default']
+    ActionHandlePanel: typeof import('./src/components/edit-event/action-panel.vue')['default']
     ActionPanel: typeof import('./src/components/edit-event/action-panel.vue')['default']
     AddApiDataSource: typeof import('./src/components/api-data-source/add-api-data-source.vue')['default']
     AddDataSource: typeof import('./src/components/data-source/add-data-source.vue')['default']
@@ -25,6 +25,7 @@ declare module 'vue' {
     EditData: typeof import('./src/components/edit-data/edit-data.vue')['default']
     EditEvent: typeof import('./src/components/edit-event/edit-event.vue')['default']
     EditPageVariable: typeof import('./src/components/page-variable/edit-page-variable.vue')['default']
+    EditSchema: typeof import('./src/components/edit-schema/edit-schema.vue')['default']
     EditStyle: typeof import('./src/components/edit-style/edit-style.vue')['default']
     ElAlert: typeof import('element-plus/es')['ElAlert']
     ElAside: typeof import('element-plus/es')['ElAside']
@@ -52,6 +53,7 @@ declare module 'vue' {
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElNumber: typeof import('element-plus/es')['ElNumber']
     ElOption: typeof import('element-plus/es')['ElOption']
+    ElPopover: typeof import('element-plus/es')['ElPopover']
     ElRadio: typeof import('element-plus/es')['ElRadio']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']

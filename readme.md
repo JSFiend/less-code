@@ -214,9 +214,27 @@ done：
 
 todo： 行为面板添加行为
 
+## 2023年10月30日02:25:01
+1、 支持了事件选择行为
+2、行为显示行为参数
+3、参数支持编辑
+4、抽取 vjsf 为 edit-schema 公共组件
+5、事件和行为名称从 value 改为 eventName、actionName
+
+study:
+interface abc {
+  event: Record<string ,any>,
+  [key: string]: any,
+}
+
+todo: 
+1、优化参数内容的显示
+2、编排的调用
+
 ## todos
 
 bug： 拖拽组件到预览区域，组件可能会被重复引用。
+
 
 
 1、补全组件的公共配置， commonconfig

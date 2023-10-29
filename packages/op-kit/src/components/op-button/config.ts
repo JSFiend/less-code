@@ -84,32 +84,32 @@ const style = getDefaultFormState(styleSchema, {}, styleSchema);
 const eventSchema = [
   {
     label: '点击',
-    value: 'click',
+    eventName: 'click',
     params: [
       {
         label: '事件参数',
-        value: 'event',
+        paramName: 'event',
       },
     ],
   },
   {
     label: '初始化完成',
-    value: 'init',
+    eventName: 'init',
     params: [
       {
         label: '组件实例',
-        value: 'instance',
+        paramName: 'instance',
       },
       {
         label: '组件参数',
-        value: 'props',
+        paramName: 'props',
       },
     ],
   },
 ] as const;
 // as const 锁定下面的 typeof 返回的是 click 和 init
 
-type EventKeys = typeof eventSchema[number]['event'];
+type EventKeys = typeof eventSchema[number]['eventName'];
 
 type EventObject = {
   [K in EventKeys]?: any;
