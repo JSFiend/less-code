@@ -1,12 +1,13 @@
 <template>
-  <VueForm
-    :modelValue="props.modelValue"
-    @update:modelValue="updateValue"
-    :schema="props.schema"
-    :formFooter="formFooter"
-    class="p2"
-  >
-  </VueForm>
+  <div class="p2">
+    <VueForm
+      :modelValue="props.modelValue"
+      @update:modelValue="updateValue"
+      :schema="props.schema"
+      :formFooter="formFooter"
+    >
+    </VueForm>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -32,8 +33,8 @@ const emit = defineEmits(["update:modelValue"]);
  * 采取 merge 递归合并
  */
 function updateValue(value: Record<string, any>) {
-  console.log('merge({}, props.modelValue, value)', props.modelValue, value);
-  console.log('merge({}, props.modelValue, value)', merge({}, props.modelValue, value));
+  console.log("merge({}, props.modelValue, value)", props.modelValue, value);
+  console.log("merge({}, props.modelValue, value)", merge({}, props.modelValue, value));
   emit("update:modelValue", merge({}, props.modelValue, value));
 }
 

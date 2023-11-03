@@ -46,9 +46,13 @@
                 :class="{ active: action === activeAction }"
               >
                 <span
-                  class="mr-6 bg-primary rounded-full inline-flex justify-center content-center w-6 h-6"
-                  >{{ index }}</span
-                >{{ action.label }}
+                  class="mr-6 bg-primary rounded-full inline-block center w-6 h-6 text-center	 leading-6"
+                  >{{ index + 1 }}</span>
+                  {{ action.label }}
+                  <span
+                  class="mr-6 bg-red rounded-full inline-block center w-6 h-6 text-center leading-6 float-right"
+                  @click="removeAction(selectedInstance.event[activeEvent.eventName], action)"
+                  >-</span>
               </li>
             </template>
           </ul>
@@ -57,7 +61,7 @@
       <div class="column">
         <div class="header">行为参数</div>
         <div class="content">
-          <edit-schema v-model="activeAction.params" :schema="activeAction.paramsSchema"></edit-schema>
+          <edit-schema v-if="activeAction.actionName" v-model="activeAction.params" :schema="activeAction.paramsSchema"></edit-schema>
         </div>
       </div>
     </div>
@@ -71,6 +75,8 @@ import { useEventStore } from "@/components/edit-event/edit-event-store";
 import { useComponentInstanceStore } from "@/store/component-instance-store";
 
 import type { Action, ComponentEvent } from "op-kit";
+
+import { remove } from 'lodash-es';
 
 const componentInstanceStore = useComponentInstanceStore();
 
@@ -108,6 +114,14 @@ function changeEvent(event: Record<string, any>) {
 // 选中当前行为
 function selectAction(action: Action) {
   activeAction.value = action;
+}
+// 删除行为
+function removeAction(actionList: Action[], action: Action) {
+  console.log('action === activeAction.value', action === activeAction.value, action, activeAction.value)
+  if (action === activeAction.value) {
+    activeAction.value = {}
+  }
+  remove(actionList, action);
 }
 </script>
 <style scoped lang="scss">
