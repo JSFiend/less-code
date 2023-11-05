@@ -56,7 +56,7 @@ export function parseExpression(
     argNames.push(expression);
     const fun = new Function(...argNames);
     const refFun = fun(...argValues, ...arg);
-    console.log('refFun', refFun);
+    // console.log('refFun', refFun);
     return computed({
       get: refFun,
       // computed 默认不可编辑， 使用set 允许设置值

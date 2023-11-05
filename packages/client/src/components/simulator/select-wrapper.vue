@@ -15,6 +15,8 @@ const wrapperStyle = computed(() => {
   const { uniqueId } = selectedInstance.value?.data;
   const targetElement = document.getElementById(uniqueId)!;
 
+  if (!targetElement) return;
+
   // 获取目标元素的位置和大小信息
   const targetRect = targetElement.getBoundingClientRect();
 
