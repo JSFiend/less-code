@@ -1,11 +1,13 @@
 <template>
-  <draggable :list="instanceList" v-bind="dragOption" v-on="dragEvent">
-    <template #item="{ element, element: { data, metaData, style } }">
+  <draggable :list="instanceList" v-bind="dragOption" v-on="dragEvent" >
+    <template #item="{ element, element: { data, metaData, style } }" :key="data.uniqueId">
       <component
         :is="metaData.componentName"
         v-bind="data"
         :style="style"
         @click="selectComponent(element, $event)"
+        :class="{ selected: element === selectedInstance }"
+        :key="data.uniqueId"
       >
         <template v-for="(child, index) in data.children" v-slot:[`slot${index}`]>
           <render-component :instanceList="child.children"></render-component>
@@ -37,7 +39,7 @@ const dragOption = {
   ghostClass: "sortable-ghost",
   chosenClass: "sortable-chosen",
   dragClass: "sortable-drag",
-  delay: 100,
+  // delay: 100,
   forceFallback: false,
 };
 const dragEvent = {
@@ -57,6 +59,8 @@ interface ChangeEvent {
   added?: ChangeEventContent;
   moved?: ChangeEventContent;
 }
+
+// 添加和移动都作为当前选中的组件
 function change(changeEvent: ChangeEvent) {
   console.log("changeEvent", changeEvent);
   if (changeEvent.added) {
@@ -65,8 +69,15 @@ function change(changeEvent: ChangeEvent) {
       component.metaData.componentName
     );
     selectedInstance.value = component;
+  } else if (changeEvent.moved) {
+    const { element: component } = changeEvent.moved;
+    component.data.uniqueId = transformStringWithRandomChars(
+      component.metaData.componentName
+    );
+    selectedInstance.value = component;
   }
 }
+// 点击当前组件作为选中的组件
 function selectComponent(componentInstance: any, event: MouseEvent) {
   console.log("event", event);
   selectedInstance.value = componentInstance;
@@ -91,8 +102,9 @@ function dragmove(event: any) {
   }
 }
 
-function dragend(...arg: any) {
-  console.log("dragend", arg);
+function dragend(event: any) {
+  console.log("dragend", event);
+  console.log("clone", event.clone);
   // 删除所有具有 "hasGhost" 类名的标签的 "hasGhost" 类名
   const existingHasGhostElements = document.querySelectorAll(".hasGhost");
   existingHasGhostElements.forEach((element) => {
@@ -132,13 +144,15 @@ function dragend(...arg: any) {
 }
 
 .sortable-ghost {
-  // background: red !important;
+  // @apply bg-primary border-2 border border-primary;
+  // height: 2px !important;
+  // overflow: hidden;
 }
 .sortable-chosen {
   // background: blue !important;
 }
 .sortable-drag {
-  background: green !important;
+  // background: green !important;
 }
 // ghostClass: "sortable-ghost",  // drop placeholder的css类名
 // chosenClass: "sortable-chosen",  // 被选中项的css 类名

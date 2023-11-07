@@ -1,7 +1,7 @@
 <template>
   <div class="simulator relative" id="simulator" @mousemove="handleHover">
     <render-component :instanceList="instanceList"></render-component>
-    <!-- <select-wrapper /> -->
+    <select-wrapper />
   </div>
 </template>
 
