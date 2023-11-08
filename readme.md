@@ -243,6 +243,18 @@ todo：
 todo：
 ’hover 的样式
 
+## 2023年11月09日01:31:48
+
+feat:
+1、支持 hover 组件。通过伪类 ::before 实现边框， ::after 实现组件名称显示
+
+study： 
+1、//css 样式使 hover 和 click 支持穿透
+pointer-events: none;
+
+todo:
+1、预览
+
 ## todos
 
 bug： 拖拽组件到预览区域，组件可能会被重复引用。

@@ -1,13 +1,19 @@
 <template>
-  <draggable :list="instanceList" v-bind="dragOption" v-on="dragEvent" >
-    <template #item="{ element, element: { data, metaData, style } }" :key="data.uniqueId">
+  <draggable :list="instanceList" v-bind="dragOption" v-on="dragEvent">
+    <template
+      #item="{ element, element: { data, metaData, style } }"
+      :key="data.uniqueId"
+    >
       <component
         :is="metaData.componentName"
         v-bind="data"
         :style="style"
         @click="selectComponent(element, $event)"
+        @mouseover.stop.prevent="mouseover"
+        @mouseout="mouseout"
         :class="{ selected: element === selectedInstance }"
         :key="data.uniqueId"
+        :mataDataName="metaData.name"
       >
         <template v-for="(child, index) in data.children" v-slot:[`slot${index}`]>
           <render-component :instanceList="child.children"></render-component>
@@ -89,6 +95,17 @@ function dragstart(...arg: any) {
   // }
 }
 
+function mouseover(event: MouseEvent) {
+  const existing = document.querySelectorAll("#simulator .hover");
+  existing.forEach((element) => {
+    element.classList.remove("hover");
+  });
+  event.currentTarget?.classList?.add("hover");
+}
+function mouseout(event: MouseEvent) {
+  event.currentTarget?.classList?.remove("hover");
+}
+
 function dragmove(event: any) {
   console.log("dragmove", event);
   // 找到所有类名为 "sortable-ghost" 的元素
@@ -138,8 +155,25 @@ function dragend(event: any) {
 
   &:empty::after {
     content: "请放置组件";
-
     @apply w-full border border-primary border-dashed text-gray-500 h-20 block text-center leading-10;
+  }
+  .hover {
+    @apply relative;
+    &::before {
+      content: "";
+      top: -1px;
+      left: -1px;
+      // hover 和 click 支持穿透
+      pointer-events: none;
+      @apply w-full h-full border border-primary border-dashed block absolute pointer-events-none box-content;
+    }
+    &::after {
+      content: attr(mataDataName);
+      @apply absolute text-white h-6 bg-primary leading-6 px-2 font-normal text-base;
+      height: 1.5rem;
+      top: -1.5rem;
+      right: -1px;
+    }
   }
 }
 
