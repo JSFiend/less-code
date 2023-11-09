@@ -1,5 +1,5 @@
 <template>
-  <el-button size="small" type="primary" @click="dialogVisible = true"> 环境 </el-button>
+  <el-button size="small" type="primary" class="mx-4" @click="dialogVisible = true"> 环境 </el-button>
   <el-dialog
     v-model="dialogVisible"
     title="环境管理"
