@@ -1,9 +1,11 @@
+import { ComponentInstance } from '~types';
+
 export const configModules = import.meta.glob('./components/**/config.ts', {
   eager: true,
 });
 
 // vue devtool 展不开  实例对象，这里转为 Object 对象
-export const componentConfigs = Object.values(configModules).map((module) =>
+export const componentInstances: ComponentInstance[]  = Object.values(configModules).map((module) =>
   JSON.parse(JSON.stringify(module))
 );
 
@@ -21,11 +23,3 @@ Object.values(componentModules).forEach((mod) => {
 
 export * from './action/index';
 
-export interface ComponentInstance {
-  event: ComponentEvent,
-  [key: string]: any,
-}
-
-export interface ComponentEvent {
-  [key: string]: any,
-}

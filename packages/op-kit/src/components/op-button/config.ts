@@ -1,8 +1,9 @@
 import { getDefaultFormState } from '@lljj/vue3-form-element';
 import { hiddenProperty, uniqueId } from '../../common/config';
 import icon from './button.png';
+import { BaseData, Schema, ComponentInstance } from '~types/op-kit/component';
 
-const metaData = {
+const baseData: BaseData = {
   // 组件名称
   name: '按钮',
   // 组件名
@@ -15,7 +16,7 @@ const metaData = {
   icon,
 };
 
-const dataSchema = {
+const dataSchema: Schema = {
   type: 'object',
   properties: {
     // 唯一属性
@@ -63,7 +64,7 @@ const dataSchema = {
 
 const data = getDefaultFormState(dataSchema, {}, dataSchema);
 
-const styleSchema = {
+const styleSchema: Schema = {
   type: 'object',
   properties: {
     margin: {
@@ -127,4 +128,4 @@ const event: EventObject = {};
 
 
 
-export { metaData, data, style, event, eventSchema, dataSchema, styleSchema };
+export { baseData, data, style, event, eventSchema, dataSchema, styleSchema };

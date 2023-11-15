@@ -7,12 +7,12 @@
     :clone="cloneComponent"
     :sort="false"
   >
-    <template #item="{ element: { metaData } }">
-      <div class="component-item" :key="metaData.name">
-        <el-icon :size="20" v-if="metaData.icon">
-          <img :src="metaData.icon" />
+    <template #item="{ element: { baseData } }">
+      <div class="component-item" :key="baseData.name">
+        <el-icon :size="20" v-if="baseData.icon">
+          <img :src="baseData.icon" />
         </el-icon>
-        <p>{{ metaData.name }}</p>
+        <p>{{ baseData.name }}</p>
       </div>
     </template>
   </draggable>
@@ -24,28 +24,18 @@ import draggable from "vuedraggable";
 // import { ComponentConfig, ComponentType } from 'types';
 // import { simulatorInstance } from '../Simulator/simulatorInstance';
 import { cloneDeep } from "lodash-es";
-// import { useComponentInstanceStore } from "@/store/component-instance-store";
-// import { transformStringWithRandomChars } from '@/utils';
+import { ComponentInstance } from "~types/index";
 
-
-// const componentInstanceStore = useComponentInstanceStore();
-
-const props = defineProps({
-  componentsInfo: {
-    type: Array,
-    // 对象或数组默认值必须从一个工厂函数获取
-    default() {
-      return [];
-    },
-  },
-});
+const props = defineProps<{
+  componentsInfo: ComponentInstance[];
+}>();
 
 function cloneComponent(component: any) {
   console.log(component);
   component = cloneDeep(component);
   return component;
   // 唯一id
-  // component.data.uniqueId = transformStringWithRandomChars(component.metaData.componentName);
+  // component.data.uniqueId = transformStringWithRandomChars(component.baseData.componentName);
   // componentInstanceStore.selectedInstance = component;
   // return component;
   // 查找被放置的组件配置
@@ -63,11 +53,11 @@ function cloneComponent(component: any) {
 
 // 模拟器注册新增的组件
 // function registerComponent(componentConfig: any) {
-  // const { component, info: { componentName } } = componentConfig;
-  // if (!simulatorInstance.component(componentName)) {
-  //   // toRaw 去掉 component 的响应性
-  //   simulatorInstance.component(componentName, toRaw(component));
-  // }
+// const { component, info: { componentName } } = componentConfig;
+// if (!simulatorInstance.component(componentName)) {
+//   // toRaw 去掉 component 的响应性
+//   simulatorInstance.component(componentName, toRaw(component));
+// }
 // }
 </script>
 <style scoped>

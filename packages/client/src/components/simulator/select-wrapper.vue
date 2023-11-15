@@ -2,7 +2,7 @@
   <template v-if="selectedInstance">
     <div class="relative select-wrapper" :style="wrapperStyle">
       <div class="select-wrapper-operator">
-        <div class="select-wrapper-title">{{ selectedInstance.metaData.name }}</div>
+        <div class="select-wrapper-title">{{ selectedInstance.baseData.name }}</div>
       </div>
     </div>
   </template>

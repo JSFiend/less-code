@@ -34,16 +34,17 @@
 </template>
 
 <script lang="ts" setup>
-import { componentConfigs, opComponents } from "op-kit";
+import { componentInstances, opComponents } from "op-kit";
+import { ComponentInstance } from '~types';
 
-console.log("libraryComponents", componentConfigs, opComponents);
+console.log("libraryComponents", componentInstances, opComponents);
 
 const baseComponents = computed(() =>
-  componentConfigs?.filter((config) => !config?.metaData?.isContainer)
+  componentInstances?.filter((config) => !config?.baseData?.isContainer)
 );
 
 const containerComponents = computed(() =>
-  componentConfigs?.filter((config) => config?.metaData?.isContainer)
+  componentInstances?.filter((config) => config?.baseData?.isContainer)
 );
 </script>
 

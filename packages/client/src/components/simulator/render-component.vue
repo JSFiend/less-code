@@ -1,11 +1,11 @@
 <template>
   <draggable :list="instanceList" v-bind="dragOption" v-on="dragEvent">
     <template
-      #item="{ element, element: { data, metaData, style } }"
+      #item="{ element, element: { data, baseData, style } }"
       :key="data.uniqueId"
     >
       <component
-        :is="metaData.componentName"
+        :is="baseData.componentName"
         v-bind="data"
         :style="style"
         @click="selectComponent(element, $event)"
@@ -13,7 +13,7 @@
         @mouseout="mouseout"
         :class="{ selected: element === selectedInstance }"
         :key="data.uniqueId"
-        :mataDataName="metaData.name"
+        :mataDataName="baseData.name"
       >
         <template v-for="(child, index) in data.children" v-slot:[`slot${index}`]>
           <render-component :instanceList="child.children"></render-component>
@@ -72,13 +72,13 @@ function change(changeEvent: ChangeEvent) {
   if (changeEvent.added) {
     const { element: component } = changeEvent.added;
     component.data.uniqueId = transformStringWithRandomChars(
-      component.metaData.componentName
+      component.baseData.componentName
     );
     selectedInstance.value = component;
   } else if (changeEvent.moved) {
     const { element: component } = changeEvent.moved;
     component.data.uniqueId = transformStringWithRandomChars(
-      component.metaData.componentName
+      component.baseData.componentName
     );
     selectedInstance.value = component;
   }

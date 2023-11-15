@@ -262,6 +262,13 @@ feat：
 todo：
 1、事件运行
 
+## 2023年11月15日21:47:17
+feat:
+1、完成组件的ts定义 ComponentInstance
+
+todo：
+1、事件运行
+
 ## todos
 
 bug： 拖拽组件到预览区域，组件可能会被重复引用。

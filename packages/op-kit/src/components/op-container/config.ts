@@ -2,7 +2,7 @@ import { getDefaultFormState } from '@lljj/vue3-form-element';
 import { hiddenProperty, uniqueId } from '../../common/config';
 import icon from './button.png';
 
-const metaData = {
+const baseData = {
   // 组件名称
   name: '框容器',
   // 组件名
@@ -81,4 +81,4 @@ const event = [
   },
 ];
 
-export { metaData, data, style, event, dataSchema, styleSchema };
+export { baseData, data, style, event, dataSchema, styleSchema };

@@ -2,7 +2,7 @@ import { getDefaultFormState } from '@lljj/vue3-form-element';
 import { hiddenProperty, uniqueId } from '../../common/config';
 import icon from './button.png';
 
-const metaData = {
+const baseData = {
   // 组件名称
   name: '选项卡',
   // 组件名
@@ -93,7 +93,7 @@ const event = getDefaultFormState(eventSchema, {}, eventSchema);
 
 
 export {
-  metaData,
+  baseData,
   data,
   style,
   event,

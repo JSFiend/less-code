@@ -119,6 +119,10 @@
      "packages/client/src/**/*.tsx", 
      "packages/client/src/**/*.vue", 
      "packages/client/auto-imports.d.ts", 
-     "packages/client/components.d.ts"
+     "packages/client/components.d.ts",
+     "packages/op-kit/src/**/*.ts",
+     "packages/op-kit/src/**/*.d.ts", 
+     "packages/op-kit/src/**/*.tsx", 
+     "packages/op-kit/src/**/*.vue", 
   ]
 }

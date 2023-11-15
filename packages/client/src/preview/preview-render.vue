@@ -1,11 +1,11 @@
 <template>
   <component
-    v-for="{ data, metaData, style } in instanceList"
-    :is="metaData.componentName"
+    v-for="{ data, baseData, style } in instanceList"
+    :is="baseData.componentName"
     v-bind="data"
     :style="style"
     :key="data.uniqueId"
-    :mataDataName="metaData.name"
+    :mataDataName="baseData.name"
   >
     <template v-for="(child, index) in data.children" v-slot:[`slot${index}`]>
       <preview-render :instanceList="child.children"></preview-render>
