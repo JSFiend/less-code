@@ -34,7 +34,7 @@ const dataSchema = {
 const data = getDefaultFormState(dataSchema, {}, dataSchema);
 
 // 框容器只有一个插槽,并且插槽无属性
-data.children = [{ children: [] }];
+data.slotChildren = [{ children: [] }];
 
 const styleSchema = {
   type: 'object',
@@ -54,17 +54,7 @@ const styleSchema = {
 
 const style = getDefaultFormState(styleSchema, {}, styleSchema);
 
-const event = [
-  {
-    label: '点击',
-    eventName: 'click',
-    params: [
-      {
-        label: '事件参数',
-        paramName: 'event',
-      },
-    ],
-  },
+const eventSchema = [
   {
     label: '初始化完成',
     eventName: 'init',
@@ -81,4 +71,4 @@ const event = [
   },
 ];
 
-export { baseData, data, style, event, dataSchema, styleSchema };
+export { baseData, data, style, eventSchema, dataSchema, styleSchema };

@@ -265,6 +265,7 @@ todo：
 ## 2023年11月15日21:47:17
 feat:
 1、完成组件的ts定义 ComponentInstance
+2、插槽子组件从 children 改为 slotChildren
 
 todo：
 1、事件运行

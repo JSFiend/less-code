@@ -1,4 +1,4 @@
-import { ComponentInstance } from "op-kit/index";
+import { ComponentInstance } from "~types";
 
 /**
  * 组件实例数据与操作

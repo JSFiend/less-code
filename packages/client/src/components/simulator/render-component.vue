@@ -15,7 +15,7 @@
         :key="data.uniqueId"
         :mataDataName="baseData.name"
       >
-        <template v-for="(child, index) in data.children" v-slot:[`slot${index}`]>
+        <template v-for="(child, index) in data.slotChildren" v-slot:[`slot${index}`]>
           <render-component :instanceList="child.children"></render-component>
         </template>
       </component>
@@ -27,16 +27,14 @@
 import draggable from "vuedraggable";
 import { transformStringWithRandomChars } from "@/utils";
 import { useComponentInstanceStore } from "@/store/component-instance-store";
+import { ComponentInstance } from "~types";
 const componentInstanceStore = useComponentInstanceStore();
 
 const { selectedInstance } = toRefs(componentInstanceStore);
 
-const props = defineProps({
-  instanceList: {
-    type: Array,
-    default: () => [],
-  },
-});
+const props = defineProps<{
+  instanceList: ComponentInstance[];
+}>();
 
 const dragOption = {
   "item-key": "uniqueId",

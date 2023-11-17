@@ -29,10 +29,18 @@ export interface Schema {
 export interface ComponentConfig {
 
 }
+
+// 插槽子组件
+export interface SlotChildren {
+  children: ComponentInstance[]
+}
 export interface ComponentInstance {
   baseData: BaseData,
-  data: object,
-  style: object,
+  data: {
+    uniqueId: string,
+    slotChildren?: SlotChildren[],
+  },
+  style: Record<string, any>,
   dataSchema: Schema, 
   styleSchema: Schema,
   eventSchema: Schema, 

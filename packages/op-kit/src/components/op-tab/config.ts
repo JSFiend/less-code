@@ -33,7 +33,7 @@ const dataSchema = {
       title: '当前激活的选项',
       default: 0,
     },
-    children: {
+    slotChildren: {
       type: 'array',
       title: '选项',
       'ui:options': {
