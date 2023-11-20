@@ -74,7 +74,9 @@ import { useEventStore } from "@/components/edit-event/edit-event-store";
 
 import { useComponentInstanceStore } from "@/store/component-instance-store";
 
-import type { Action, ComponentEvent } from "op-kit";
+import type { Action } from "op-kit";
+
+import type { ComponentEvent, ComponentInstance } from '~types'
 
 import { remove } from 'lodash-es';
 
@@ -95,7 +97,7 @@ const activeAction = ref<Action>({});
 watchEffect(() => {
   // 刚打开选择第一个事件为选中
   if (eventPanelVisible.value) {
-    activeEvent.value = selectedInstance.value?.eventSchema[0];
+    activeEvent.value = selectedInstance.value.eventSchema[0];
   }
 });
 

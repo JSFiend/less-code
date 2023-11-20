@@ -46,7 +46,9 @@ export interface ComponentInstance {
   eventSchema: Schema, 
   event: ComponentEvent,
 }
+  
+export type ComponentEvent = Record<string, any>
 
-export interface ComponentEvent {
-  [key: string]: any,
-}
+  // export interface ComponentEvent {
+  //   [key: string]: any
+  // }

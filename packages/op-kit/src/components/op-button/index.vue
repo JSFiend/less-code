@@ -1,5 +1,5 @@
 <template>
-  <el-button v-if="display" :type="props.type">{{ props.opText }}</el-button>
+  <el-button v-if="display" :type="props.type" @click="click">{{ props.opText }}</el-button>
 </template>
 
 
@@ -15,6 +15,14 @@ export default {  name }
 const props = defineProps(propsDefine);
 
 const display = parseExpression(props.display);
+
+import { emitEvent } from 'op-kit/action/event-handle';
+
+function click() {
+  emitEvent(props.uniqueId, 'click', {
+    data: props,
+  });
+}
 
 </script>
 

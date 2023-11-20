@@ -83,7 +83,6 @@ function change(changeEvent: ChangeEvent) {
 }
 // 点击当前组件作为选中的组件
 function selectComponent(componentInstance: any, event: MouseEvent) {
-  console.log("event", event);
   selectedInstance.value = componentInstance;
   event.stopPropagation();
   return false;

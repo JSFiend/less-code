@@ -2,6 +2,8 @@ import { uiAction } from './ui-action';
 
 import { getDefaultFormState } from '@lljj/vue3-form-element';
 
+export * from './event-handle';
+
 export interface Action {
   [key: string]: any;
 }

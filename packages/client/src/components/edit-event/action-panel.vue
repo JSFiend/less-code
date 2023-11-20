@@ -81,7 +81,8 @@ function addAction(action: any) {
   } else {
     selectedInstance.value.event[props.eventName] = [action];
   }
-  actionPanelVisible.value = false;
+  // 不关闭添加时间弹窗
+  // actionPanelVisible.value = false;
 }
 
 // ui 行为

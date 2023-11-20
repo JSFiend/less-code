@@ -39,8 +39,9 @@ export const uiAction = [
     params: {
       grouping: true,
     },
-    action(params: any) {
+    action(params: any, context: any, next: Function) {
       ElMessage(params);
+      next();
     },
   },
 ];
