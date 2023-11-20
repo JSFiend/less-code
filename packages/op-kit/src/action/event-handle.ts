@@ -1,8 +1,10 @@
 import { ComponentInstance } from '~types/index';
+import { objTemplateParser } from 'op-kit/utils';
+import { cloneDeep } from 'lodash-es';
 
 const eventCenter = ref<Record<string, any>>({});
 
-import { opAction } from './index'
+import { opAction } from './index';
 
 export function useEventCenter(instanceList: Ref<ComponentInstance[]>): {
   eventCenter: Ref<Record<string, any>>;
@@ -66,11 +68,13 @@ export function emitEvent(
 
   function next() {
     if (index < runStack.length) {
-      const { actionName, params } = runStack[index];
+      let { actionName, params } = runStack[index];
       if (actionName) {
         index++;
         const action = opAction.find((item) => item.actionName === actionName);
-        action?.action(params, eventContent, next)
+        params = objTemplateParser(cloneDeep(params), eventContent);
+        console.log('params', params);
+        action?.action(params, eventContent, next);
       }
     }
   }

@@ -1,9 +1,6 @@
-
-
 import { useCommonContext } from '@/context';
 
 type Context = { [key: string]: any };
-
 
 /**
  * 解析函数字符串
@@ -65,7 +62,9 @@ export function parseExpression(
   } catch (error) {
     console.log('error', error);
     return {
-      get() { return null },
+      get() {
+        return null;
+      },
       // computed 默认不可编辑， 使用set 允许设置值
       set() {},
     };
@@ -73,9 +72,37 @@ export function parseExpression(
 }
 
 /**
- * 
+ * 解析参数对象属性值，支持变量模版
+ * @param obj
+ * @param context
+ * @returns
+ */
+export function objTemplateParser(
+  obj: Record<string, any> | string,
+  context: Context = {}
+) {
+  const commonContext = useCommonContext();
+  context = { ...commonContext, ...context };
+  console.log('obj22', JSON.stringify(obj));
+  if (typeof obj === 'object') {
+    for (let key in obj) {
+      obj[key] = objTemplateParser(obj[key], context); // 递归处理嵌套的对象
+    }
+  } else if (typeof obj === 'string' && obj.includes('${')) {
+    console.log('obj', obj);
+    const template = obj.replace(/\${(.*?)}/g, (match, exp) => {
+      console.log('parseExpression(exp, context).value;', parseExpression(exp, context).value);
+      return parseExpression(exp, context).value;
+    });
+    return template;
+  }
+  return obj;
+}
+
+/**
+ *
  * @param input 解析 js 字符串，返回 json 字符串
- * @returns 
+ * @returns
  */
 export function isJsObject(input: string): [boolean, string | null] {
   try {
@@ -94,13 +121,14 @@ export function isJsObject(input: string): [boolean, string | null] {
 
 /**
  * 检测一个字符串是否表示一个函数定义。
- * 
+ *
  * @param str 要检查的字符串。
  * @returns 返回 `true` 如果字符串可能是一个函数定义，否则返回 `false`。
- * 
+ *
  * 注意：这个函数主要使用正则表达式进行模式匹配，可能不会涵盖所有可能的函数格式或样式。
  */
 export function isFunctionString(str: string) {
-  const FUNCTION_PATTERN = /^(async\s+)?function[\s*]*\w*\s*\([\w\s,]*\)\s*{[\s\S]*}|^\([\w\s,]*\)\s*=>[\s\S]*|^\w+\s*=>[\s\S]*$/;
+  const FUNCTION_PATTERN =
+    /^(async\s+)?function[\s*]*\w*\s*\([\w\s,]*\)\s*{[\s\S]*}|^\([\w\s,]*\)\s*=>[\s\S]*|^\w+\s*=>[\s\S]*$/;
   return FUNCTION_PATTERN.test(str.trim());
 }
