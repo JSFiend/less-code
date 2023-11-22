@@ -19,9 +19,9 @@ const display = parseExpression(props.display);
 import { emitEvent } from 'op-kit/action/event-handle';
 
 function click() {
-  emitEvent(props.uniqueId, 'click', {
-    data: props,
-  });
+  // emitEvent(props.uniqueId, 'click', {
+  //   data: props,
+  // });
 }
 
 onMounted(() => {

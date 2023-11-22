@@ -1,3 +1,5 @@
+import { parseExpression } from 'op-kit/utils';
+
 // logic 行为
 export const logicAction = [
   {
@@ -10,19 +12,21 @@ export const logicAction = [
     paramsSchema: {
       type: 'object',
       properties: {
-        message: {
+        conditional: {
           type: 'string',
           title: '表达式',
-          default: '1 + 1 = 2',
+          default: '1 + 1 === 2',
         },
       },
     },
-    params: {
-      
-    },
+    params: {},
     children: [],
     action(params: any, context: any, next: Function) {
-      ElMessage(params);
+      const { runStack, index, action } = context;
+      // 如果表达式是 true，则把该分支加入到 runStack 中，然后正常走事件编排的逻辑 next()
+      if (parseExpression(params.conditional).value && action.children.length) {
+        runStack.splice(index, 0, ...action.children);
+      }
       next();
     },
   },

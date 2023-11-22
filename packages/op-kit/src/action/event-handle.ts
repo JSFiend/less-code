@@ -57,25 +57,39 @@ export function emitEvent(
 
   console.log('stack', stack);
 
+  let runStack = [...stack];
+
+
   const eventContent = {
     uniqueId,
     event,
     params,
+    runStack,
+    index: 0,
+    action: {},
   };
-  const runStack = [...stack];
-
-  let index = 0;
 
   function next() {
-    if (index < runStack.length) {
-      let { actionName, params } = runStack[index];
-      if (actionName) {
-        index++;
-        const action = opAction.find((item) => item.actionName === actionName);
-        params = objTemplateParser(cloneDeep(params), eventContent);
-        console.log('params', params);
-        action?.action(params, eventContent, next);
+    if (eventContent.index < runStack.length) {
+      const action = runStack[eventContent.index];
+
+      if (!action) {
+        console.warn('事件编排结束，上下文为：', eventContent);
+        return false;
       }
+
+      // next 会触发下一个action
+      eventContent.index++;
+      // 上下文当前执行的 action
+      eventContent.action = action;
+
+      let { actionName, params } = action;
+      // 拿到参数
+      params = objTemplateParser(cloneDeep(params), eventContent);
+      // 拿到原来的action 的action 办法
+      const originAction = opAction.find((item) => item.actionName === actionName);
+      console.log('params', params);
+      originAction?.action(params, eventContent, next);
     }
   }
   next();
