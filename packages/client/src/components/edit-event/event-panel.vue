@@ -49,6 +49,7 @@
       </div>
     </div>
   </el-dialog>
+  <action-panel></action-panel>
 </template>
 
 <script setup lang="ts">

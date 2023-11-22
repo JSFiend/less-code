@@ -61,13 +61,10 @@ import { ElMessage } from "element-plus";
 import { cloneDeep } from "lodash-es";
 import type { Action } from "~types";
 import { opAction } from "op-kit";
-const props = defineProps<{
-  actionList: Action[];
-}>();
 
 const eventStore = useEventStore();
 
-const { actionPanelVisible } = toRefs(eventStore);
+const { actionPanelVisible, currentActionList } = toRefs(eventStore);
 
 /**
  * 添加一个行为
@@ -76,7 +73,7 @@ function addAction(action: any) {
   action = cloneDeep(action);
   // 去掉行为的函数。 保留他的 param、paramchema 等数据
   delete action.action;
-  props.actionList.push(action);
+  currentActionList.value.push(action);
   // 不关闭添加行为弹窗
   // actionPanelVisible.value = false;
 }

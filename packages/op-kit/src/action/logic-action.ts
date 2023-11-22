@@ -12,31 +12,15 @@ export const logicAction = [
       properties: {
         message: {
           type: 'string',
-          title: '文案',
-          default: '请填写文案',
-          'ui:options': {
-            placeholder: '请输入你的签名',
-            type: 'textarea',
-            rows: 6,
-          },
-        },
-        type: {
-          type: 'string',
-          title: '类型',
-          defalut: 'success',
-          enum: ['success', 'warning', 'info', 'error'],
-          enumNames: ['成功', '警告', '普通', '错误'],
-        },
-        showClose: {
-          type: 'boolean',
-          title: '是否显示关闭按钮',
-          default: true,
+          title: '表达式',
+          default: '1 + 1 = 2',
         },
       },
     },
     params: {
-      grouping: true,
+      
     },
+    children: [],
     action(params: any, context: any, next: Function) {
       ElMessage(params);
       next();
