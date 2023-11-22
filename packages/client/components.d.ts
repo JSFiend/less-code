@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     ActionHandlePanel: typeof import('./src/components/edit-event/action-panel.vue')['default']
+    ActionList: typeof import('./src/components/edit-event/action-list.vue')['default']
     ActionPanel: typeof import('./src/components/edit-event/action-panel.vue')['default']
     AddApiDataSource: typeof import('./src/components/api-data-source/add-api-data-source.vue')['default']
     AddDataSource: typeof import('./src/components/data-source/add-data-source.vue')['default']

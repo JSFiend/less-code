@@ -23,7 +23,20 @@
       <div class="column">
         <div class="header">逻辑行为</div>
         <ul class="content">
-          <li></li>
+          <template v-for="action in logicAction">
+            <el-popover
+              v-if="action.title"
+              trigger="hover"
+              placement="top"
+              :content="action.title"
+            >
+              <template #reference>
+                <li else @click="addAction(action)">
+                  {{ action.label }}
+                </li>
+              </template>
+            </el-popover>
+          </template>
         </ul>
       </div>
       <div class="column">
@@ -44,25 +57,13 @@
 
 <script setup lang="ts">
 import { useEventStore } from "@/components/edit-event/edit-event-store";
-
-import { useComponentInstanceStore } from "@/store/component-instance-store";
 import { ElMessage } from "element-plus";
 import { cloneDeep } from "lodash-es";
-import { opAction, Action, ComponentInstance } from "op-kit";
-
-const props = defineProps({
-  eventName: {
-    type: String,
-    default: "",
-  },
-});
-
-const componentInstanceStore = useComponentInstanceStore();
-
-// 这里的页面一定会有 selectedInstance
-const { selectedInstance } = toRefs(componentInstanceStore) as {
-  selectedInstance: Ref<ComponentInstance>;
-};
+import type { Action } from "~types";
+import { opAction } from "op-kit";
+const props = defineProps<{
+  actionList: Action[];
+}>();
 
 const eventStore = useEventStore();
 
@@ -75,18 +76,16 @@ function addAction(action: any) {
   action = cloneDeep(action);
   // 去掉行为的函数。 保留他的 param、paramchema 等数据
   delete action.action;
-  console.log("action", action);
-  if (Array.isArray(selectedInstance.value.event[props.eventName])) {
-    selectedInstance.value.event[props.eventName].push(action);
-  } else {
-    selectedInstance.value.event[props.eventName] = [action];
-  }
-  // 不关闭添加时间弹窗
+  props.actionList.push(action);
+  // 不关闭添加行为弹窗
   // actionPanelVisible.value = false;
 }
 
 // ui 行为
 const uiAction = computed(() => opAction.filter((action) => action.type === "UI"));
+
+// logic 行为
+const logicAction = computed(() => opAction.filter((action) => action.type === "logic"));
 </script>
 <style scoped lang="scss">
 .container {

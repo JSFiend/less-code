@@ -24,6 +24,13 @@ function click() {
   });
 }
 
+onMounted(() => {
+  console.log('onMounted');
+  emitEvent(props.uniqueId, 'init', {
+    data: props,
+  });
+})
+
 </script>
 
 <style scoped>

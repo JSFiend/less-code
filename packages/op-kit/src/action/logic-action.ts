@@ -1,13 +1,12 @@
-
-// ui 行为
-export const uiAction = [
+// logic 行为
+export const logicAction = [
   {
-    label: '弹出消息窗口',
+    label: '条件分支',
     // value 所有的 action 唯一
-    actionName: 'message',
-    type: 'UI',
+    actionName: 'conditionalBranch',
+    type: 'logic',
     // hover 显示的提示
-    title: '居中显示一条消息提醒',
+    title: '若表达式存在错误，该分支将不会执行',
     paramsSchema: {
       type: 'object',
       properties: {

@@ -6,7 +6,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useEventStore } from '@/components/edit-event/edit-event-store';
 
 const eventStore = useEventStore();

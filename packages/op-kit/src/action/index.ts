@@ -1,14 +1,12 @@
 import { uiAction } from './ui-action';
 
+import { logicAction } from './logic-action';
+
 import { getDefaultFormState } from '@lljj/vue3-form-element';
 
 export * from './event-handle';
 
-export interface Action {
-  [key: string]: any;
-}
-
-export const opAction = [...uiAction];
+export const opAction = [...uiAction, ...logicAction];
 
 // 初始化默认值
 opAction.forEach((action) => {
