@@ -43,10 +43,10 @@ export interface ComponentInstance {
   style: Record<string, any>,
   dataSchema: Schema, 
   styleSchema: Schema,
-  eventSchema: Schema, 
+  eventSchema: Schema[], 
   event: ComponentEvent,
 }
-  
+
 export type ComponentEvent = Record<string, any>
 
   // export interface ComponentEvent {

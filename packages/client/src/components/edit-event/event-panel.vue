@@ -72,14 +72,14 @@ const activeEvent = ref<ComponentEvent>({});
 
 watchEffect(() => {
   // 刚打开选择第一个事件为选中
-  if (eventPanelVisible.value) {
+  if (eventPanelVisible.value && selectedInstance.value?.eventSchema?.length) {
     activeEvent.value = selectedInstance.value.eventSchema[0];
   }
 });
 
 watchEffect(() => {
   // 当前选中的事件变化的时候，选中第一个行为
-  if (selectedInstance.value) {
+  if (selectedInstance.value && activeEvent.value?.eventName) {
     if (selectedInstance.value.event[activeEvent.value?.eventName]?.length) {
       activeAction.value = selectedInstance.value.event[activeEvent.value?.eventName][0];
     } else {

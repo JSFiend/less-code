@@ -12,9 +12,15 @@ const componentInstanceStore = useComponentInstanceStore();
 const { instanceList } = toRefs(componentInstanceStore);
 </script>
 
-<style scoped>
-.simulator {
-  padding: 20px;
-  @apply min-h-full;
-}
+<style lang="scss">
+  .simulator {
+    padding: 20px;
+    @apply min-h-full h-full;
+    > .renderContent {
+      @apply min-h-full h-full;
+      &:empty::after {
+        @apply min-h-full h-full;
+      }
+    }
+  }
 </style>
