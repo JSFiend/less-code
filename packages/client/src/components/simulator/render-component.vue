@@ -97,7 +97,10 @@ function mouseover(event: MouseEvent) {
   existing.forEach((element) => {
     element.classList.remove("hover");
   });
-  event.currentTarget?.classList?.add("hover");
+  if (!event.currentTarget?.classList?.contains("selected")) {
+    // 不存在 select 类
+    event.currentTarget?.classList?.add("hover");
+  }
 }
 function mouseout(event: MouseEvent) {
   event.currentTarget?.classList?.remove("hover");
