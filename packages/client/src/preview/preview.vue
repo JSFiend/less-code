@@ -1,8 +1,6 @@
 <template>
   <div class="preview relative" id="preview">
     <preview-render :instanceList="instanceList"></preview-render>
-    {{ eventCenter }}
-    lenL {{ len }}
   </div>
 </template>
 
@@ -17,7 +15,7 @@ const componentInstanceStore = useComponentInstanceStore();
 
 const { instanceList } = toRefs(componentInstanceStore);
 
-const { eventCenter } = useEventCenter(instanceList.value);
+const { eventCenter } = useEventCenter(instanceList);
 
 
 </script>
