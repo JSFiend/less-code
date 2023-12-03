@@ -1,13 +1,8 @@
 <template>
-  <div>
-    开始
+  <div :id="uniqueId">
     <template v-for="(child, index) in slotChildren">
-      开始 slot
       <slot :name="'slot' + index"></slot>
-      结束 slot
     </template>
-    <slot>默认</slot>
-    结束
   </div>
 </template>
 
@@ -21,7 +16,7 @@ export default { name };
 <script setup lang="ts">
 const props = defineProps(propsDefine);
 
-const { slotChildren } = toRefs(props);
+const { slotChildren, uniqueId } = toRefs(props);
 
 const display = parseExpression(props.display);
 </script>

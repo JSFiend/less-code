@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <el-aside style="width: 80px">
+    <!-- <el-aside style="width: 80px"> -->
       <!-- <el-menu @select="handleCategorySelect" style="height: 100%">
         <el-menu-item
           v-for="(components, category) in mockComponents"
@@ -9,7 +9,7 @@
           >{{ category }}</el-menu-item
         >
       </el-menu> -->
-    </el-aside>
+    <!-- </el-aside> -->
     <el-main>
       <el-scrollbar>
         <!-- 容器组件 -->

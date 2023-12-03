@@ -1,4 +1,5 @@
 import { ComponentInstance } from '~types';
+import { useEventCenter } from 'op-kit';
 
 /**
  * 组件实例数据与操作
@@ -8,6 +9,8 @@ export const useComponentInstanceStore = defineStore(
   () => {
     // 组件渲染列表
     const instanceList = ref<ComponentInstance[]>([]);
+
+    const {eventCenter } = useEventCenter(instanceList);
 
     const selectedInstance = ref<ComponentInstance | null>(null);
 
@@ -69,6 +72,7 @@ export const useComponentInstanceStore = defineStore(
       selectedInstance,
       instanceList,
       deleteInstance,
+      eventCenter,
     };
   }
 );

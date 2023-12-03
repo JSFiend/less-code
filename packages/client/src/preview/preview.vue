@@ -10,14 +10,14 @@
 import previewRender from '@/preview/preview-render.vue';
 import { useComponentInstanceStore } from "@/store/component-instance-store";
 
-import { useEventCenter, registerEvents } from 'op-kit';
+import { useEventCenter } from 'op-kit';
 
 const componentInstanceStore = useComponentInstanceStore();
 
 
 const { instanceList } = toRefs(componentInstanceStore);
 
-const { eventCenter, len } = useEventCenter(instanceList);
+const { eventCenter } = useEventCenter(instanceList.value);
 
 
 </script>

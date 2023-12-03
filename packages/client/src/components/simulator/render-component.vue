@@ -28,6 +28,7 @@ import draggable from "vuedraggable";
 import { transformStringWithRandomChars } from "@/utils";
 import { useComponentInstanceStore } from "@/store/component-instance-store";
 import { ComponentInstance } from "~types";
+import { changeSelectedWrapperStyle } from './simulator';
 const componentInstanceStore = useComponentInstanceStore();
 
 const { selectedInstance } = toRefs(componentInstanceStore);
@@ -127,6 +128,7 @@ function dragend(event: any) {
   existingHasGhostElements.forEach((element) => {
     element.classList.remove("hasGhost");
   });
+  changeSelectedWrapperStyle();
 }
 </script>
 
@@ -155,7 +157,7 @@ function dragend(event: any) {
 
   &:empty::after {
     content: "请放置组件";
-    @apply w-full border border-primary border-dashed text-gray-500 h-20 block text-center leading-10;
+    @apply w-full border border-primary border-dashed text-gray-500 h-10 block text-center leading-10;
   }
   .hover {
     @apply relative;

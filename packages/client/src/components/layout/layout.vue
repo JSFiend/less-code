@@ -1,7 +1,7 @@
 <template>
   <splitpanes class="h-full w-full -mt-10 pt-10 px-2">
     <!-- 左侧面板 -->
-    <pane min-size="25">
+    <pane min-size="15">
       <splitpanes horizontal>
         <pane min-size="25" size="50" :style="topLeftStyle">
           <tabCard v-model="topLeftTakeUp">
