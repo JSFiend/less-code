@@ -43,7 +43,7 @@ export interface ComponentInstance {
   style: Record<string, any>,
   dataSchema: Schema, 
   styleSchema: Schema,
-  eventSchema: Schema[], 
+  eventSchema: Record<string, any>[], 
   event: ComponentEvent,
 }
 

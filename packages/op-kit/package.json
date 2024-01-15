@@ -1,5 +1,6 @@
 {
 	"dependencies": {
+		"@lljj/vue3-form-element": "^1.19.0",
 		"@types/lodash-es": "^4.17.11",
 		"lodash-es": "^4.17.21"
 	}
