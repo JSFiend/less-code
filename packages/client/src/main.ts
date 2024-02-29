@@ -1,8 +1,8 @@
 import '@/styles/base.scss';
 import 'uno.css';
 import App from './App.vue';
-import { piniaSubscribe } from './plugins/pinia-subscribe';
-import { piniaGlobalStore } from './plugins/pinia-global-store';
+import { piniaSubscribe } from '@/plugins/pinia-subscribe';
+import { piniaGlobalStore } from '@/plugins/pinia-global-store';
 import elementPlusPlugin from '@/plugins/element-plus';
 import opKitPlugin from '@/plugins/op-kit';
 import ElementPlus from 'element-plus';
