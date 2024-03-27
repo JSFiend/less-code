@@ -9,7 +9,7 @@
       <router-link to="/preview" target="_blank">
         <el-button type="primary" size="small">预览</el-button>
       </router-link>
-      <el-button size="small" type="primary" class="ml-4" @click="toggleDark()">
+      <el-button size="small" type="primary" class="ml-4">
         <el-icon><SoldOut></SoldOut></el-icon>
         导出
       </el-button>
@@ -18,8 +18,4 @@
 </template>
 
 <script setup lang="ts">
-import { useDark, useToggle } from "@vueuse/core";
-
-const isDark = useDark();
-const toggleDark = useToggle(isDark);
 </script>

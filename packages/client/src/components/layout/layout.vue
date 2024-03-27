@@ -49,11 +49,7 @@
             <template v-slot:header>
               <tabLink area="simulatorArea" areaComponent="simulator">模拟器</tabLink>
             </template>
-            <router-view
-              :style="{ background: rightPanelBackgroundColor }"
-              :name="($route.params['simulatorArea'] as string)"
-            ></router-view>
-
+            <router-view :name="($route.params['simulatorArea'] as string)"></router-view>
             <template v-slot:footer>
               <!-- <tagPageVue></tagPageVue> -->
             </template>

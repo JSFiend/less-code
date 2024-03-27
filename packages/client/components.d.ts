@@ -19,7 +19,7 @@ declare module 'vue' {
     ComponentHandler: typeof import('./src/components/simulator/component-handler.vue')['default']
     ComponentInfo: typeof import('./src/components/component-library/component-info.vue')['default']
     ComponentLibrary: typeof import('./src/components/component-library/component-library.vue')['default']
-    copy: typeof import('./src/components/api-data-source/request-and-response-structure.vue')['default']
+    copy: typeof import('./src/components/simulator/index'.vue')['default']
     DataSource: typeof import('./src/components/data-source/data-source.vue')['default']
     DataSourceCollection: typeof import('./src/components/data-source/data-source-collection.vue')['default']
     DefaultDataList: typeof import('./src/components/data-source/default-data-list.vue')['default']

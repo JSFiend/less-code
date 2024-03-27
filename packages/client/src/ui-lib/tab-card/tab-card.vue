@@ -24,18 +24,17 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
-const emit = defineEmits<{
-  (e: 'update:modelValue', open: boolean): void,
-}>();
+const model = defineModel();
+
 const props = defineProps(['modelValue']);
 
 
 const open = computed<boolean>({
   get() {
-    return props.modelValue;
+    return model.value;
   },
   set(value) {
-    emit('update:modelValue', value);
+    model.value = value;
   }
 });
 
