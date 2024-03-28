@@ -26,7 +26,7 @@
         <pane min-size="20" :style="bottomLeftStyle">
           <tabCard v-model="bottomLeftTakeUp">
             <template v-slot:header>
-              <tabLink area="nodeTreeArea" areaComponent="page">页面</tabLink>
+              <tabLink area="nodeTreeArea" areaComponent="pageConfig">页面配置</tabLink>
               <tabLink area="nodeTreeArea" areaComponent="componentStructure"
                 >组件结构</tabLink
               >

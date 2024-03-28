@@ -28,7 +28,7 @@ import draggable from "vuedraggable";
 import { transformStringWithRandomChars } from "@/utils";
 import { useComponentInstanceStore } from "@/store/component-instance-store";
 import { ComponentInstance } from "~types";
-import { changeSelectedWrapperStyle } from './simulator';
+import { changeSelectedWrapperStyle } from "./simulator";
 const componentInstanceStore = useComponentInstanceStore();
 
 const { selectedInstance } = toRefs(componentInstanceStore);
@@ -174,7 +174,7 @@ function dragend(event: any) {
       @apply absolute text-white h-6 bg-primary leading-6 px-2 font-normal text-base;
       height: 1.5rem;
       top: -1.5rem;
-      right: -1px;
+      left: -1px;
     }
   }
 }

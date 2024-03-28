@@ -1,6 +1,6 @@
 <template>
   <div v-if="selectedInstance">
-    <edit-schema v-model="selectedInstance.data" :schema="selectedInstance.dataSchema"></edit-schema>
+    <!-- <edit-schema v-model="selectedInstance.data" :schema="selectedInstance.dataSchema"></edit-schema> -->
   </div>
 </template>
 

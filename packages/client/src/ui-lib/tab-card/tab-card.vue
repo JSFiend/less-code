@@ -1,7 +1,7 @@
 <template>
   <div class="w-full h-full bg-body relative flex flex-col rounded-2xl">
     <!-- header -->
-    <div class="tab-card-header">
+    <div class="tab-card-header flex-shrink-0">
       <div class="flex-grow flex">
         <slot name="header"></slot>
       </div>

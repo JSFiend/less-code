@@ -77,6 +77,7 @@ declare module 'vue' {
     Link: typeof import('./src/ui-lib/lc-link/link.vue')['default']
     MonacoEditor: typeof import('./src/components/monano-editor/monaco-editor.vue')['default']
     MultipleEnvUrlConfig: typeof import('./src/components/api-data-source/multiple-env-url-config.vue')['default']
+    PageConfig: typeof import('./src/components/page-config/page-config.vue')['default']
     PageVariableList: typeof import('./src/components/page-variable/page-variable-list.vue')['default']
     ParseParamTable: typeof import('./src/components/api-data-source/parse-param-table.vue')['default']
     ProjectName: typeof import('./src/components/header/project-name.vue')['default']

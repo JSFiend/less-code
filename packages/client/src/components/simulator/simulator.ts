@@ -1,28 +1,28 @@
-
-
 /**
  * 改变选中元素的样式
  */
 export function changeSelectedWrapperStyle() {
   nextTick(() => {
-    const targetElement = document.querySelector("#simulator .selected");
-    const selectWrapper = document.querySelector("#simulator #select-wrapper")! as HTMLElement;
+    const childElement = document.querySelector('#simulator .selected')! as HTMLElement;
+    const parentElement = document.querySelector('#simulator')! as HTMLElement;
+    const selectWrapper = document.querySelector(
+      '#simulator #select-wrapper'
+    )! as HTMLElement;
 
-
-    if (!targetElement) {
-      selectWrapper.style.display = "none";
+    if (!childElement) {
+      selectWrapper.style.display = 'none';
       return;
     }
 
-
     // 获取目标元素的位置和大小信息
-    const targetRect = targetElement.getBoundingClientRect();
 
     // 获取指定的父级元素的位置和大小信息
     // 假设你想要相对于 ID 为 'specificParent' 的元素
-    const parentElement = document.getElementById("simulator");
-    if (!parentElement) return; // 如果没有找到父级元素，直接返回
     const parentRect = parentElement.getBoundingClientRect();
+    const targetRect = childElement.getBoundingClientRect();
+
+    console.log('parentRect', parentRect);
+    console.log('targetRect', targetRect);
 
     // 计算相对于父级元素的 top 和 left
     const top = targetRect.top - parentRect.top;

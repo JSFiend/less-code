@@ -37,12 +37,17 @@ function deleteInstance() {
   box-shadow: 0px 0px 6px -1px #5eead4;
   pointer-events: none;
   .select-wrapper-operator {
-    @apply flex justify-end text-white h-6 relative;
+    @apply flex text-white h-6 relative;
     height: 1.5rem;
     top: -1.5rem;
-    right: -1px;
+    left: -1px;
+    z-index: 10000;
     > div {
       @apply bg-primary shrink-0 inline-block leading-6 px-2 ml-2;
+      box-shadow: 0px 0px 6px -1px white;
+      &:first-child {
+        @apply ml-0;
+      }
     }
     .select-component-operator {
       pointer-events: all;

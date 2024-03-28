@@ -11,6 +11,7 @@ const editEvent = () => import('@/components/edit-event/edit-event.vue');
 const componentLibrary = () => import('@/components/component-library/component-library.vue');
 const simulator = () => import('@/components/simulator/simulator.vue');
 const preview = () => import('@/preview/preview.vue');
+const pageConfig = () => import('@/components/page-config/page-config.vue');
 
 export const routes = [
 	{
@@ -44,6 +45,7 @@ export const routes = [
 					editData,
 					editStyle,
 					editEvent,
+					pageConfig,
 					// operator: test,
 					// style: test,
 				},
