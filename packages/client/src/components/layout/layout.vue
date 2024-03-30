@@ -32,7 +32,6 @@
               >
             </template>
             <router-view
-              :style="{ background: rightPanelBackgroundColor }"
               :name="($route.params['nodeTreeArea'] as string)"
             ></router-view>
             <template v-slot:footer> </template>
@@ -67,7 +66,6 @@
           <tabLink area="editArea" areaComponent="editEvent">事件</tabLink>
         </template>
         <router-view
-          :style="{ background: rightPanelBackgroundColor }"
           :name="($route.params['editArea'] as string)"
         ></router-view>
         <template v-slot:footer> </template>

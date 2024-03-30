@@ -28,7 +28,6 @@ import draggable from "vuedraggable";
 import { transformStringWithRandomChars } from "@/utils";
 import { useComponentInstanceStore } from "@/store/component-instance-store";
 import { ComponentInstance } from "~types";
-import { changeSelectedWrapperStyle } from "./simulator";
 const componentInstanceStore = useComponentInstanceStore();
 
 const { selectedInstance } = toRefs(componentInstanceStore);
@@ -128,7 +127,6 @@ function dragend(event: any) {
   existingHasGhostElements.forEach((element) => {
     element.classList.remove("hasGhost");
   });
-  changeSelectedWrapperStyle();
 }
 </script>
 
@@ -163,18 +161,18 @@ function dragend(event: any) {
     @apply relative;
     &::before {
       content: "";
-      top: -1px;
-      left: -1px;
+      top: 0px;
+      left: 0px;
       // hover 和 click 支持穿透
       pointer-events: none;
-      @apply w-full h-full border border-primary border-dashed block absolute pointer-events-none box-content;
+      @apply w-full h-full border border-primary border-dashed block absolute pointer-events-none box-border;
     }
     &::after {
       content: attr(mataDataName);
       @apply absolute text-white h-6 bg-primary leading-6 px-2 font-normal text-base;
       height: 1.5rem;
       top: -1.5rem;
-      left: -1px;
+      left: 0px;
     }
   }
 }

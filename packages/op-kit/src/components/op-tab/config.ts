@@ -16,6 +16,18 @@ const baseData = {
 };
 
 const dataSchema = {
+  definitions: {
+    Thing: {
+      type: 'object',
+      properties: {
+        name: {
+          title: 'Thing',
+          type: 'string',
+          default: 'Default name',
+        },
+      },
+    },
+  },
   type: 'object',
   properties: {
     // 唯一属性
@@ -41,33 +53,15 @@ const dataSchema = {
       },
       minItems: 2,
       items: {
-        type: 'object',
-        properties: {
-          // 唯一属性
-          uniqueId,
-          /**
-           * 是否显示
-           */
-          display: {
-            type: 'string',
-            title: '显示选项',
-            default: 'true',
-          },
-          label: {
-            title: '选项卡名称',
-            type: 'string',
-            default: '选项',
-          },
-          children: {
-            type: 'array',
-          },
-        },
-      },
+        "$ref": "#/definitions/Thing"
+      }
     },
   },
 };
 
 const data = getDefaultFormState(dataSchema, {}, dataSchema);
+
+console.log('data', data, dataSchema);
 
 const styleSchema = {
   type: 'object',
@@ -91,13 +85,4 @@ const eventSchema = {};
 
 const event = getDefaultFormState(eventSchema, {}, eventSchema);
 
-
-export {
-  baseData,
-  data,
-  style,
-  event,
-  dataSchema,
-  styleSchema,
-  eventSchema,
-};
+export { baseData, data, style, event, dataSchema, styleSchema, eventSchema };

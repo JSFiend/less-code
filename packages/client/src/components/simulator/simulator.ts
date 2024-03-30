@@ -21,9 +21,6 @@ export function changeSelectedWrapperStyle() {
     const parentRect = parentElement.getBoundingClientRect();
     const targetRect = childElement.getBoundingClientRect();
 
-    console.log('parentRect', parentRect);
-    console.log('targetRect', targetRect);
-
     // 计算相对于父级元素的 top 和 left
     const top = targetRect.top - parentRect.top;
     const left = targetRect.left - parentRect.left;
@@ -33,7 +30,6 @@ export function changeSelectedWrapperStyle() {
     const height = targetRect.height;
 
     selectWrapper.style = `
-      position: absolute;
       top: ${top}px;
       left: ${left}px;
       width: ${width}px;

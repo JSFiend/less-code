@@ -10,7 +10,7 @@
       </el-icon>
     </div>
       <!-- body -->
-      <div class="flex-1 overflow-auto">
+      <div class="flex-1" style="height: calc(100% - 3.5rem)">
         <slot></slot>
       </div>
       <!-- footer -->

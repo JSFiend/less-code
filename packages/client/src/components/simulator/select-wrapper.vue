@@ -1,6 +1,6 @@
 <template>
   <template v-if="selectedInstance">
-    <div class="select-wrapper" id="select-wrapper">
+    <div class="select-wrapper absolute" id="select-wrapper">
       <div class="select-wrapper-operator">
         <div>
           <div>{{ selectedInstance.baseData.name }}</div>
@@ -18,13 +18,6 @@
 import { useComponentInstanceStore } from "@/store/component-instance-store";
 const componentInstanceStore = useComponentInstanceStore();
 const { instanceList, selectedInstance } = toRefs(componentInstanceStore);
-import { changeSelectedWrapperStyle } from './simulator';
-
-watchEffect(() => {
-  if (selectedInstance.value) {
-    changeSelectedWrapperStyle();
-  }
-});
 
 function deleteInstance() {
   if (!selectedInstance.value) return;
