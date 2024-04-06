@@ -1,6 +1,7 @@
 <template>
   <div v-if="selectedInstance">
     <edit-schema v-model="selectedInstance.style" :schema="selectedInstance.styleSchema"></edit-schema>
+    <box-model-editor></box-model-editor>
   </div>
 </template>
 
