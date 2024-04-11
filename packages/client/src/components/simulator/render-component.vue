@@ -97,13 +97,13 @@ function mouseover(event: MouseEvent) {
   existing.forEach((element) => {
     element.classList.remove("hover");
   });
-  if (!event.currentTarget?.classList?.contains("selected")) {
+  if (!(event.currentTarget as HTMLElement)?.classList?.contains("selected")) {
     // 不存在 select 类
-    event.currentTarget?.classList?.add("hover");
+    (event.currentTarget as HTMLElement)?.classList?.add("hover");
   }
 }
 function mouseout(event: MouseEvent) {
-  event.currentTarget?.classList?.remove("hover");
+  (event.currentTarget as HTMLElement)?.classList?.remove("hover");
 }
 
 function dragmove(event: any) {

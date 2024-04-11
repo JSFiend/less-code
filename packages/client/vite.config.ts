@@ -35,7 +35,7 @@ export default defineConfig({
       ],
      }),
     Components({
-      dirs: ['src/components', 'src/ui-lib', 'src/edit-widget'],
+      dirs: ['src/components', 'src/ui-lib', 'src/edit-schema'],
       resolvers: [ElementPlusResolver({ importStyle: 'sass' })],
     }),
     // https://github.com/antfu/unocss

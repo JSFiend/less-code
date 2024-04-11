@@ -1,5 +1,5 @@
 import { getDefaultFormState } from '@lljj/vue3-form-element';
-import { hiddenProperty, uniqueId } from '../../common/config';
+import { hiddenProperty, uniqueId, box } from '../../common/config';
 import icon from './button.png';
 import { BaseData, Schema, ComponentInstance } from '~types/op-kit/component';
 
@@ -67,15 +67,7 @@ const data = getDefaultFormState(dataSchema, {}, dataSchema);
 const styleSchema: Schema = {
   type: 'object',
   properties: {
-    margin: {
-      type: 'string',
-      title: '外边距',
-      default: '0px',
-    },
-    padding: {
-      type: 'string',
-      title: '内边距',
-    },
+    box,
   },
 };
 

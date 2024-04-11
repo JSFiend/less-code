@@ -3,64 +3,94 @@
     <div class="layout-box-container">
       <div class="margin-top-div">
         <span class="next-input next-medium next-noborder"
-          ><input
-            placeholder="0"
-            maxlength="3"
-            height="100%"
-            autocomplete="off"
-            value="34"
+          ><input height="100%" v-model="style.marginTop"
         /></span>
       </div>
       <div class="margin-right-div">
         <span class="next-input next-medium next-noborder"
-          ><input placeholder="0" maxlength="3" height="100%" autocomplete="off" value=""
+          ><input height="100%" v-model="style.marginRight"
         /></span>
       </div>
       <div class="margin-bottom-div">
         <span class="help-txt">MARGIN</span
         ><span class="next-input next-medium next-noborder"
-          ><input placeholder="0" maxlength="3" height="100%" autocomplete="off" value=""
+          ><input height="100%" v-model="style.marginBottom"
         /></span>
       </div>
       <div class="margin-left-div">
         <span class="next-input next-medium next-noborder"
-          ><input placeholder="0" maxlength="3" height="100%" autocomplete="off" value=""
+          ><input height="100%" v-model="style.marginLeft"
         /></span>
       </div>
       <div class="padding-top-div">
         <span class="next-input next-medium next-noborder"
-          ><input placeholder="0" maxlength="3" height="100%" autocomplete="off" value=""
+          ><input height="100%" v-model="style.paddingTop"
         /></span>
       </div>
       <div class="padding-right-div">
         <span class="next-input next-medium next-noborder"
-          ><input placeholder="0" maxlength="3" height="100%" autocomplete="off" value=""
+          ><input pheight="100%" v-model="style.paddingRight"
         /></span>
       </div>
       <div class="padding-bottom-div">
         <span class="help-txt">PADDING</span
         ><span class="next-input next-medium next-noborder"
-          ><input placeholder="0" maxlength="3" height="100%" autocomplete="off" value=""
+          ><input height="100%" v-model="style.paddingBottom"
         /></span>
       </div>
       <div class="padding-left-div">
         <span class="next-input next-medium next-noborder"
-          ><input placeholder="0" maxlength="3" height="100%" autocomplete="off" value=""
+          ><input height="100%" v-model="style.paddingLeft"
         /></span>
       </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const arrow = ["top", "right", "bottom", "left"];
+const style = defineModel<{
+  marginTop: string;
+  marginRight: string;
+  marginBottom: string;
+  marginLeft: string;
+  paddingTop: string;
+  paddingRight: string;
+  paddingBottom: string;
+  paddingLeft: string;
+}>({ required: true });
+
+onMounted(() => {
+  // 获取 #simulator .selected 的 margin 和  padding 值
+  const selectedEl = document.querySelector("#simulator .selected")!;
+  const selectedStyle = window.getComputedStyle(selectedEl);
+
+  console.log("selectedStyle", selectedStyle);
+  window.selectedStyle = selectedStyle;
+
+  // 提取margin和padding值
+  style.value.marginTop = style.value.marginTop || selectedStyle.marginTop;
+  style.value.marginRight = style.value.marginRight || selectedStyle.marginRight;
+  style.value.marginBottom = style.value.marginBottom || selectedStyle.marginBottom;
+  style.value.marginLeft = style.value.marginLeft || selectedStyle.marginLeft;
+  style.value.paddingTop = style.value.paddingTop || selectedStyle.paddingTop;
+  style.value.paddingRight = style.value.paddingRight || selectedStyle.paddingRight;
+  style.value.paddingBottom = style.value.paddingBottom || selectedStyle.paddingBottom;
+  style.value.paddingLeft = style.value.paddingLeft || selectedStyle.paddingLeft;
+});
+</script>
 
 <style lang="scss" scoped>
-
+.layout-style-container {
+  position: relative;
+  width: 100%;
+  height: 150px;
+}
 .layout-style-container .layout-box-container {
   position: relative;
   width: 100%;
   height: 150px;
-  
+
   $list: top right bottom left;
   @each $i in $list {
     .margin-#{$i}-div {
@@ -328,6 +358,9 @@
     transform: scale(0.75);
   }
 }
+.next-input {
+  line-height: 20px;
+}
 .next-input input,
 .next-input textarea {
   width: 100%;
@@ -339,5 +372,6 @@
   vertical-align: middle;
   background-color: transparent;
   color: #eee;
+  font-size: 12px;
 }
 </style>

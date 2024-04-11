@@ -15,6 +15,7 @@ import { router } from '@/router/vue-router';
 
 const app = createApp(App);
 
+
 const pinia = createPinia();
 pinia.use(piniaSubscribe).use(piniaGlobalStore);
 

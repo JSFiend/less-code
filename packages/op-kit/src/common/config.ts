@@ -13,3 +13,7 @@ export const uniqueId = {
   default: '',
 }
 
+export const box = {
+  type: 'box',
+  title: '盒子模型',
+}

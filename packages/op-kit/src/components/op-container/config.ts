@@ -1,5 +1,5 @@
 import { getDefaultFormState } from '@lljj/vue3-form-element';
-import { hiddenProperty, uniqueId } from '../../common/config';
+import { hiddenProperty, uniqueId, box } from '../../common/config';
 import icon from './button.png';
 
 const baseData = {
@@ -39,16 +39,7 @@ data.slotChildren = [{ children: [] }];
 const styleSchema = {
   type: 'object',
   properties: {
-    margin: {
-      type: 'string',
-      title: '外边距',
-      default: '0px',
-    },
-    padding: {
-      type: 'string',
-      title: '内边距',
-      default: '0px',
-    },
+    box,
   },
 };
 
