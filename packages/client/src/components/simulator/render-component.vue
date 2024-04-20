@@ -143,7 +143,7 @@ function dragend(event: any) {
   }
 }
 .renderContent {
-  @apply min-h-full;
+  @apply min-h-full w-full;
 
   // 拖拽的时候， button 的transition 会影响到拖拽的transition速度
   .el-button {

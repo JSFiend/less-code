@@ -65,6 +65,7 @@ onMounted(() => {
 
 <style lang="scss">
 #simulator {
+  z-index: 1;
   & > .renderContent {
     @apply flex-1;
   }

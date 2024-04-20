@@ -1,26 +1,31 @@
 <template>
-  <el-form :model="style" label-suffix="：" label-position="top">
-    <el-form-item v-for="key in keys" :key="key" :label="styleSchema.properties?.[key].title">
+  <el-form :model="value" label-suffix="：" label-position="top">
+    <template v-for="key in keys" :key="key">
       <!-- string type -->
-      <el-input v-if="styleSchema.properties?.[key].type === 'string'" v-model="style[key]" />
+      <string-editor
+        v-if="schema.properties?.[key].type === 'string'"
+        v-model="value[key]"
+        v-model:schema="schema.properties[key]"
+      ></string-editor>
       <!-- box type -->
-      <box-model-editor v-if="styleSchema.properties?.[key].type === 'box'" v-model="style"></box-model-editor>
-    </el-form-item>
+      <box-model-editor
+        v-if="schema.properties?.[key].type === 'box'"
+        v-model="value"
+        v-model:schema="schema.properties[key]"
+      ></box-model-editor>
+    </template>
   </el-form>
 </template>
 
 <script setup lang="ts">
-import { Schema } from '~types/op-kit/component';
-const style = defineModel<Record<string, string>>({ required: true });
+import { Schema } from "~types/op-kit/component";
+const value = defineModel<Record<string, string>>({ required: true });
 
-const styleSchema = defineModel<Schema>('schema', { required: true });
+const schema = defineModel<Schema>("schema", { required: true });
 
-const properties = computed(() => styleSchema.value.properties);
+const properties = computed(() => schema.value.properties);
 
-const keys = computed(() => Object.keys(styleSchema.value.properties));
-
+const keys = computed(() => Object.keys(schema.value.properties));
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

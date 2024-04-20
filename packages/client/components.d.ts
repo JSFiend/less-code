@@ -95,6 +95,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SelectWrapper: typeof import('./src/components/simulator/select-wrapper.vue')['default']
     Simulator: typeof import('./src/components/simulator/simulator.vue')['default']
+    StringEditor: typeof import('./src/edit-schema/edit-widget/string-editor.vue')['default']
     StyleData: typeof import('./src/components/edit-style/style-data.vue')['default']
     TabCard: typeof import('./src/ui-lib/tab-card/tab-card.vue')['default']
     TabLink: typeof import('./src/ui-lib/tab-card/tab-link.vue')['default']
