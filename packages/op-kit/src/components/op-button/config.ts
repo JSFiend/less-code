@@ -39,7 +39,7 @@ const dataSchema: Schema = {
     },
 
     type: {
-      type: 'string',
+      type: 'select',
       title: '按钮类型',
       default: 'primary',
       enum: [

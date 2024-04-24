@@ -7,6 +7,12 @@
         v-model="value[key]"
         v-model:schema="schema.properties[key]"
       ></string-editor>
+      <!-- select type -->
+      <select-editor
+        v-if="schema.properties?.[key].type === 'select'"
+        v-model="value[key]"
+        v-model:schema="schema.properties[key]"
+      ></select-editor>
       <!-- box type -->
       <box-model-editor
         v-if="schema.properties?.[key].type === 'box'"

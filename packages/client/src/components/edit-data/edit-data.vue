@@ -6,6 +6,7 @@
 
 <script setup lang="ts">
 import { useComponentInstanceStore } from "@/store/component-instance-store";
+import EditSchema from '@/edit-schema/index.vue';
 
 const componentInstanceStore = useComponentInstanceStore();
 

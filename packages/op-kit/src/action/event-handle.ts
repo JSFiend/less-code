@@ -6,6 +6,11 @@ const eventCenter = ref<Record<string, any>>({});
 
 import { opAction } from './index';
 
+/**
+ * 事件管理中心，组件list发生变化时，自动注册事件
+ * @param instanceList 
+ * @returns 
+ */
 export function useEventCenter(instanceList: Ref<ComponentInstance[]>): {
   eventCenter: Ref<Record<string, any>>;
 } {
@@ -17,9 +22,8 @@ export function useEventCenter(instanceList: Ref<ComponentInstance[]>): {
 
 // 注册事件
 export function registerEvents(instanceList: Ref<ComponentInstance[]>) {
-  console.log('instanceList', instanceList, instanceList.value.length);
   // 递归终止条件
-  if (!instanceList.value.length) return false;
+  if (!instanceList.value?.length) return false;
 
   // 开始遍历
   for (let i = 0; i < instanceList.value.length; i++) {

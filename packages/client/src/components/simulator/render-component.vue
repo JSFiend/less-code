@@ -16,7 +16,7 @@
         :mataDataName="baseData.name"
       >
         <template v-for="(child, index) in data.slotChildren" v-slot:[`slot${index}`]>
-          <render-component :instanceList="child.children"></render-component>
+          <render-component v-if="child.children?.length" :instanceList="child.children"></render-component>
         </template>
       </component>
     </template>

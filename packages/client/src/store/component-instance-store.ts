@@ -10,7 +10,11 @@ export const useComponentInstanceStore = defineStore(
     // 组件渲染列表
     const instanceList = ref<ComponentInstance[]>([]);
 
-    const {eventCenter } = useEventCenter(instanceList);
+
+    /**
+     * 事件中心
+     */
+    const { eventCenter } = useEventCenter(instanceList);
 
     const selectedInstance = ref<ComponentInstance | null>(null);
 
