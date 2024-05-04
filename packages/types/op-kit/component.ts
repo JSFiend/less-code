@@ -31,15 +31,15 @@ export interface ComponentConfig {
 }
 
 // 插槽子组件
-export interface SlotChildren {
+export interface children {
   children: ComponentInstance[]
 }
 export interface ComponentInstance {
   baseData: BaseData,
   data: {
     uniqueId: string,
-    slotChildren?: SlotChildren[],
   },
+  children?: children[],
   style: Record<string, any>,
   dataSchema: Schema, 
   styleSchema: Schema,

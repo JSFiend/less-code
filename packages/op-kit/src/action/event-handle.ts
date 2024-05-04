@@ -29,17 +29,17 @@ export function registerEvents(instanceList: Ref<ComponentInstance[]>) {
   for (let i = 0; i < instanceList.value.length; i++) {
     const instance = instanceList.value[i];
     const {
-      data: { uniqueId, slotChildren },
+      data: { uniqueId, children },
       event,
     } = instance;
     if (event) {
       eventCenter.value[uniqueId] = event;
     }
 
-    // 遍历slotChildren
-    if (slotChildren?.length) {
-      for (let j = 0; j < slotChildren.length; j++) {
-        registerEvents(ref(slotChildren[j].children));
+    // 遍历children
+    if (children?.length) {
+      for (let j = 0; j < children.length; j++) {
+        registerEvents(ref(children[j].children));
       }
     }
   }

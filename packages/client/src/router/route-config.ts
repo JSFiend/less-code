@@ -3,7 +3,7 @@ import layout from '@/components/layout/layout.vue';
 
 // const test = () => import('@/components/material/test.vue');
 // const simulator = () => import('@/components/simulator/simulator.vue');
-// const componentStructure = () => import('@/components/component-structure/component-structure.vue');
+const componentStructure = () => import('@/components/component-structure/component-structure.vue');
 // const page = () => import('@/components/page/page.vue');
 const editData = () => import('@/components/edit-data/edit-data.vue');
 const editStyle = () => import('@/components/edit-style/edit-style.vue');
@@ -39,7 +39,7 @@ export const routes = [
 					// // simulatorArea
 					simulator,
 					// // nodeTreeArea
-					// componentStructure,
+					componentStructure,
 					// page,
 					// // editArea
 					editData,

@@ -1,6 +1,7 @@
 import { getDefaultFormState } from '@lljj/vue3-form-element';
 import { hiddenProperty, uniqueId, box } from '../../common/config';
 import icon from './button.png';
+import { ComponentInstance } from '~types/index';
 
 const baseData = {
   // 组件名称
@@ -33,8 +34,7 @@ const dataSchema = {
 
 const data = getDefaultFormState(dataSchema, {}, dataSchema);
 
-// 框容器只有一个插槽,并且插槽无属性
-data.slotChildren = [{ children: [] }];
+const children: ComponentInstance[] = [];
 
 const styleSchema = {
   type: 'object',
@@ -62,4 +62,4 @@ const eventSchema = [
   },
 ];
 
-export { baseData, data, style, eventSchema, dataSchema, styleSchema };
+export { baseData, data, style, eventSchema, dataSchema, styleSchema, children };

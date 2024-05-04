@@ -52,10 +52,10 @@ export const useComponentInstanceStore = defineStore(
             componentInstanceList,
           };
         }
-        if (item.data.slotChildren && item.data.slotChildren.length > 0) {
-          /* 递归查找 slotChildren 的 children， 找出 componentInstance */
-          for (let j = 0; j < item.data.slotChildren.length; j++) {
-            const slotItem = item.data.slotChildren[j];
+        if (item.children && item.children.length > 0) {
+          /* 递归查找 children 的 children， 找出 componentInstance */
+          for (let j = 0; j < item.children.length; j++) {
+            const slotItem = item.children[j];
             if (slotItem.children && slotItem.children.length > 0) {
               return traverseComponentInstanceList(
                 componentInstance,

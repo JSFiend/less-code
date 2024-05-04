@@ -45,17 +45,6 @@ const dataSchema = {
       title: '当前激活的选项',
       default: 0,
     },
-    slotChildren: {
-      type: 'array',
-      title: '选项',
-      'ui:options': {
-        showIndexNumber: true,
-      },
-      minItems: 2,
-      items: {
-        "$ref": "#/definitions/Thing"
-      }
-    },
   },
 };
 
@@ -78,6 +67,24 @@ const styleSchema = {
     },
   },
 };
+
+const children = [
+  {
+    title: '选项1',
+    children: [],
+  },
+  {
+    type: 'array',
+    title: '选项',
+    'ui:options': {
+      showIndexNumber: true,
+    },
+    minItems: 2,
+    items: {
+      "$ref": "#/definitions/Thing"
+    }
+  },
+]
 
 const style = getDefaultFormState(styleSchema, {}, styleSchema);
 

@@ -7,7 +7,7 @@
     :key="data.uniqueId"
     :mataDataName="baseData.name"
   >
-    <template v-for="(child, index) in data.slotChildren" v-slot:[`slot${index}`]>
+    <template v-for="(child, index) in data.dchildren" v-slot:[`slot${index}`]>
       <preview-render :instanceList="child.children"></preview-render>
     </template>
   </component>

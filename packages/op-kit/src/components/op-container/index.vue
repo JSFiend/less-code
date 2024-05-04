@@ -1,8 +1,6 @@
 <template>
-  <div :id="uniqueId">
-    <template v-for="(child, index) in slotChildren">
-      <slot :name="'slot' + index"></slot>
-    </template>
+  <div>
+      <slot></slot>
   </div>
 </template>
 
@@ -16,7 +14,7 @@ export default { name };
 <script setup lang="ts">
 const props = defineProps(propsDefine);
 
-const { slotChildren, uniqueId } = toRefs(props);
+const { uniqueId } = toRefs(props);
 
 const display = parseExpression(props.display);
 </script>

@@ -1,23 +1,20 @@
 <template>
   <draggable :list="instanceList" v-bind="dragOption" v-on="dragEvent">
     <template
-      #item="{ element, element: { data, baseData, style } }"
+      #item="{ element, element: { data, baseData, children } }"
       :key="data.uniqueId"
     >
       <component
         :is="baseData.componentName"
+        :key="data.uniqueId"
         v-bind="data"
-        :style="style"
         @click="selectComponent(element, $event)"
         @mouseover.stop.prevent="mouseover"
         @mouseout="mouseout"
         :class="{ selected: element === selectedInstance }"
-        :key="data.uniqueId"
-        :mataDataName="baseData.name"
+        :metaDataName="baseData.name"
       >
-        <template v-for="(child, index) in data.slotChildren" v-slot:[`slot${index}`]>
-          <render-component v-if="child.children?.length" :instanceList="child.children"></render-component>
-        </template>
+        <render-component :instanceList="children"></render-component>
       </component>
     </template>
   </draggable>
@@ -45,6 +42,7 @@ const dragOption = {
   dragClass: "sortable-drag",
   // delay: 100,
   forceFallback: false,
+  allbackOnBody: true,
 };
 const dragEvent = {
   end: dragend,
@@ -87,9 +85,8 @@ function selectComponent(componentInstance: any, event: MouseEvent) {
   event.stopPropagation();
   return false;
 }
-function dragstart(...arg: any) {
-  console.log("start", arg);
-  // }
+function dragstart(event: any) {
+  console.log("start", event);
 }
 
 function mouseover(event: MouseEvent) {
@@ -107,7 +104,7 @@ function mouseout(event: MouseEvent) {
 }
 
 function dragmove(event: any) {
-  console.log("dragmove", event);
+  console.log("dragmove", event, event.draged);
   // 找到所有类名为 "sortable-ghost" 的元素
   const existingHasGhostElements = document.querySelectorAll(".hasGhost");
   existingHasGhostElements.forEach((element) => {
@@ -131,6 +128,8 @@ function dragend(event: any) {
 </script>
 
 <style lang="scss">
+@import "@/styles/variables";
+
 @keyframes boxShadowChange {
   0% {
     box-shadow: inset 0 0 0 5px #a7f3d0;
@@ -143,7 +142,7 @@ function dragend(event: any) {
   }
 }
 .renderContent {
-  @apply min-h-full w-full;
+  @apply min-h-full w-full min-h-10;
 
   // 拖拽的时候， button 的transition 会影响到拖拽的transition速度
   .el-button {
@@ -168,7 +167,7 @@ function dragend(event: any) {
       @apply w-full h-full border border-primary border-dashed block absolute pointer-events-none box-border;
     }
     &::after {
-      content: attr(mataDataName);
+      content: attr(metaDataName);
       @apply absolute text-white h-6 bg-primary leading-6 px-2 font-normal text-base;
       height: 1.5rem;
       top: -1.5rem;
@@ -178,9 +177,11 @@ function dragend(event: any) {
 }
 
 .sortable-ghost {
-  // @apply bg-primary border-2 border border-primary;
-  // height: 2px !important;
-  // overflow: hidden;
+  // border: 1px solid $primary !important;
+  // height: 0px !important;
+  // overflow: hidden !important;
+  // padding: 0px !important;
+  // margin: 0px !important;
 }
 .sortable-chosen {
   // background: blue !important;

@@ -23,3 +23,7 @@ Object.values(componentModules).forEach((mod) => {
 
 export * from './action/index';
 
+
+
+export * from './common/config';
+

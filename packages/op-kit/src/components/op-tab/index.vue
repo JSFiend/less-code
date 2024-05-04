@@ -1,6 +1,6 @@
 <template>
   <el-tabs v-model="props.active" @tab-click="handleClick">
-    <el-tab-pane v-for="(tab, index) in props.slotChildren" :label="tab.label" :name="index">
+    <el-tab-pane v-for="(tab, index) in props.children" :label="tab.label" :name="index">
       <slot :name="'slot' + index"></slot>
     </el-tab-pane>
   </el-tabs>
